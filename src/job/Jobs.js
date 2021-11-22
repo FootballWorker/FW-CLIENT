@@ -8,7 +8,6 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Paper,
-  Typography,
 } from "@mui/material";
 
 import auth from "./../auth/auth-helper";

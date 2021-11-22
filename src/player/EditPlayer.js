@@ -403,6 +403,12 @@ const EditPlayer = ({ match }) => {
 
   // Update Function
   const clickSubmit = () => {
+    if(values.team === ""){
+      return setValues({ ...values, error: "You have to select Team" });
+    }
+    if(values.position === ""){
+      return setValues({ ...values, error: "You have to select Position" });
+    }
     setProgress(true);
     // Form Submission with the file attached
     let player = new FormData();
@@ -524,7 +530,6 @@ const EditPlayer = ({ match }) => {
           required
           select
           fullWidth
-          required
           label="Select Country"
           value={values.country}
           onChange={handleChange("country")}

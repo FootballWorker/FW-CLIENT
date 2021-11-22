@@ -63,7 +63,7 @@ const Post = ({match}) => {
   // Like Values
   const checkLike = (post) => {
     const match = post && jwt.user && post.likes.some((user) => {
-      return user._id == jwt.user._id;
+      return user._id === jwt.user._id;
     });
     return match;
   };

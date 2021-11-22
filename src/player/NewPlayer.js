@@ -328,6 +328,12 @@ const NewPlayer = ({ match }) => {
 
   // Create Functionality
   const clickSubmit = async () => {
+    if(values.team === ""){
+      return setValues({ ...values, error: "You have to select Team" });
+    }
+    if(values.position === ""){
+      return setValues({ ...values, error: "You have to select Position" });
+    }
     setProgress(true);
     const player = {
       name: values.name || undefined,
@@ -416,7 +422,6 @@ const NewPlayer = ({ match }) => {
             required
             select
             fullWidth
-            required
             label="Select Country"
             value={values.country}
             onChange={handleChange("country")}

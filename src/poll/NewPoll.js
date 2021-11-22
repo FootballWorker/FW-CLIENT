@@ -29,9 +29,6 @@ import FormError from "../errorHandler/FormError.js";
 
 const NewPoll = ({ match }) => {
   const [progress, setProgress] = useState(false);
-  const date = new Date(),
-    y = date.getFullYear(),
-    m = date.getMonth();
   const [values, setValues] = useState({
     title: "",
     pollStart: new Date(),

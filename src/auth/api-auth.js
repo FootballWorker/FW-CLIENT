@@ -1,5 +1,4 @@
 import config from './../config/config.js'
-import queryString from 'query-string'
 
 
 const signin = async (user) => {  

@@ -4,7 +4,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import SwipeableViews from "react-swipeable-views";
-import { Paper, useTheme } from "@mui/material";
+import {  useTheme } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -77,7 +77,6 @@ function a11yProps(index) {
 export default function Search(props) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const jwt = auth.isAuthenticated();
   const date = new Date(),
     y = date.getFullYear(),
     m = date.getMonth();
@@ -185,7 +184,7 @@ export default function Search(props) {
   // Date Range Handler
 
   const handleSearchFieldChange = (name) => (date) => {
-    if (name == "firstDay") {
+    if (name === "firstDay") {
       setFirstDay(date);
     } else {
       setLastDay(date);

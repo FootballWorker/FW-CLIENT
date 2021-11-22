@@ -11,7 +11,6 @@ import CardActions from "@mui/material/CardActions";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import {
-  IconButton,
   Paper,
   Tooltip,
   useMediaQuery,
@@ -34,7 +33,6 @@ const PostList = (props) => {
   const isMedium = useMediaQuery(theme.breakpoints.up("md"));
   const jwt = auth.isAuthenticated();
 
-  const clickLike = (item) => {};
 
   return (
     <div>

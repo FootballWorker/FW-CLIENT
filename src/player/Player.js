@@ -73,7 +73,7 @@ const Player = ({ match }) => {
     const match =
       player && jwt.user &&
       player.stars.some((user) => {
-        return user._id == jwt.user._id;
+        return user._id === jwt.user._id;
       });
     return match;
   };

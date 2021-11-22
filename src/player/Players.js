@@ -20,7 +20,6 @@ import Loading from "../components/loading/Loading";
 
 export default function Players() {
   const [players, setPlayers] = useState([]);
-  const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({
     openSnack: false,
@@ -59,10 +58,6 @@ export default function Players() {
     updatedPlayers.splice(index, 1);
     setPlayers(updatedPlayers);
   };
-
-  if (redirect) {
-    return <Redirect to="/signin" />;
-  }
 
   if (loading) {
     return <Loading />;

@@ -13,7 +13,6 @@ import {  Link, Redirect } from "react-router-dom";
 import { signin } from "./api-auth.js";
 import FormError from "./../errorHandler/FormError";
 import DoorBackIcon from '@mui/icons-material/DoorBack';
-import { bgcolor } from "@mui/system";
 
 export default function Signin(props) {
   const [values, setValues] = useState({
@@ -59,7 +58,7 @@ export default function Signin(props) {
   }
 
   const enterKey = (event) => {
-    if(event.keyCode == 13){
+    if(event.keyCode === 13){
       event.preventDefault()
       clickSubmit()
     }

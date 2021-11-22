@@ -8,7 +8,6 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Paper,
-  Typography,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 

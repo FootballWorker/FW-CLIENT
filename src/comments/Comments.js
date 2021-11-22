@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Paper from "@mui/material/Paper";
-import Divider from "@mui/material/Divider";
 import { CardMedia, Grid, Tooltip, useMediaQuery, useTheme } from "@mui/material";
 
 import auth from "./../auth/auth-helper";

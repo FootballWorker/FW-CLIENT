@@ -76,7 +76,7 @@ export default function TransactionMatch (props) {
         {
           props.match &&
           props.match.createdBy &&
-          props.user._id == props.match.createdBy._id && (
+          props.user._id === props.match.createdBy._id && (
             <TransactionEdit link={"/match/edit/" + props.match._id} />
           )}
       </Stack>

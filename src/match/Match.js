@@ -69,7 +69,7 @@ const Match = ({match}) => {
 
   const checkAudience = (presentMatch) => {
     const match = presentMatch && jwt.user && presentMatch.audiences.some((user) => {
-      return user._id == jwt.user._id;
+      return user._id === jwt.user._id;
     });
     return match;
   };

@@ -37,7 +37,7 @@ export default function LatestMatches(props) {
                         },
                       }}
                     >
-                      {"Season : " + item.season + " --- " + "Section : " + item.section}
+                      {"Season : " + item.season + " --- Section : " + item.section}
                     </Typography>
                   }
                 />

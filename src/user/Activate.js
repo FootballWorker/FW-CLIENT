@@ -3,7 +3,6 @@ import { Paper, Typography, Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { Redirect } from "react-router-dom";
 
 import { activation } from "./api-user";
 import Logo from "./../assets/images/orijinalLogo.png";

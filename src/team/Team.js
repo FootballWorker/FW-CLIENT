@@ -3,7 +3,6 @@ import {
   Grid,
   useMediaQuery,
   useTheme,
-  Box,
   Stack,
   Paper,
 } from "@mui/material";
@@ -115,7 +114,7 @@ const Team = ({ match }) => {
       team &&
       jwt.user &&
       team.stars.some((user) => {
-        return user._id == jwt.user._id;
+        return user._id === jwt.user._id;
       });
     return match;
   };

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {Box, Divider, Grid, Typography } from "@mui/material";
 import HomeMaxIcon from "@mui/icons-material/HomeMax";
 import PublicIcon from "@mui/icons-material/Public";
-import StarIcon from "@mui/icons-material/Star";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
 import kFormatter from '../numbers';
 

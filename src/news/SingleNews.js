@@ -75,7 +75,7 @@ const SingleNews = ({match}) => {
 
   const checkEmployee = (news) => {
     const match = news && jwt.user && news.employees.some((user) => {
-      return user._id == jwt.user._id;
+      return user._id === jwt.user._id;
     });
     return match;
   };
@@ -85,7 +85,7 @@ const SingleNews = ({match}) => {
 
   const checkApply = (news) => {
     const match = news && jwt.user && news.applications.some((user) => {
-      return user._id == jwt.user._id;
+      return user._id === jwt.user._id;
     });
     return match;
   };

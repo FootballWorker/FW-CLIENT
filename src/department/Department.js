@@ -30,7 +30,6 @@ const Department = ({ match }) => {
     openSnack: false,
     error: "",
   });
-  const jwt = auth.isAuthenticated();
 
   // Loading Department Data
   useEffect(() => {

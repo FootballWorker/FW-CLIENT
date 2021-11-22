@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { AppBar,Avatar, Button ,Box, Divider,Toolbar, IconButton, Tooltip} from '@mui/material'
@@ -12,7 +12,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import EmailIcon from "@mui/icons-material/Email";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 
-import {list} from './../../../department/api-department'
 import Logo from './../../../assets/images/orijinalLogo.png'
 
 const drawerWidth = 150;

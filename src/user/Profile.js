@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
 import {
   Paper,
   Snackbar,
@@ -35,7 +34,6 @@ const Profile = ({ match }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
-  const [redirect, setRedirect] = useState(false);
   const jwt = auth.isAuthenticated();
 
   // Load User Data
@@ -215,9 +213,6 @@ const Profile = ({ match }) => {
     return <Loading />;
   }
 
-  if (redirect) {
-    return <Redirect to="/home" />;
-  }
 
   return (
     <Paper elevation={4} sx={{ p: 1 }}>

@@ -20,7 +20,7 @@ export default function TeamStaff(props) {
         pb: 2.5,
       }}
     >
-      <Typography align="center" sx={{fontSize:14,fontWeight:500,color: '#51545B',p:2}} >There must be only one president and one manager.The other job fields has 5 FW at most! </Typography>
+      <Typography align="center" sx={{fontSize:14,fontWeight:500,color: '#51545B',p:2}} >There can be only one president and one manager. The other job fields can have 5 FW at most! </Typography>
       {/* Presdient */}
       <Box
         sx={{
