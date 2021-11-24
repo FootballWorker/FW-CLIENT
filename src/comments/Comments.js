@@ -80,8 +80,6 @@ export default function Comments(props) {
                       color="text.secondary"
                       sx={{
                         gridArea: "text",
-                        wordBreak: "break-all",
-                        overflowWrap: "break-word",
                         wordWrap: "break-word",
                         hyphens: "auto",
                       }}
@@ -96,8 +94,6 @@ export default function Comments(props) {
                       color="text.secondary"
                       sx={{
                         gridArea: "text",
-                        wordBreak: "break-all",
-                        overflowWrap: "break-word",
                         wordWrap: "break-word",
                         hyphens: "auto",
                       }}
@@ -112,8 +108,6 @@ export default function Comments(props) {
                       color="text.secondary"
                       sx={{
                         gridArea: "text",
-                        wordBreak: "break-all",
-                        overflowWrap: "break-word",
                         wordWrap: "break-word",
                         hyphens: "auto",
                       }}

@@ -210,7 +210,7 @@ const Player = ({ match }) => {
       {matches ? (
         <Grid container spacing={3} sx={{p:{xs:1,sm:2,md:4,lg:9}}} >
           <Grid item md={7} lg={8}>
-            <PostList posts={posts} />
+            <PostList posts={posts} header="Posts" />
           </Grid>
           <Grid item md={5} lg={4}>
             <Stack spacing={1}>

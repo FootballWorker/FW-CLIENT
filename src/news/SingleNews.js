@@ -1,33 +1,42 @@
-import React, { useState,useEffect } from 'react'
-import Divider from '@mui/material/Divider'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import React, { useState, useEffect } from "react";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import auth from './../auth/auth-helper'
-import {read,apply,cancelApply,subscribe,unsubscribe} from './api-news.js'
-import {listPinned,postListByNews} from './../post/api-post'
-import {newsApplicants} from './../user/api-user'
-import PostList from '../components/design-list/PostList'
-import Users from '../components/design-aside/Users'
-import TransactionNews from '../components/design-transaction/news/TransactionNews'
-import NewsBox from '../components/design-news/NewsBox'
+import auth from "./../auth/auth-helper";
+import {
+  read,
+  apply,
+  cancelApply,
+  subscribe,
+  unsubscribe,
+} from "./api-news.js";
+import { listPinned, postListByNews } from "./../post/api-post";
+import { newsApplicants } from "./../user/api-user";
+import { totalNews, totalFollowers } from "./../stats/api-stats";
+import NewsStats from "../stats/NewsStats";
+import PostList from "../components/design-list/PostList";
+import Users from "../components/design-aside/Users";
+import TransactionNews from "../components/design-transaction/news/TransactionNews";
+import NewsBox from "../components/design-news/NewsBox";
 import AuthenticationError from "../errorHandler/AuthenticationError.js";
 import SnackError from "../errorHandler/SnackError.js";
 import Loading from "../components/loading/Loading";
-import { Stack } from '@mui/material'
+import { Stack } from "@mui/material";
 
-
-const SingleNews = ({match}) => {
+const SingleNews = ({ match }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const [news, setNews] = useState({});
-  const [posts, setPosts] = useState([])
-  const [applicants, setApplicants] = useState([])
-  const [pinnedPosts, setPinnedPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [applicants, setApplicants] = useState([]);
+  const [pinnedPosts, setPinnedPosts] = useState([]);
+  const [likes, setLikes] = useState({});
+  const [follow, setFollow] = useState({});
   const [isError, setIsError] = useState({
     openSnack: false,
     error: "",
@@ -74,9 +83,12 @@ const SingleNews = ({match}) => {
   }, [match.params.newsId]);
 
   const checkEmployee = (news) => {
-    const match = news && jwt.user && news.employees.some((user) => {
-      return user._id === jwt.user._id;
-    });
+    const match =
+      news &&
+      jwt.user &&
+      news.employees.some((user) => {
+        return user._id === jwt.user._id;
+      });
     return match;
   };
   const [empState, setEmpState] = useState({
@@ -84,9 +96,12 @@ const SingleNews = ({match}) => {
   });
 
   const checkApply = (news) => {
-    const match = news && jwt.user && news.applications.some((user) => {
-      return user._id === jwt.user._id;
-    });
+    const match =
+      news &&
+      jwt.user &&
+      news.applications.some((user) => {
+        return user._id === jwt.user._id;
+      });
     return match;
   };
 
@@ -95,9 +110,12 @@ const SingleNews = ({match}) => {
   });
 
   const checkSubs = (news) => {
-    const match = news && jwt.user && news.subscribers.some((user) => {
-      return user._id == jwt.user._id;
-    });
+    const match =
+      news &&
+      jwt.user &&
+      news.subscribers.some((user) => {
+        return user._id == jwt.user._id;
+      });
     return match;
   };
 
@@ -121,7 +139,7 @@ const SingleNews = ({match}) => {
             error: data.error,
           });
         } else {
-          setPinnedPosts(data)
+          setPinnedPosts(data);
           setLoading(false);
         }
       }
@@ -138,10 +156,7 @@ const SingleNews = ({match}) => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    postListByNews(
-      { newsId: match.params.newsId },
-      signal
-    ).then((data) => {
+    postListByNews({ newsId: match.params.newsId }, signal).then((data) => {
       if (data && data.error) {
         setIsError({
           ...isError,
@@ -149,7 +164,7 @@ const SingleNews = ({match}) => {
           error: data.error,
         });
       } else {
-        setPosts(data)
+        setPosts(data);
         setLoading(false);
       }
     });
@@ -161,27 +176,75 @@ const SingleNews = ({match}) => {
 
   // Load Applicants
   useEffect(() => {
-    setLoading(true)
-    const abortController = new AbortController()
-    const signal = abortController.signal
+    setLoading(true);
+    const abortController = new AbortController();
+    const signal = abortController.signal;
 
-    newsApplicants({newsId:match.params.newsId},signal).then((data)=>{
-      if(data && data.error){
+    newsApplicants({ newsId: match.params.newsId }, signal).then((data) => {
+      if (data && data.error) {
         setIsError({
           ...isError,
           openSnack: true,
           error: data.error,
         });
-      }else{
-        setApplicants(data)
-        setLoading(false)
+      } else {
+        setApplicants(data);
+        setLoading(false);
       }
-    })
+    });
 
     return () => {
-      abortController.abort()
-    }
-  }, [match.params.newsId])
+      abortController.abort();
+    };
+  }, [match.params.newsId]);
+
+  // Load Total Likes
+  useEffect(() => {
+    setLoading(true);
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    totalNews({ newsId: match.params.newsId }, signal).then((data) => {
+      if (data?.error) {
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: data.error,
+        });
+      } else {
+        setLikes(data);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [match.params.newsId]);
+
+  // Load Total Followers
+  useEffect(() => {
+    setLoading(true);
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    totalFollowers({ newsId: match.params.newsId }, signal).then((data) => {
+      if (data?.error) {
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: data.error,
+        });
+      } else {
+        setFollow(data);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [match.params.newsId]);
 
   // ------- Functions ---------
 
@@ -245,16 +308,23 @@ const SingleNews = ({match}) => {
   return (
     <div>
       {matches ? (
-        <Grid container spacing={3} sx={{p: {xs:1,sm:2,md:3,lg:7}}}>
+        <Grid container spacing={3} sx={{ p: { xs: 1, sm: 2, md: 3, lg: 7 } }}>
           <Grid item md={7} lg={8}>
-            <Paper elevation={12} >
-              <PostList posts={pinnedPosts} header={pinnedPosts && "Pinned Posts"} />
-              <Divider variant="middle" sx={{pb:5}} />
+            <Paper elevation={12}>
+              <NewsStats
+                postLike={likes?.sumLikes}
+                followLength={follow?.sumLikes}
+              />
+              <PostList
+                posts={pinnedPosts}
+                header={pinnedPosts && "Pinned Posts"}
+              />
+              <Divider variant="middle" sx={{ pb: 5 }} />
               <PostList posts={posts} header="Latest" />
             </Paper>
           </Grid>
           <Grid item md={5} lg={4}>
-            <Stack spacing={1} >
+            <Stack spacing={1}>
               <NewsBox news={news} />
               {auth.isAuthenticated() && (
                 <TransactionNews
@@ -268,16 +338,11 @@ const SingleNews = ({match}) => {
                   subs={stateSubs.subsLength}
                 />
               )}
-              {
-                ( (news.editor && jwt.user._id === news.editor._id) ||
-                  jwt.user.role === "admin") && (
-                  <Users
-                    header="Applicants"
-                    users={applicants}
-                    news={news}
-                  />
-                )}
-            </Stack> 
+              {((news.editor && jwt.user._id === news.editor._id) ||
+                jwt.user.role === "admin") && (
+                <Users header="Applicants" users={applicants} news={news} />
+              )}
+            </Stack>
           </Grid>
         </Grid>
       ) : (
@@ -295,10 +360,14 @@ const SingleNews = ({match}) => {
               subs={stateSubs.subsLength}
             />
           )}
+          <NewsStats
+            postLike={likes?.sumLikes}
+            followLength={follow?.sumLikes}
+          />
           <Paper>
             <PostList posts={pinnedPosts} header="Pinned Posts" />
           </Paper>
-          <Divider variant="middle" sx={{p:4}} />
+          <Divider variant="middle" sx={{ p: 4 }} />
           <PostList posts={posts} header="Latest Posts" />
         </Stack>
       )}
@@ -312,6 +381,6 @@ const SingleNews = ({match}) => {
       </Backdrop>
     </div>
   );
-}
+};
 
-export default SingleNews
+export default SingleNews;

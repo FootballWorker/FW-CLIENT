@@ -62,6 +62,7 @@ export default function LandingPC(props) {
             <Grid key={i} md={4}>
               <Card
                 sx={{
+                  borderRadius:'10px',
                   maxWidth: "100%",
                   bgcolor: "#51545B",
                   mb: 2,
@@ -120,10 +121,10 @@ export default function LandingPC(props) {
                   >
                     <Box
                       sx={{
-                        maxWidth: 230,
+                        maxWidth: 200,
                         margin: "auto",
                         padding: 2,
-                        borderRadius: "6%",
+                        borderRadius: "8px",
                         bgcolor: "#20B7D5 ",
                         color: "white",
                         display: "flex",

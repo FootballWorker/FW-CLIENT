@@ -14,10 +14,12 @@ import MuiAlert from "@mui/material/Alert";
 import auth from "./../auth/auth-helper";
 import { read } from "./api-user.js";
 import { listByUser } from "./../post/api-post";
+import { totalUser, totalUserComment } from "./../stats/api-stats";
 import PostList from "../components/design-list/PostList";
 import UserProfile from "../components/design-profile-user/UserProfile";
 import TransactionUser from "../components/design-transaction/user/TransactionUser";
 import Loading from "../components/loading/Loading";
+import UserStats from "../stats/UserStats";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -34,6 +36,8 @@ const Profile = ({ match }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
+  const [totalPostLikes, setTotalPostLikes] = useState({});
+  const [totalCommentLikes, setTotalCommentLikes] = useState({});
   const jwt = auth.isAuthenticated();
 
   // Load User Data
@@ -110,10 +114,47 @@ const Profile = ({ match }) => {
           setIsError({ ...isError, open: true, error: data.error });
         } else {
           setPosts(data);
-          setLoading(false);
+          
         }
       }
     );
+
+    return () => {
+      abortController.abort();
+    };
+  }, [match.params.userId]);
+
+  // Load Total Likes
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    totalUser({ userId: match.params.userId }, signal).then((data) => {
+      if (data?.error) {
+        console.log(data.error);
+      } else {
+        setTotalPostLikes(data);
+      }
+    });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [match.params.userId]);
+
+  // Load Total Comments
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    totalUserComment({ userId: match.params.userId }, signal).then((data) => {
+      if (data?.error) {
+        console.log(data.error);
+      } else {
+        setTotalCommentLikes(data);
+        setLoading(false);
+      }
+    });
 
     return () => {
       abortController.abort();
@@ -213,12 +254,15 @@ const Profile = ({ match }) => {
     return <Loading />;
   }
 
-
   return (
     <Paper elevation={4} sx={{ p: 1 }}>
       {matches ? (
         <Grid container spacing={3} sx={{ p: { md: 4, lg: 9 } }}>
           <Grid item md={7} lg={8}>
+            <UserStats
+              postLike={totalPostLikes?.sumLikes}
+              commentLike={totalCommentLikes?.sumLikes}
+            />
             <PostList posts={posts} removePost={removePost} />
           </Grid>
           <Grid item md={5} lg={4}>
@@ -244,20 +288,24 @@ const Profile = ({ match }) => {
       ) : (
         <Stack spacing={1}>
           <UserProfile user={user} />
-            {auth.isAuthenticated() && (
-              <TransactionUser
-                staff={jwt.user}
-                user={user}
-                followButton={clickFollowButton}
-                following={followState.following}
-                followers={followState.followers}
-                followings={user.following?.length}
-                presidentButton={presidentButton}
-                firingTeam={firingTeam}
-                editorButton={editorButton}
-                employeeButton={employeeButton}
-              />
-            )}
+          {auth.isAuthenticated() && (
+            <TransactionUser
+              staff={jwt.user}
+              user={user}
+              followButton={clickFollowButton}
+              following={followState.following}
+              followers={followState.followers}
+              followings={user.following?.length}
+              presidentButton={presidentButton}
+              firingTeam={firingTeam}
+              editorButton={editorButton}
+              employeeButton={employeeButton}
+            />
+          )}
+          <UserStats
+            postLike={totalPostLikes?.sumLikes}
+            commentLike={totalCommentLikes?.sumLikes}
+          />
           <PostList posts={posts} removePost={removePost} />
         </Stack>
       )}

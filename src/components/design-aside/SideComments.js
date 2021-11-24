@@ -11,10 +11,16 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { CardMedia, Grid, Tooltip, useMediaQuery, useTheme } from "@mui/material";
+import {
+  CardMedia,
+  Grid,
+  Tooltip,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
-import config from './../..//config/config.js'
+import config from "./../..//config/config.js";
 import ListHeader from "../header/ListHeader.js";
 import kFormatter from "../numbers.js";
 
@@ -32,8 +38,10 @@ export default function SideComments(props) {
               avatar={
                 <Avatar
                   src={
-                    item.commentedBy
-                      && config.ServerURI + "/api/users/photo/" + item.commentedBy._id
+                    item.commentedBy &&
+                    config.ServerURI +
+                      "/api/users/photo/" +
+                      item.commentedBy._id
                   }
                   sx={{
                     width: {
@@ -63,7 +71,10 @@ export default function SideComments(props) {
                   <CardMedia
                     component="img"
                     height="120"
-                    image={item.imageOne && config.ServerURI + "/api/comments/imageOne/" + item._id}
+                    image={
+                      item.imageOne &&
+                      config.ServerURI + "/api/comments/imageOne/" + item._id
+                    }
                     alt="Comment Image"
                   />
                 </Grid>
@@ -80,7 +91,8 @@ export default function SideComments(props) {
                       variant="h6"
                       gutterBottom
                       sx={{
-                        wordBreak: "break-all",
+                        wordWrap: "break-word",
+                        hyphens: "auto",
                         fontSize: { xs: 13, md: 22 },
                       }}
                     >
@@ -95,22 +107,18 @@ export default function SideComments(props) {
                       color="text.secondary"
                       sx={{
                         gridArea: "text",
-                        wordBreak: "break-all",
-                        overflowWrap: "break-word",
                         wordWrap: "break-word",
                         hyphens: "auto",
                       }}
                     >
                       {item.textOne.substring(0, 300) + "..."}
                     </Typography>
-                  ) :  (
+                  ) : (
                     <Typography
                       variant="body2"
                       color="text.secondary"
                       sx={{
                         gridArea: "text",
-                        wordBreak: "break-all",
-                        overflowWrap: "break-word",
                         wordWrap: "break-word",
                         hyphens: "auto",
                       }}
@@ -139,7 +147,10 @@ export default function SideComments(props) {
                   textAlign: "center",
                 }}
               >
-                <Tooltip title="You have to read to like!" placement="right-end" >
+                <Tooltip
+                  title="You have to read to like!"
+                  placement="right-end"
+                >
                   <FavoriteIcon sx={{ mr: 0.5 }} />
                 </Tooltip>
                 <Typography>{kFormatter(item.likeLength)}</Typography>
@@ -148,7 +159,7 @@ export default function SideComments(props) {
                 <Link to={"/departments/" + item.department._id}>
                   <Typography variant="body">{item.department.name}</Typography>
                 </Link>
-                <Divider  color="primary" />
+                <Divider color="primary" />
                 <Link to={"/jobs/" + item.job._id}>
                   <Typography variant="body">
                     {item.job.title && item.job.title.toUpperCase()}

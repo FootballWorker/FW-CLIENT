@@ -10,12 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
-import {
-  Paper,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Paper, Tooltip, useMediaQuery, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Visibility from "@mui/icons-material/Visibility";
@@ -32,7 +27,6 @@ const PostList = (props) => {
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   const isMedium = useMediaQuery(theme.breakpoints.up("md"));
   const jwt = auth.isAuthenticated();
-
 
   return (
     <div>
@@ -197,44 +191,47 @@ const PostList = (props) => {
                       {item.title && (
                         <>
                           {isLarge ? (
-                          <Typography
-                            variant="h6"
-                            gutterBottom
-                            sx={{
-                              wordBreak: "break-all",
-                              fontSize: 22,
-                            }}
-                          >
-                            {item.title && item.title?.length < 30
-                              ? item.title
-                              : item.title?.substring(0, 30) + "..."}
-                          </Typography>
+                            <Typography
+                              variant="h6"
+                              gutterBottom
+                              sx={{
+                                wordWrap: "break-word",
+                                hyphens: "auto",
+                                fontSize: 22,
+                              }}
+                            >
+                              {item.title && item.title?.length < 30
+                                ? item.title
+                                : item.title?.substring(0, 30) + "..."}
+                            </Typography>
                           ) : isMedium ? (
-                          <Typography
-                            variant="h6"
-                            gutterBottom
-                            sx={{
-                              wordBreak: "break-all",
-                              fontSize: 19,
-                            }}
-                          >
-                            {item.title && item.title?.length < 25
-                              ? item.title
-                              : item.title?.substring(0, 25) + "..."}
-                          </Typography>
+                            <Typography
+                              variant="h6"
+                              gutterBottom
+                              sx={{
+                                wordWrap: "break-word",
+                                hyphens: "auto",
+                                fontSize: 19,
+                              }}
+                            >
+                              {item.title && item.title?.length < 25
+                                ? item.title
+                                : item.title?.substring(0, 25) + "..."}
+                            </Typography>
                           ) : (
-                          <Typography
-                            variant="h6"
-                            gutterBottom
-                            sx={{
-                              wordBreak: "break-all",
-                              fontSize: 16,
-                            }}
-                          >
-                            {item.title && item.title?.length < 22
-                              ? item.title
-                              : item.title?.substring(0, 22) + "..."}
-                          </Typography>
+                            <Typography
+                              variant="h6"
+                              gutterBottom
+                              sx={{
+                                wordWrap: "break-word",
+                                hyphens: "auto",
+                                fontSize: 16,
+                              }}
+                            >
+                              {item.title && item.title?.length < 22
+                                ? item.title
+                                : item.title?.substring(0, 22) + "..."}
+                            </Typography>
                           )}
                         </>
                       )}
@@ -244,8 +241,6 @@ const PostList = (props) => {
                           color="text.secondary"
                           sx={{
                             gridArea: "text",
-                            wordBreak: "break-all",
-                            overflowWrap: "break-word",
                             wordWrap: "break-word",
                             hyphens: "auto",
                           }}
@@ -260,8 +255,6 @@ const PostList = (props) => {
                           color="text.secondary"
                           sx={{
                             gridArea: "text",
-                            wordBreak: "break-all",
-                            overflowWrap: "break-word",
                             wordWrap: "break-word",
                             hyphens: "auto",
                           }}
@@ -276,8 +269,6 @@ const PostList = (props) => {
                           color="text.secondary"
                           sx={{
                             gridArea: "text",
-                            wordBreak: "break-all",
-                            overflowWrap: "break-word",
                             wordWrap: "break-word",
                             hyphens: "auto",
                           }}

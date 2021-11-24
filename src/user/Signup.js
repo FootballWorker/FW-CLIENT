@@ -378,6 +378,14 @@ export default function Signup({ match }) {
       return setValues({ ...values, error: "Email do not proper!" });
     }
 
+    if(values.job === ""){
+      return setValues({...values, error : "You have to select a job!"})
+    }
+
+    if(values.favoriteTeam === ""){
+      return setValues({...values, error : "You have to select a team!"})
+    }
+
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,

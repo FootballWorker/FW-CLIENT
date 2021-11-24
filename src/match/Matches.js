@@ -8,6 +8,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Paper,
+  Typography,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
@@ -65,7 +66,7 @@ export default function Matches() {
       <ListHeader header="Matches" />
       <List dense>
         <Grid container spacing={2} >
-          {matches.map((item, i) => {
+        {matches?.length > 0 ? matches.map((item, i) => {
             return (
               <Grid key={i} item xs={12} md={6} lg={4} >
                 <ListItem button>
@@ -93,7 +94,11 @@ export default function Matches() {
                 </ListItem>
               </Grid>
             );
-          })}
+          }) : (
+            <Grid xs={12}>
+              <Typography align="center" >No match found.</Typography>
+            </Grid>
+          )}
         </Grid>
       </List>
       <SnackError open={isError.openSnack} text={isError.error} />

@@ -245,7 +245,7 @@ const Post = ({match}) => {
               <Typography align="center">
                 To see the commments section , you must be Football Worker !
               </Typography>
-              <WebSiteLink text="Be Worker" link="/" />
+              <WebSiteLink text="Be FW" link="/" />
             </Box>
           )}
         </Stack>
