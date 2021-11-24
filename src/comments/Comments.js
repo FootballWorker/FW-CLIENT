@@ -11,11 +11,17 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Paper from "@mui/material/Paper";
-import { CardMedia, Grid, Tooltip, useMediaQuery, useTheme } from "@mui/material";
+import {
+  CardMedia,
+  Grid,
+  Tooltip,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 import auth from "./../auth/auth-helper";
 import DeleteComment from "./DeleteComment";
-import config from './../config/config.js'
+import config from "./../config/config.js";
 import kFormatter from "../components/numbers";
 
 export default function Comments(props) {
@@ -25,24 +31,39 @@ export default function Comments(props) {
   const jwt = auth.isAuthenticated();
 
   return (
-    <div >
-      <Paper >
+    <div>
+      <Paper>
         {props.header && (
-          <Typography align="center" gutterBottom variant="h6" sx={{p:1,fontWeight:'bold'}} >
+          <Typography
+            align="center"
+            gutterBottom
+            variant="h6"
+            sx={{ p: 1, fontWeight: "bold" }}
+          >
             {props.header}
           </Typography>
         )}
       </Paper>
       {props.comments && props.comments.length > 0 ? (
         props.comments.map((item, i) => (
-          <Card key={i} sx={{margin:'auto',mb:1, maxWidth: 600,borderRadius: "10px",
-          bgcolor: "#fcfcfa" }}>
+          <Card
+            key={i}
+            sx={{
+              margin: "auto",
+              mb: 1,
+              maxWidth: 600,
+              borderRadius: "10px",
+              bgcolor: "#fcfcfa",
+            }}
+          >
             <CardHeader
               avatar={
                 <Avatar
                   src={
-                    item.commentedBy
-                      && config.ServerURI + "/api/users/photo/" + item.commentedBy._id
+                    item.commentedBy &&
+                    config.ServerURI +
+                      "/api/users/photo/" +
+                      item.commentedBy._id
                   }
                 />
               }
@@ -53,16 +74,27 @@ export default function Comments(props) {
                   </IconButton>
                 </Link>
               }
-              title={item.commentedBy.name}
+              title={
+                <Link to={"/users/" + item.commentedBy._id}>
+                  {item.commentedBy.name}
+                </Link>
+              }
               subheader={new Date(item.created).toLocaleString()}
             />
-            <Grid container spacing={1} sx={{ pl: 1,pr:1, alignItems: "center" }}>
+            <Grid
+              container
+              spacing={1}
+              sx={{ pl: 1, pr: 1, alignItems: "center" }}
+            >
               {item.imageOne && (
                 <Grid item xs={4}>
                   <CardMedia
                     component="img"
                     height="120"
-                    image={item.imageOne && config.ServerURI + "/api/comments/imageOne/" + item._id}
+                    image={
+                      item.imageOne &&
+                      config.ServerURI + "/api/comments/imageOne/" + item._id
+                    }
                     alt="Comment Image"
                   />
                 </Grid>
@@ -85,8 +117,8 @@ export default function Comments(props) {
                       }}
                     >
                       {item.textOne && item.textOne.length < 240
-                            ? item.textOne
-                            : item.textOne.substring(0, 240) + "..."}
+                        ? item.textOne
+                        : item.textOne.substring(0, 240) + "..."}
                     </Typography>
                   ) : isMedium ? (
                     <Typography
@@ -99,8 +131,8 @@ export default function Comments(props) {
                       }}
                     >
                       {item.textOne && item.textOne.length < 210
-                            ? item.textOne
-                            : item.textOne.substring(0, 210) + "..."}
+                        ? item.textOne
+                        : item.textOne.substring(0, 210) + "..."}
                     </Typography>
                   ) : (
                     <Typography
@@ -113,8 +145,8 @@ export default function Comments(props) {
                       }}
                     >
                       {item.textOne && item.textOne.length < 180
-                            ? item.textOne
-                            : item.textOne.substring(0, 180) + "..."}
+                        ? item.textOne
+                        : item.textOne.substring(0, 180) + "..."}
                     </Typography>
                   )}
                 </CardContent>
@@ -126,8 +158,19 @@ export default function Comments(props) {
                 ml: 1,
               }}
             >
-              <Tooltip title="You have to read to like!" placement="right" >
-               <FavoriteIcon sx={{ mr: 0.5 }} />
+              <Tooltip
+                title={
+                  item.likes?.indexOf(jwt.user?._id) !== -1
+                    ? "You liked this comment!"
+                    : "You have to read to like!"
+                }
+                placement="right-end"
+              >
+                {item.likes?.indexOf(jwt.user?._id) !== -1 ? (
+                  <FavoriteIcon color="secondary" sx={{ mr: 0.5 }} />
+                ) : (
+                  <FavoriteIcon color="primary" sx={{ mr: 0.5 }} />
+                )}
               </Tooltip>
               <Typography
                 sx={{

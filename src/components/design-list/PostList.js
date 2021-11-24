@@ -295,10 +295,14 @@ const PostList = (props) => {
                     }}
                   >
                     <Tooltip
-                      title="You have to read to like!"
+                      title={item.likes?.indexOf(jwt.user?._id) !== -1 ? "You liked this post!" : "You have to read to like!"}
                       placement="right-end"
                     >
-                      <FavoriteIcon sx={{ mr: 0.5 }} />
+                      {item.likes?.indexOf(jwt.user?._id) !== -1 ? (
+                        <FavoriteIcon color="secondary" sx={{ mr: 0.5 }} />
+                      ) : (
+                        <FavoriteIcon color="primary" sx={{ mr: 0.5 }} />
+                      )}
                     </Tooltip>
                     <Typography
                       sx={{
