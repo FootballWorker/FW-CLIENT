@@ -183,7 +183,7 @@ export default function NewPost({ match }) {
           : "NEW PLAYER POST"}
       </Typography>
       <Divider variant="middle" />
-      <Card>
+      <Card sx={{p:1}} >
         <input
           accept="image/*"
           id="imageOne"

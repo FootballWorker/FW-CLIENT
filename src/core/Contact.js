@@ -12,7 +12,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import CopyrightIcon from "@mui/icons-material/Copyright";
-import YouTubeIcon from '@mui/icons-material/YouTube';
+import YouTubeIcon from "@mui/icons-material/YouTube";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -107,6 +107,7 @@ export default function Contact() {
             elevation={8}
             sx={{
               margin: "auto",
+              ml: 4,
               p: {
                 xs: 0.1,
                 sm: 1,
@@ -270,7 +271,6 @@ export default function Contact() {
               justifyContent: "center",
               gap: 4,
               mt: 2,
-              p: 3,
             }}
           >
             <a
@@ -307,9 +307,29 @@ export default function Contact() {
               mt: 2,
             }}
           >
-            <Typography align="center" variant="body2">
+            <Typography align="center" variant="body2" gutterBottom>
               footballworker@hotmail.com
             </Typography>
+          </Box>
+          <Box
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              height: 100,
+            }}
+          >
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{
+                maxWidth: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                maxHeight: "100%",
+              }}
+            />
           </Box>
         </Grid>
         <Grid xs={12} md={8}>

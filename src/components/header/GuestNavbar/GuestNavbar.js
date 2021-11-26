@@ -1,7 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import PropTypes from "prop-types";
-import { AppBar,Avatar, Button ,Box, Divider,Toolbar, IconButton, Tooltip} from '@mui/material'
+import {
+  AppBar,
+  Avatar,
+  Button,
+  Box,
+  Divider,
+  Toolbar,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -12,7 +22,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import EmailIcon from "@mui/icons-material/Email";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 
-import Logo from './../../../assets/images/orijinalLogo.png'
+import Logo from "./../../../assets/images/orijinalLogo.png";
 
 const drawerWidth = 150;
 
@@ -20,9 +30,7 @@ const GuestNavbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
-
   // Load Departments
-
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -42,14 +50,14 @@ const GuestNavbar = (props) => {
           textAlign: "center",
         }}
       >
-        <Link to="/home" >
+        <Link to="/home">
           <Avatar src={Logo} sx={{ width: 25, height: 25 }} />
         </Link>
         <Typography
           variant="h6"
           noWrap
           component="div"
-          sx={{ display: {xs:'none',md:'display'}, color: "#FED829" }}
+          sx={{ display: { xs: "none", md: "display" }, color: "#FED829" }}
         >
           Football Workers
         </Typography>
@@ -67,9 +75,7 @@ const GuestNavbar = (props) => {
               <ListItemIcon sx={{ color: "#FED829" }}>
                 <EmailIcon />
               </ListItemIcon>
-              <ListItemText
-                primary="Contact"
-              />
+              <ListItemText primary="Contact" />
             </ListItemButton>
           </Tooltip>
         </Link>
@@ -84,11 +90,7 @@ const GuestNavbar = (props) => {
               <ListItemIcon sx={{ color: "#FED829" }}>
                 <SportsSoccerIcon />
               </ListItemIcon>
-              <ListItemText
-                sx={{
-                }}
-                primary="Matches"
-              />
+              <ListItemText sx={{}} primary="Matches" />
             </ListItemButton>
           </Tooltip>
         </Link>
@@ -130,7 +132,7 @@ const GuestNavbar = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex",mt:8 }}>
+    <Box sx={{ display: "flex", mt: 8 }}>
       <AppBar
         position="fixed"
         sx={{
@@ -151,9 +153,9 @@ const GuestNavbar = (props) => {
               textAlign: "center",
             }}
           >
-          <Link to="/home" >
-            <Avatar src={Logo} sx={{ width: 35, height: 35 }} />
-          </Link>
+            <Link to="/home">
+              <Avatar src={Logo} sx={{ width: 35, height: 35 }} />
+            </Link>
           </Box>
           <Box
             sx={{
@@ -170,19 +172,6 @@ const GuestNavbar = (props) => {
                 gap: 2,
               }}
             >
-              <NavLink
-                to="/contact"
-                activeStyle={{
-                  fontWeight: "bold",
-                  color: "black",
-                  backgroundColor: "yellow",
-                  borderRadius: "7px",
-                }}
-              >
-                <Button sx={{ color: "#51545B", fontWeight: "bold" }}>
-                  Contact
-                </Button>
-              </NavLink>
               <NavLink
                 to="/matches"
                 exact
@@ -207,7 +196,10 @@ const GuestNavbar = (props) => {
                   borderRadius: "7px",
                 }}
               >
-                <Button sx={{ color: "#51545B", fontWeight: "bold" }}>
+                <Button
+                  sx={{ color: "#51545B", fontWeight: "bold" }}
+                  onClick={() => scroll.scrollToTop()}
+                >
                   Become FW
                 </Button>
               </NavLink>
@@ -272,7 +264,7 @@ const GuestNavbar = (props) => {
       </Box>
     </Box>
   );
-}
+};
 
 GuestNavbar.propTypes = {
   /**
@@ -282,5 +274,4 @@ GuestNavbar.propTypes = {
   window: PropTypes.func,
 };
 
-
-export default GuestNavbar
+export default GuestNavbar;

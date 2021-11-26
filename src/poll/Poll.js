@@ -132,7 +132,7 @@ const Poll = ({ match }) => {
   return (
     <div style={{background: '#51545B', color: '#fed829',height:'100vh'}} >
       <Typography align="center" variant="h4" gutterBottom sx={{ p: 2,fontFamily:"'Merriweather', serif"  }}>
-        Barcelona Poll 24th
+        {poll.title}
       </Typography>
       <Grid container spacing={1} sx={{ p: 1 }}>
         <Grid item xs={6}>

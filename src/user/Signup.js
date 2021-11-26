@@ -26,7 +26,6 @@ import WorkIcon from "@mui/icons-material/Work";
 import PublicIcon from "@mui/icons-material/Public";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
-
 import Logo from "./../assets/images/orijinalLogo.png";
 import { create } from "./api-user";
 import { listByDepartment } from "./../job/api-jobs";
@@ -378,12 +377,12 @@ export default function Signup({ match }) {
       return setValues({ ...values, error: "Email do not proper!" });
     }
 
-    if(values.job === ""){
-      return setValues({...values, error : "You have to select a job!"})
+    if (values.job === "") {
+      return setValues({ ...values, error: "You have to select a job!" });
     }
 
-    if(values.favoriteTeam === ""){
-      return setValues({...values, error : "You have to select a team!"})
+    if (values.favoriteTeam === "") {
+      return setValues({ ...values, error: "You have to select a team!" });
     }
 
     const user = {
@@ -708,6 +707,12 @@ export default function Signup({ match }) {
             lg: 12,
           },
           p: 2,
+          gap: {
+            xs: 5,
+            sm: 0,
+            md: 0,
+            lg: 0,
+          },
           maxWidth: "100%",
           bgcolor: "#51545B",
           color: "#FED829",
@@ -716,20 +721,11 @@ export default function Signup({ match }) {
         }}
       >
         <Grid
-          item
           xs={12}
           md={4}
-          sx={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          sx={{ justifyContent: "center", alignItems: "center" }}
         >
-          <Typography
-            align="center"
-            variant="h5"
-            gutterBottom
-            sx={{ fontWeight: "bold" }}
-          >
+          <Typography align="center" variant="h6" gutterBottom>
             Communication
           </Typography>
           <Divider variant="middle" />
@@ -739,7 +735,6 @@ export default function Signup({ match }) {
               justifyContent: "center",
               gap: 4,
               mt: 2,
-              p: 3,
             }}
           >
             <a
@@ -772,33 +767,44 @@ export default function Signup({ match }) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              gap: 1,
               mt: 2,
             }}
           >
-            <Typography
-              align="center"
-              variant="body2"
-              gutterBottom
-              sx={{ mb: 2 }}
-            >
+            <Typography align="center" variant="body2" gutterBottom>
               footballworker@hotmail.com
             </Typography>
           </Box>
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Typography
-            align="center"
-            variant="h5"
-            gutterBottom
-            sx={{ fontWeight: "bold" }}
+          <Box
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              height: 100,
+            }}
           >
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{
+                maxWidth: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                maxHeight: "100%",
+              }}
+            />
+          </Box>
+        </Grid>
+        <Grid xs={12} md={8}>
+          <Typography align="center" variant="h6" gutterBottom>
             Info & Rules
           </Typography>
           <Divider variant="middle" />
           <Box sx={{ mt: 2 }}>
             <Typography variant="body2" gutterBottom>
-              - Users who curse or are accused of blasphemy to players , teams
-              will not be a WORKER after the first warning and his posts
+              - Users who curse or are accused of blasphemy to players and teams
+              will not be a WORKER after the first warnings and his posts
               relating to cause him banned will be deleted!
             </Typography>
             <Typography variant="body2" gutterBottom>
