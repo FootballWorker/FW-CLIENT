@@ -14,7 +14,6 @@ const create = async ( params,credentials,poll) => {
     });
     return await response.json()
   }catch(error){
-    console.log(error)
   }
 }
 
@@ -31,7 +30,6 @@ const read = async (params,credentials,signal) => {
     })
     return await response.json()
   }catch(error){
-    console.log(error)
   }
 }
 
@@ -43,7 +41,6 @@ const pollListByTeam = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -55,7 +52,6 @@ const openPolls = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -72,7 +68,6 @@ const vote = async (params,credentials,userId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -88,7 +83,6 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 

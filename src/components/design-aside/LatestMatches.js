@@ -1,15 +1,23 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { List, ListItemButton, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@mui/material'
-import ListHeader from '../header/ListHeader';
+import React from "react";
+import { Link } from "react-router-dom";
+import { format } from "timeago.js";
+import PropTypes from "prop-types";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+
+import ListHeader from "../header/ListHeader";
 
 export default function LatestMatches(props) {
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <ListHeader header={props.header} />
       <List dense>
-        {props.matches && props.matches.length > 0 &&
+        {props.matches &&
+          props.matches.length > 0 &&
           props.matches.map((item, i) => (
             <Link key={i} to={"/matches/" + item._id}>
               <ListItemButton>
@@ -37,7 +45,10 @@ export default function LatestMatches(props) {
                         },
                       }}
                     >
-                      {"Season : " + item.season + " --- Section : " + item.section}
+                      {"Season : " +
+                        item.season +
+                        " --- Section : " +
+                        item.section}
                     </Typography>
                   }
                 />
@@ -51,7 +62,7 @@ export default function LatestMatches(props) {
                       },
                     }}
                   >
-                    {(new Date(item.date)).toDateString()}
+                    {format(item.date)}
                   </Typography>
                 </ListItemSecondaryAction>
               </ListItemButton>
@@ -62,8 +73,7 @@ export default function LatestMatches(props) {
   );
 }
 
-
 LatestMatches.propTypes = {
   header: PropTypes.string,
-  matches: PropTypes.array
-}
+  matches: PropTypes.array,
+};

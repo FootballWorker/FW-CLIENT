@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { format } from "timeago.js";
 import PropTypes from 'prop-types'
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -284,7 +285,7 @@ export default function SingleComment(props) {
                     },
                   }}
                 >
-                  {(new Date(props.comment.created)).toLocaleDateString()}
+                  {format(props.comment.created)}
                 </Typography>
               </Box>
             </Box>

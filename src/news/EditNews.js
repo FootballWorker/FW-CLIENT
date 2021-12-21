@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  Divider,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import ImageIcon from "@mui/icons-material/Image";
 
 import auth from "./../auth/auth-helper";
 import { read, update } from "./api-news";
@@ -114,7 +112,7 @@ const EditNews = ({ match }) => {
   }
 
   if (loading) {
-    return <Loading />;
+    return <Loading text="News Data Loading..." />;
   }
 
   return (

@@ -2,25 +2,44 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import HelpIcon from '@mui/icons-material/Help';
 
 import config from './../../config/config.js'
+import InfoBox from "../fades/InfoBox.js";
 
 export default function TeamStaff(props) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Stack
-      spacing={3}
+      spacing={2}
       sx={{
+        maxWidth:1000,
+        bgcolor: props.secondColor,
+        color: props.firstColor,
         borderRadius: "8px",
-        boxShadow: 4,
-        m: 0.4,
+        boxShadow: 1,
+        ml:{xs:1,md:0},
+        mr:{xs:1,md:0},
+        mb:1,
         pb: 2.5,
       }}
     >
-      <Typography align="center" sx={{fontSize:14,fontWeight:500,color: '#51545B',p:2}} >There can be only one president and one manager. The other job fields can have 5 FW at most! </Typography>
+      <Button sx={{justifyContent:'center', width:30,textAlign:'center',alignItems:'flex-start'}} onClick={handleOpen}> <HelpIcon /> </Button>
+      <InfoBox
+          open={open}
+          handleClose={handleClose}
+          textOne="- There must be only one president and one manager.The other job fields has 5 FW at most!"
+          textTwo="- President hire and fire vice presidents and manager."
+          textThree="- Manager hire and fire coaches , scouts and youth staffs."
+          textFour="- Applications appear only to the president and manager."
+        />
       {/* Presdient */}
       <Box
         sx={{
@@ -45,7 +64,9 @@ export default function TeamStaff(props) {
         </Typography>
         <Divider
           variant="middle"
+          
           sx={{
+            color: props.firstColor,
             mr: {
               xs: 7,
               sm: 30,
@@ -63,6 +84,7 @@ export default function TeamStaff(props) {
             sx={{
               m: 1,
               display: "flex",
+              gap:1,
               justifyContent: "center",
               alignItems: "center",
               textAlign: "center",
@@ -98,7 +120,7 @@ export default function TeamStaff(props) {
                 display: "inline",
               }}
             >
-              <Link to={"/users/" + props.president._id}>
+              <Link to={"/users/" + props.president._id} style={{color:props.firstColor}} >
                 {props.president.name}
               </Link>
             </Typography>
@@ -119,7 +141,7 @@ export default function TeamStaff(props) {
                   xs: 13,
                   sm: 21,
                 },
-                color: "red",
+                color: props.firstColor,
                 fontWeight: 500,
               }}
             >
@@ -164,13 +186,14 @@ export default function TeamStaff(props) {
             },
           }}
         />
-        {props.vicepresidents ? (
+        {props.vicepresidents?.length >= 1 ? (
           props.vicepresidents.map((item, i) => (
             <Box
               key={i}
               sx={{
                 m: 1,
                 display: "flex",
+                gap:1,
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
@@ -204,7 +227,7 @@ export default function TeamStaff(props) {
                   display: "inline",
                 }}
               >
-                <Link to={"/users/" + item._id}>{item.name}</Link>
+                <Link to={"/users/" + item._id} style={{color:props.firstColor}}>{item.name}</Link>
               </Typography>
             </Box>
           ))
@@ -213,6 +236,7 @@ export default function TeamStaff(props) {
             sx={{
               m: 1,
               display: "flex",
+              gap:1,
               justifyContent: "center",
               alignItems: "center",
               textAlign: "center",
@@ -224,7 +248,7 @@ export default function TeamStaff(props) {
                   xs: 13,
                   sm: 21,
                 },
-                color: "red",
+                color: props.firstColor,
                 fontWeight: 500,
               }}
             >
@@ -274,6 +298,7 @@ export default function TeamStaff(props) {
             sx={{
               m: 1,
               display: "flex",
+              gap:1,
               justifyContent: "center",
               alignItems: "center",
               textAlign: "center",
@@ -307,7 +332,7 @@ export default function TeamStaff(props) {
                 display: "inline",
               }}
             >
-              <Link to={"/users/" + props.manager._id}>
+              <Link to={"/users/" + props.manager._id} style={{color:props.firstColor}}>
                 {props.manager.name}
               </Link>
             </Typography>
@@ -328,7 +353,7 @@ export default function TeamStaff(props) {
                   xs: 13,
                   sm: 21,
                 },
-                color: "red",
+                color: props.firstColor,
                 fontWeight: 500,
               }}
             >
@@ -367,13 +392,14 @@ export default function TeamStaff(props) {
             Coach
           </Typography>
           <Divider variant="middle" />
-          {props.coach ? (
+          {props.coach?.length >= 1 ? (
             props.coach.map((item, i) => (
               <Box
                 key={i}
                 sx={{
                   m: 1,
                   display: "flex",
+                  gap:1,
                   justifyContent: "center",
                   alignItems: "center",
                   textAlign: "center",
@@ -407,7 +433,7 @@ export default function TeamStaff(props) {
                     display: "inline",
                   }}
                 >
-                  <Link to={"/users/" + item._id}>{item.name}</Link>
+                  <Link to={"/users/" + item._id} style={{color:props.firstColor}}>{item.name}</Link>
                 </Typography>
               </Box>
             ))
@@ -427,7 +453,7 @@ export default function TeamStaff(props) {
                     xs: 13,
                     sm: 21,
                   },
-                  color: "red",
+                  color: props.firstColor,
                   fontWeight: 500,
                 }}
               >
@@ -458,13 +484,14 @@ export default function TeamStaff(props) {
             Scout
           </Typography>
           <Divider variant="middle" />
-          {props.scout ? (
+          {props.scout?.length >= 1  ? (
             props.scout.map((item, i) => (
               <Box
                 key={i}
                 sx={{
                   m: 1,
                   display: "flex",
+                  gap:1,
                   justifyContent: "center",
                   alignItems: "center",
                   textAlign: "center",
@@ -498,7 +525,7 @@ export default function TeamStaff(props) {
                     display: "inline",
                   }}
                 >
-                  <Link to={"/users/" + item._id}>{item.name}</Link>
+                  <Link to={"/users/" + item._id} style={{color:props.firstColor}}>{item.name}</Link>
                 </Typography>
               </Box>
             ))
@@ -518,7 +545,7 @@ export default function TeamStaff(props) {
                     xs: 13,
                     sm: 21,
                   },
-                  color: "red",
+                  color: props.firstColor,
                   fontWeight: 500,
                 }}
               >
@@ -549,13 +576,14 @@ export default function TeamStaff(props) {
             Youth
           </Typography>
           <Divider variant="middle" />
-          {props.youth ? (
+          {props.youth?.length >= 1  ? (
             props.youth.map((item, i) => (
               <Box
                 key={i}
                 sx={{
                   m: 1,
                   display: "flex",
+                  gap:1,
                   justifyContent: "center",
                   alignItems: "center",
                   textAlign: "center",
@@ -589,7 +617,7 @@ export default function TeamStaff(props) {
                     display: "inline",
                   }}
                 >
-                  <Link to={"/users/" + item._id}>{item.name}</Link>
+                  <Link to={"/users/" + item._id} style={{color:props.firstColor}}>{item.name}</Link>
                 </Typography>
               </Box>
             ))
@@ -609,7 +637,7 @@ export default function TeamStaff(props) {
                     xs: 13,
                     sm: 21,
                   },
-                  color: "red",
+                  color: props.firstColor,
                   fontWeight: 500,
                 }}
               >

@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Card,
-  CardActions,
-  Divider,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogContentText,
-  DialogActions,
-  Typography,
-  Paper,
-  TextField
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 import Backdrop from "@mui/material/Backdrop";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import auth from "./../auth/auth-helper.js";
@@ -55,7 +53,7 @@ const NewJob = ({match}) => {
       {t: jwt.token },
       job).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error. Please try again." });
       } else {
         setValues({ ...values, error: "", open: true });
         setProgress(false);

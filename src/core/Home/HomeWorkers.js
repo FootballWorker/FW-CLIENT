@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useMediaQuery, useTheme, Grid, Stack } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 
 import auth from "./../../auth/auth-helper";
 import { listByFollowings, latestTeam } from "./../../post/api-post";
@@ -15,7 +17,9 @@ import PollsAside from "../../components/design-aside/PollsAside";
 import BestieNews from "../../components/design-news/BestieNews";
 import LatestMatches from "../../components/design-aside/LatestMatches";
 import SnackError from "../../errorHandler/SnackError";
-import Loading from "../../components/loading/Loading";
+import ListSkelaton from "../../components/skelatons/ListSkelaton";
+import PostSkelaton from "../../components/skelatons/PostSkelaton";
+import SearchSkeleton from "../../components/skelatons/SearchSkeleton";
 
 export default function HomeWorkers(props) {
   const theme = useTheme();
@@ -45,7 +49,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setFollowing(data);
@@ -69,7 +73,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setLatMatches(data);
@@ -93,7 +97,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setLatest(data);
@@ -117,7 +121,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setValues({ ...values, polls: data });
@@ -142,7 +146,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setNews(data);
@@ -155,10 +159,6 @@ export default function HomeWorkers(props) {
     };
   }, [jwt.user._id]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div style={{ margin: "0.5em" }}>
       {matches ? (
@@ -167,42 +167,75 @@ export default function HomeWorkers(props) {
           spacing={3}
           sx={{
             p: {
-              md:3,
-              lg:7
-            }
+              md: 3,
+              lg: 7,
+            },
           }}
         >
           <Grid item md={7} lg={8}>
-            <Search posts={following} />
+            {loading ? (
+              <div>
+                <SearchSkeleton />
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <PostSkelaton key={n} />
+                ))}
+              </div>
+            ) : (
+              <Search posts={following} loading={props.loading || loading} />
+            )}
           </Grid>
           <Grid item md={5} lg={4}>
-            <Stack spacing={1}>
-              {news && news.length > 0 && (
-                <BestieNews news={news} header="Subscribed News" />
-              )}
-              {latMatches && latMatches.length > 0 && (
-                <LatestMatches matches={latMatches} header="Latest Matches" />
-              )}
-              {jwt.user.role === "user" && (
-                <SideList posts={latest} header="Latest From Member Team" />
-              )}
-              <Bestie values={props.bestTeams} header="Top Teams" />
-              {values.polls && values.polls.length > 0 && (
-                <PollsAside polls={values.polls} header="Open Polls" />
-              )}
-            </Stack>
+            {props.loading || loading ? (
+              <Stack spacing={1}>
+                <ListSkelaton />
+                <ListSkelaton />
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <PostSkelaton key={n} />
+                ))}
+                <ListSkelaton />
+                <ListSkelaton />
+              </Stack>
+            ) : (
+              <Stack spacing={1}>
+                {news && news.length > 0 && (
+                  <BestieNews news={news} header="Subscribed News" />
+                )}
+                {latMatches && latMatches.length > 0 && (
+                  <LatestMatches matches={latMatches} header="Latest Matches" />
+                )}
+                {jwt.user.role === "user" && (
+                  <SideList posts={latest} header="Latest From Member Team" />
+                )}
+                <Bestie values={props.bestTeams} header="Top Teams" />
+                {values.polls && values.polls.length > 0 && (
+                  <PollsAside polls={values.polls} header="Open Polls" />
+                )}
+              </Stack>
+            )}
           </Grid>
         </Grid>
       ) : (
-        <Stack spacing={1}>
-          {latMatches && latMatches.length > 0 && (
-            <LatestMatches matches={latMatches} header="Latest Matches" />
+        <div>
+          {loading ? (
+            <Stack spacing={2}>
+              <ListSkelaton />
+              <SearchSkeleton />
+              {[1, 2, 3, 4, 5].map((n) => (
+                <PostSkelaton key={n} />
+              ))}
+            </Stack>
+          ) : (
+            <Stack spacing={1}>
+              {latMatches && latMatches.length > 0 && (
+                <LatestMatches matches={latMatches} header="Latest Matches" />
+              )}
+              {news && news.length > 0 && (
+                <BestieNews news={news} header="Subscribed News" />
+              )}
+              <Search posts={following} />
+            </Stack>
           )}
-          {news && news.length > 0 && (
-            <BestieNews news={news} header="Subscribed News" />
-          )}
-          <Search posts={following} />
-        </Stack>
+        </div>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />
     </div>

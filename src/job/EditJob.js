@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardActions,
-  Divider,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
 import { Redirect } from "react-router-dom";
+
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -50,7 +49,7 @@ const EditJob = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error!"
           });
         } else {
           setValues({
@@ -116,7 +115,7 @@ const EditJob = ({ match }) => {
   }
 
   if (loading) {
-    return <Loading />;
+    return <Loading text="Job Data Loading..." />;
   }
 
   return (

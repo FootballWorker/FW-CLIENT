@@ -5,13 +5,18 @@ import Contact from "../Contact";
 import Choose from "../../components/design-landing/Choose";
 import LandingHeader from "../../components/design-landing/LandingHeader";
 import Intro from "../../components/design-landing/Intro";
+import DepSkeleton from "../../components/skelatons/DepSkeleton";
 
 export default function LandingPC(props) {
   return (
     <div>
       <LandingHeader ScrollLink={ScrollLink} />
       <Intro />
-      <Choose departments={props.departments}  />
+      {props.loading ? (
+        <DepSkeleton />
+      ) : (
+        <Choose departments={props.departments} />
+      )}
       <Contact />
     </div>
   );

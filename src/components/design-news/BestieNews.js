@@ -11,7 +11,7 @@ import kFormatter from '../numbers.js'
 export default function BestieNews(props) {
   return (
     <div>
-      <Paper elevation={12} >
+      <Paper elevation={4} >
         {
           props.header && (
             <ListHeader header={props.header} />

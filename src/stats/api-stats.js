@@ -8,7 +8,7 @@ const totalUser = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -20,7 +20,7 @@ const totalUserComment = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -32,7 +32,7 @@ const totalNews = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -44,7 +44,19 @@ const totalFollowers = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
+  }
+}
+
+const totalValue = async (params,signal) => {
+  try {
+    let response = await fetch(config.ServerURI + "/api/total/value/players/"+params.teamId,{
+      method: 'GET',
+      signal:signal,
+    })
+    return await response.json()
+  } catch (error) {
+    
   }
 }
 
@@ -53,5 +65,6 @@ export {
   totalUser,
   totalUserComment,
   totalNews,
-  totalFollowers
+  totalFollowers,
+  totalValue
 }

@@ -1,22 +1,22 @@
 import React , {useState} from 'react'
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Backdrop from "@mui/material/Backdrop";
+import MenuItem from "@mui/material/MenuItem";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
-  Card,
-  CardActions,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Divider,
-  MenuItem,
-  Paper,
-  TextField,
-  Typography,
   useTheme,
   useMediaQuery
 } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
 import { DesktopDateTimePicker, MobileDateTimePicker } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -83,6 +83,9 @@ const NewMatch = ({match}) => {
   };
 
   const onclickMatch = () => {
+    if (!values.title || !values.season || !values.section || !values.date) {
+      return setValues({ ...values, error: "Fill the blank fields" });
+    }
     setProgress(true);
     let matchData = {
       title: values.title || undefined,
@@ -92,7 +95,7 @@ const NewMatch = ({match}) => {
     };
     create({ teamId: match.params.teamId }, { t: jwt.token }, matchData).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error!" });
         setProgress(false);
       } else {
         setValues({

@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import {
-  Divider,
-  Grid,
-  List,
-  ListItemButton,
-  ListItemSecondaryAction,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Link } from "react-router-dom";
+
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import Grid from "@mui/material/Grid";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Paper from "@mui/material/Paper";
+import ListItemText from "@mui/material/ListItemText";
 
 import auth from "./../auth/auth-helper";
 import { list } from "./api-player";
-
 import DeletePlayer from "./DeletePlayer";
 import SnackError from "../errorHandler/SnackError";
-import Loading from "../components/loading/Loading";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
+import PageHeader from "../components/header/PageHeader";
 
 export default function Players() {
   const [players, setPlayers] = useState([]);
@@ -59,51 +57,39 @@ export default function Players() {
     setPlayers(updatedPlayers);
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <Paper elevation={12}>
-      <Typography
-        align="center"
-        variant="h6"
-        gutterBottom
-        component="div"
-        sx={{
-          pt: 1,
-          fontFamily: "Raleway",
-          fontWeight: 700,
-        }}
-      >
-        Whole Players
-      </Typography>
+      <PageHeader header="Players" />
       <Divider />
-      <List dense>
-        <Grid container spacing={2}>
-          {players && players.length > 0 && (
-            players.map((item, i) => {
-              return (
-                <Grid key={i} item xs={12} md={6} lg={4}>
-                  <ListItemButton>
-                    <Link to={"/players/" + item._id} key={i}>
-                      <ListItemText
-                        primary={item.name}
-                        secondary={item.team && "Team : " + item.team.name}
-                      />
-                    </Link>
-                    <ListItemSecondaryAction>
-                      {auth.isAuthenticated().user.role === "admin" && (
-                        <DeletePlayer player={item} onRemove={removePlayer} />
-                      )}
-                    </ListItemSecondaryAction>
-                  </ListItemButton>
-                </Grid>
-              );
-            })
-          )}
-        </Grid>
-      </List>
+      {loading ? (
+        <ListSkelaton />
+      ) : (
+        <List dense>
+          <Grid container spacing={2}>
+            {players &&
+              players.length > 0 &&
+              players.map((item, i) => {
+                return (
+                  <Grid key={i} item xs={12} md={6} lg={4}>
+                    <ListItemButton>
+                      <Link to={"/players/" + item._id} key={i}>
+                        <ListItemText
+                          primary={item.name}
+                          secondary={item.team && "Team : " + item.team.name}
+                        />
+                      </Link>
+                      <ListItemSecondaryAction>
+                        {auth.isAuthenticated().user.role === "admin" && (
+                          <DeletePlayer player={item} onRemove={removePlayer} />
+                        )}
+                      </ListItemSecondaryAction>
+                    </ListItemButton>
+                  </Grid>
+                );
+              })}
+          </Grid>
+        </List>
+      )}
       <SnackError open={isError.openSnack} text={isError.error} />
     </Paper>
   );

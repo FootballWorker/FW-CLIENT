@@ -9,9 +9,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import { ListItemSecondaryAction , Snackbar } from "@mui/material";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-
 
 import auth from './../../auth/auth-helper'
 import {hireEditor,hireEmployee} from './../../news/api-news'
@@ -27,7 +27,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 
 export default function Users(props) {
-  const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState({
     open: false,
     error: "",
@@ -42,10 +41,6 @@ export default function Users(props) {
 
     setError({ ...error, open: false });
   };
-
-  if (redirect) {
-    return <Redirect to="/home" />;
-  }
 
   return (
     <Paper elevation={12}>
@@ -98,7 +93,7 @@ export default function Users(props) {
                         if (data.error) {
                           setError({ ...error, error: data.error, open: true });
                         } else {
-                          setRedirect(true);
+                          window.location.reload(false);
                         }
                       })}
                       text="Hire Editor"
@@ -120,7 +115,7 @@ export default function Users(props) {
                         if (data.error) {
                           setError({ ...error, error: data.error, open: true });
                         } else {
-                          setRedirect(true);
+                          window.location.reload(false);
                         }
                       })}
                       text="Hire Employee"
@@ -149,7 +144,7 @@ export default function Users(props) {
                               open: true,
                             });
                           } else {
-                            setRedirect(true);
+                            window.location.reload(false);
                           }
                         })
                       }
@@ -180,7 +175,7 @@ export default function Users(props) {
                               open: true,
                             });
                           } else {
-                            setRedirect(true);
+                            window.location.reload(false);
                           }
                         })
                       }
@@ -210,7 +205,7 @@ export default function Users(props) {
                               open: true,
                             });
                           } else {
-                            setRedirect(true);
+                            window.location.reload(false);
                           }
                         })
                       }
@@ -235,7 +230,7 @@ export default function Users(props) {
                         if (data.error) {
                           setError({ ...error, error: data.error, open: true });
                         } else {
-                          setRedirect(true);
+                          window.location.reload(false);
                         }
                       })}
                       text="Hire Youth"
@@ -264,7 +259,7 @@ export default function Users(props) {
                               open: true,
                             });
                           } else {
-                            setRedirect(true);
+                            window.location.reload(false);
                           }
                         })
                       }

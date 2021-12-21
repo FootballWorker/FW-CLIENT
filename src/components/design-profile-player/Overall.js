@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router";
 import PropTypes from "prop-types";
 import { VictoryPie, VictoryTheme, VictoryLabel } from "victory";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
 import {
-  Grid,
-  List,
-  ListItemButton,
-  ListItemSecondaryAction,
-  ListItemText,
-  Paper,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
+
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Accordion from "@mui/material/Accordion";
@@ -23,15 +31,20 @@ import Button from "@mui/material/Button";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import EditIcon from "@mui/icons-material/Edit";
 
 import auth from "./../../auth/auth-helper";
 import { create } from "../../attribute/api-attribute";
 import DeleteAttribute from "./../../attribute/DeleteAttribute";
-import SnackError from "../../errorHandler/SnackError";
+import { Box } from "@mui/system";
+import FormError from "../../errorHandler/FormError";
 
 const categories = ["Technical", "Mental", "Physical"];
 
 export default function Overall(props) {
+  const history = useHistory()
+  const themes = useTheme()
+  const matches = useMediaQuery(themes.breakpoints.up('md'))
   const [values, setValues] = useState({
     category: "",
     point: "",
@@ -40,8 +53,10 @@ export default function Overall(props) {
   const [isError, setIsError] = useState({
     openSnack: false,
     error: "",
+    editError: "",
   });
   const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const jwt = auth.isAuthenticated();
 
   const handleChange = (name) => (event) => {
@@ -49,7 +64,11 @@ export default function Overall(props) {
   };
 
   const clickSubmit = () => {
-    if (0 > values.point || values.point > 100) {
+    if (
+      !values.point ||
+      0 > parseInt(values.point) ||
+      parseInt(values.point) > 100
+    ) {
       return setIsError({
         ...isError,
         openSnack: true,
@@ -67,7 +86,7 @@ export default function Overall(props) {
       category: values.category || undefined,
       point: values.point || undefined,
     };
-    let id = props.player && props.player._id;
+    let id = props.player?._id;
     setOpen(true);
     create({ playerId: id }, { t: jwt.token }, attribute).then((data) => {
       if (data?.error) {
@@ -78,8 +97,8 @@ export default function Overall(props) {
         });
         setOpen(false);
       } else {
-        setValues({ ...values, redirect: true });
         setOpen(false);
+        window.location.reload(false);
       }
     });
   };
@@ -88,13 +107,26 @@ export default function Overall(props) {
     return <Redirect to={"/teams/" + props.player.team._id} />;
   }
 
+  const handleClickOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
+
+  const attrbts = () => {
+    props.loadAttributes();
+    handleClickOpen();
+  };
+
   return (
-    <Paper elevation={12} sx={{ p: 5 }}>
-      <Typography align="center" variant="h4" sx={{fontFamily: "'Merriweather', serif"}} >
-        
+    <Paper elevation={12} sx={{ mt:0.4, p: {xs:1,sm:1,md:2,lg:4},bgcolor:'darkslateblue' }}>
+      <Typography align="center" variant="h4" color="gainsboro" sx={{fontFamily: "'Merriweather', serif"}} >
         {props.player.name}
       </Typography>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} >
         <Grid xs={12} md={8}>
           {props.average && (
             <div
@@ -102,10 +134,9 @@ export default function Overall(props) {
                 width: "100%",
                 maxHeight: "100%",
                 margin: "auto",
-                paddingBottom: "10px",
               }}
             >
-              <svg viewBox="0 0 360 300">
+              <svg viewBox={matches ? "20 40 400 300" : "0 30 360 320"}>
                 <VictoryPie
                   standalone={false}
                   data={props.average && props.average.avgAtt}
@@ -117,11 +148,11 @@ export default function Overall(props) {
                       angle={0}
                       style={[
                         {
-                          fontSize: "1rem",
+                          fontSize: "15px",
                           fill: "#0f0f0f",
                         },
                         {
-                          fontSize: "1rem",
+                          fontSize: "15px",
                           fill: "#013157",
                         },
                       ]}
@@ -131,7 +162,7 @@ export default function Overall(props) {
                 />
                 <VictoryLabel
                   textAnchor="middle"
-                  style={{ fontSize: 12, fill: "#8b8b8b" }}
+                  style={{ fontSize: "10px", fill: "#f2f2f2" }}
                   x={175}
                   y={170}
                   text={`Attributes \nper Category`}
@@ -144,15 +175,47 @@ export default function Overall(props) {
           xs={12}
           md={4}
           sx={{
-            mt: { xs: 3, sm: 3, md: 18, lg: 25 },
+            mt: { xs: 3, sm: 3, md: 5, lg: 15 },
             justifyContent: "center",
             p: 3,
+            
           }}
         >
+          <Box>
+            <List sx={{ margin: "auto", maxWidth: 900 }}>
+              {props.assessments &&
+                props.assessments.map((item, i) => (
+                  <ListItemButton
+                    key={i}
+                    sx={{ bgcolor: "darkseagreen", mb: 1,borderRadius:'8px' }}
+                  >
+                    <ListItemText
+                      primary={item.point}
+                      secondary={item.category}
+                    />
+                    <ListItemSecondaryAction
+                      sx={{
+                        display: "flex",
+                        flexDirection: { md: "column", lg: "row" },
+                        gap: 1,
+                        alignItems: "center",
+                        textAlign: "center",
+                      }}
+                    >
+                      
+                      <IconButton onClick={()=>history.push("/attributes/edit/"+item._id)}>
+                          <EditIcon />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItemButton>
+                ))}
+            </List>
+          </Box>
+
           {props.user?.job &&
           props.user?.department?.name === "TECHNIQUE" &&
           props.user?.team?._id === props.player?.team?._id ? (
-            <Accordion>
+            <Accordion sx={{bgcolor: "darkseagreen",borderRadius:'5px'}} >
               <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
@@ -204,22 +267,18 @@ export default function Overall(props) {
                         m: 1,
                       }}
                     />
+                    {isError.error && <FormError text={isError.error} />}
                   </CardContent>
                   <CardActions>
                     <Button
                       onClick={clickSubmit}
-                      contained
+                      variant="contained"
+                      color="primary"
                       sx={{
                         p: 1,
-                        bgcolor: "DarkSlateGray  ",
-                        color: "Gainsboro ",
-                        ":hover": {
-                          bgcolor: "Gainsboro",
-                          color: "DarkSlateGray ",
-                        },
                       }}
                     >
-                      Save!
+                      Save !
                     </Button>
                   </CardActions>
                 </Card>
@@ -229,42 +288,60 @@ export default function Overall(props) {
             <Typography
               align="center"
               sx={{
-                mt: { xs: 3, sm: 3, md: 10, lg: 20 },
+                mt: { xs: 3, sm: 3, md: 5, lg: 10 },
                 justifyContent: "center",
                 p: 3,
               }}
               variant="h6"
+              color="silver"
             >
-              
               Assessment is only for the technical staff of the team of this
               player!
             </Typography>
           )}
-          <SnackError open={isError.openSnack} text={isError.error} />
+
           <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={open}
           >
             <CircularProgress color="inherit" />
           </Backdrop>
+
           {props.user && props.user.role === "admin" && (
-            <List container>
-              {props.attributes &&
-                props.attributes.map((item, i) => (
-                  <ListItemButton key={i}>
-                    <ListItemText
-                      primary={item.point}
-                      secondary={item.recordedBy && item.recordedBy.name}
-                    />
-                    <ListItemSecondaryAction>
-                      <DeleteAttribute
-                        attribute={item}
-                        onRemove={props.removeAttribute}
-                      />
-                    </ListItemSecondaryAction>
-                  </ListItemButton>
-                ))}
-            </List>
+            <Box
+              sx={{
+                margin: "auto",
+                textAlign: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button color="secondary" variant="contained" onClick={attrbts}> Attributes </Button>
+              <Dialog open={dialogOpen} onClose={handleClose} fullWidth>
+                <DialogTitle align="center"> Whole Attributes </DialogTitle>
+                <DialogContent>
+                  <List sx={{ margin: "auto", maxWidth: 600 }}>
+                    {props.attributes &&
+                      props.attributes.map((item, i) => (
+                        <ListItemButton
+                          key={i}
+                          sx={{ bgcolor: "blanchedalmond", mb: 1 }}
+                        >
+                          <ListItemText
+                            primary={item.point}
+                            secondary={item.recordedBy && item.recordedBy.name}
+                          />
+                          <ListItemSecondaryAction>
+                            <DeleteAttribute
+                              attribute={item}
+                              onRemove={props.removeAttribute}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItemButton>
+                      ))}
+                  </List>
+                </DialogContent>
+              </Dialog>
+            </Box>
           )}
         </Grid>
       </Grid>
@@ -277,5 +354,7 @@ Overall.propTypes = {
   user: PropTypes.object,
   attributes: PropTypes.array,
   average: PropTypes.array,
+  assessments: PropTypes.array,
   removeAttribute: PropTypes.func,
+  loadAttributes: PropTypes.func,
 };

@@ -8,7 +8,6 @@ import {listByAudience} from './../../match/api-match'
 import HomeFans from "./HomeFans";
 import HomeWorkers from "./HomeWorkers";
 import SnackError from "../../errorHandler/SnackError";
-import Loading from "../../components/loading/Loading";
 
 
 
@@ -46,7 +45,7 @@ export default function Home({ history }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again."
         });
       } else {
         setTeams(data)
@@ -70,7 +69,7 @@ export default function Home({ history }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again."
         });
       } else {
         setBestPlayers(data)
@@ -94,7 +93,7 @@ export default function Home({ history }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again."
         });
       } else {
         setMatches(data)
@@ -108,10 +107,6 @@ export default function Home({ history }) {
   }, []);
 
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div>
       {!defaultPage && (
@@ -119,6 +114,7 @@ export default function Home({ history }) {
           bestTeams={teams}
           bestPlayers={bestPlayers}
           latestMatches={matches}
+          loading={loading}
         />
       )}
       {defaultPage && (

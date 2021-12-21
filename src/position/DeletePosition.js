@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -40,7 +39,7 @@ export default function DeletePosition(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again."
           });
         } else {
           props.onRemove(props.position);

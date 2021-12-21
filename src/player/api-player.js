@@ -15,7 +15,6 @@ const create = async (params, credentials, player) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -32,7 +31,6 @@ const list = async (credentials, signal) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -44,7 +42,6 @@ const listByTeam = async (params, signal) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -56,7 +53,6 @@ const listPlayerByStar = async (signal) => {
     });
     return await response.json();
   } catch (error) {
-    console.log();
   }
 };
 
@@ -68,7 +64,6 @@ const searchForPlayer = async (params) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 };
 
@@ -84,7 +79,6 @@ const read = async (params, signal) => {
     });
     return await response.json();
   } catch (error) {
-    console.log();
   }
 };
 
@@ -100,7 +94,6 @@ const update = async (params, credentials, player) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -116,7 +109,6 @@ const remove = async (params, credentials) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -136,7 +128,6 @@ const star = async (params, credentials, playerId) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -156,7 +147,6 @@ const unstar = async (params, credentials, playerId) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 

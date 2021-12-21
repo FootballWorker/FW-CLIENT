@@ -18,7 +18,7 @@ import defaultNews from "./../../assets/images/default-news.jpg";
 export default function NewsBox(props) {
   return (
     <Paper
-      elevation={12}
+      elevation={4}
       sx={{
         margin: "auto",
         p: 2,

@@ -15,7 +15,7 @@ import kFormatter from "../numbers";
 
 export default function BestWorkers (props) {
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <ListHeader header="Best Workers" />
       <Divider />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>

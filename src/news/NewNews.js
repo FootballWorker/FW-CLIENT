@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  Button,
-  Card,
-  CardActions,
-  Divider,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import ImageIcon from "@mui/icons-material/Image";
 
 import auth from "./../auth/auth-helper.js";
@@ -34,6 +32,9 @@ const NewNews = () => {
   };
 
   const clickSubmit = () => {
+    if(!values.title || !values.description){
+      return setValues({...values,error: "Fill the blanks!"})
+    }
     let newsData = new FormData();
     values.title && newsData.append("title", values.title);
     values.description && newsData.append("description", values.description);
@@ -41,7 +42,7 @@ const NewNews = () => {
 
     create({ t: jwt.token }, newsData).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error!" });
       } else {
         setValues({ ...values, error: "", redirect: true });
       }

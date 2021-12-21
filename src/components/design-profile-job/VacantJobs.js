@@ -15,7 +15,7 @@ import kFormatter from "../numbers";
 
 export default function VacantJobs (props){
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <ListHeader header="Vacant Jobs" />
       <Divider />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>

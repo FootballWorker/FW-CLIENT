@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Avatar,
-  Divider,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListItemSecondaryAction,
-  Paper,
-  Typography,
-} from "@mui/material";
+
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import Grid from "@mui/material/Grid";
+import ListItem from "@mui/material/ListItem";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Paper from "@mui/material/Paper";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import auth from "./../auth/auth-helper";
@@ -20,7 +19,7 @@ import { list, listTop } from "./api-news";
 import BestieNews from "../components/design-news/BestieNews";
 import DeleteNews from "./DeleteNews";
 import SnackError from "../errorHandler/SnackError.js";
-import Loading from "../components/loading/Loading";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
 import config from "./../config/config.js";
 import defaultPic from "./../assets/images/default-news.jpg";
 import kFormatter from "../components/numbers";
@@ -46,7 +45,7 @@ const News = (props) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setNews(data);
@@ -70,7 +69,7 @@ const News = (props) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setBesties(data);
@@ -90,14 +89,14 @@ const News = (props) => {
     setNews(updatedNews);
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
-    <Grid container spacing={2} sx={{p: {xs:1,sm:2,md:3,lg:6}}}  >
+    <Grid container spacing={2} sx={{ p: { xs: 1, sm: 2, md: 3, lg: 6 } }}>
       <Grid item xs={12} sm={5}>
-        <BestieNews news={besties} header="Trending News" />
+        {loading ? (
+          <ListSkelaton />
+        ) : (
+          <BestieNews news={besties} header="Trending News" />
+        )}
       </Grid>
       <Grid item xs={12} sm={7}>
         <Paper elevation={12}>
@@ -105,36 +104,40 @@ const News = (props) => {
             Whole News
           </Typography>
           <Divider />
-          <List dense>
-            {news &&
-              news.map((item, i) => (
-                <ListItem key={i} button>
-                  <ListItemAvatar>
-                    <Avatar
-                      src={
-                        item.photo
-                          ? config.ServerURI + "/api/news/photo/" + item._id
-                          : defaultPic
-                      }
+          {loading ? (
+            <ListSkelaton />
+          ) : (
+            <List dense>
+              {news &&
+                news.map((item, i) => (
+                  <ListItem key={i} button>
+                    <ListItemAvatar>
+                      <Avatar
+                        src={
+                          item.photo
+                            ? config.ServerURI + "/api/news/photo/" + item._id
+                            : defaultPic
+                        }
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={item.title}
+                      secondary={"Total Subscribers : " + kFormatter(item.subscriberLength) }
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={item.title}
-                    secondary={"Total Subscribers : " + kFormatter(item.subscriberLength)}
-                  />
-                  <ListItemSecondaryAction>
-                    {auth.isAuthenticated().user.role === "admin" && (
-                      <DeleteNews news={item} onRemove={removeNews} />
-                    )}
-                    <Link to={"/news/" + item._id}>
-                      <IconButton>
-                        <ArrowForwardIcon />
-                      </IconButton>
-                    </Link>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-          </List>
+                    <ListItemSecondaryAction>
+                      {auth.isAuthenticated().user.role === "admin" && (
+                        <DeleteNews news={item} onRemove={removeNews} />
+                      )}
+                      <Link to={"/news/" + item._id}>
+                        <IconButton>
+                          <ArrowForwardIcon />
+                        </IconButton>
+                      </Link>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+            </List>
+          )}
         </Paper>
       </Grid>
       <SnackError open={isError.openSnack} text={isError.error} />

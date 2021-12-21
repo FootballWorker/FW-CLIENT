@@ -13,12 +13,16 @@ import Typography from '@mui/material/Typography'
 import DeleteIcon from "@mui/icons-material/Delete";
 import {remove} from "./api-poll"
 import auth from "../auth/auth-helper"
-
+import SnackError from "../errorHandler/SnackError";
 
 
 const DeletePoll = (props) => {
   const [open, setOpen] = useState(false)
   const [redirect, setRedirect] = useState(false)
+  const [isError, setIsError] = useState({
+    openSnack: false,
+    error: "",
+  });
   const jwt = auth.isAuthenticated()
 
   const clickButton = () => {
@@ -32,8 +36,8 @@ const DeletePoll = (props) => {
   const deletePoll = () => {
     remove({ pollId: props.pollId }, { t: jwt.token }).then(
       (data) => {
-        if (data && data.error) {
-          console.log(data.error);
+        if (data?.error) {
+          setIsError({ ...isError, openSnack: true, error: "500 Server Error. Please try again." });
         } else {
           setRedirect(true);
         }
@@ -79,6 +83,7 @@ const DeletePoll = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
+      <SnackError open={isError.openSnack} text={isError.error} />
     </>
   );
 };

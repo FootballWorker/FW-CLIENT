@@ -13,7 +13,7 @@ export default function TransactionMatch (props) {
   const matchDate  = (new Date(props.match.date)).toTimeString()
   const checkDate = matchDate > presentDate 
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <Stack spacing={1}>
 	      <Typography align="center" variant="h5" sx={{p:2 , fontWeight:'bold' }} >Transactions </Typography>
         {props.audience && (
@@ -46,7 +46,7 @@ export default function TransactionMatch (props) {
                   p: 1,
                 }}
               >
-                <Typography>Become Audience</Typography>
+                <Typography>Book A Seat</Typography>
                 <Divider />
                 {props.audience ? (
                   <IconButton

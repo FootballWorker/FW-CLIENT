@@ -14,7 +14,6 @@ const create = async (user) =>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -29,7 +28,6 @@ const activation = async (params) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -41,7 +39,6 @@ const list = async(signal) =>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -53,7 +50,6 @@ const searchForUser = async (params) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -70,7 +66,6 @@ const read = async (params,credentials,signal) =>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -86,7 +81,6 @@ const update = async (params,credentials,user) =>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -106,7 +100,6 @@ const changeFavorite = async (params,credentials,favoriteTeam) =>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -122,7 +115,6 @@ const remove = async (params,credentials)=>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -142,7 +134,6 @@ const follow = async (params, credentials, followId) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -159,7 +150,6 @@ const unfollow = async(params,credentials,unfollowId)=>{
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -176,7 +166,6 @@ const followers = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -193,7 +182,6 @@ const followings = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -207,7 +195,6 @@ const applicants = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -219,7 +206,6 @@ const newsApplicants = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -238,7 +224,6 @@ const sendNtf = async (params,credentials,ntf) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -255,7 +240,6 @@ const listNtf = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -272,7 +256,6 @@ const readNtf = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -288,7 +271,6 @@ const listUnread = async (credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -304,7 +286,6 @@ const removeNtf = async( params, credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -320,7 +301,6 @@ const removeAll = async( credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 

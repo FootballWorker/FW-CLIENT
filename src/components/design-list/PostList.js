@@ -1,6 +1,7 @@
 // Need Check-Up
 import React from "react";
 import { Link } from "react-router-dom";
+import { format } from "timeago.js";
 import PropTypes from "prop-types";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -113,7 +114,7 @@ const PostList = (props) => {
                           flexWrap: "wrap",
                         }}
                       >
-                        {new Date(item.created).toLocaleString()}
+                        {format(item.created)}
                       </Typography>
                     </Box>
                   </Box>

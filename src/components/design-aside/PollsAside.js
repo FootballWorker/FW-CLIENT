@@ -1,13 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { List , ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText ,Paper} from '@mui/material'
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ListHeader from '../header/ListHeader';
 
 export default function PollsAside(props) {
   return (
-    <Paper elevation={12}  >
+    <Paper elevation={4}  >
       <ListHeader header={props.header} />
       <List dense>
         {props.polls &&

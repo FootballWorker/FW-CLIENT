@@ -15,7 +15,6 @@ const create = async (params,credentials,match) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -31,7 +30,6 @@ const read = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -48,7 +46,6 @@ const update = async (params,credentials,matchData) => {
     })
     return await response.json()
   } catch (error) {
-    console.log()
   }
 } 
 
@@ -64,7 +61,6 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -80,7 +76,6 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -96,7 +91,6 @@ const listByTeam = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -108,7 +102,6 @@ const latestMatches = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -125,7 +118,6 @@ const listForHome = async (credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -137,7 +129,6 @@ const searchMatchByTeam = async (params) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -149,7 +140,6 @@ const listByAudience = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -162,7 +152,6 @@ const searchForMatch = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -182,7 +171,6 @@ const audience = async (params,credentials,matchId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -202,7 +190,63 @@ const disaudience = async (params,credentials,matchId) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
+  }
+}
+
+const predictHome = async (params,credentials,matchId) => {
+  try {
+    let response = await fetch(config.ServerURI + "/api/prediction/home",{
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: JSON.stringify({
+        userId: params.userId,
+        matchId: matchId
+      })
+    })
+    return await response.json()
+  } catch (error) {
+  }
+}
+
+const predictDraw = async (params,credentials,matchId) => {
+  try {
+    let response = await fetch(config.ServerURI + "/api/prediction/draw",{
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: JSON.stringify({
+        userId: params.userId,
+        matchId: matchId
+      })
+    })
+    return await response.json()
+  } catch (error) {
+  }
+}
+
+const predictAway = async (params,credentials,matchId) => {
+  try {
+    let response = await fetch(config.ServerURI + "/api/prediction/away",{
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: JSON.stringify({
+        userId: params.userId,
+        matchId: matchId
+      })
+    })
+    return await response.json()
+  } catch (error) {
   }
 }
 
@@ -222,5 +266,8 @@ export {
   listByAudience,
   searchForMatch,
   audience,
-  disaudience
+  disaudience,
+  predictHome,
+  predictDraw,
+  predictAway,
 }

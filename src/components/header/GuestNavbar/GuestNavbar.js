@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+import { useHistory } from "react-router";
 import PropTypes from "prop-types";
-import {
-  AppBar,
-  Avatar,
-  Button,
-  Box,
-  Divider,
-  Toolbar,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -21,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import EmailIcon from "@mui/icons-material/Email";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import { animateScroll as scroll } from "react-scroll";
 
 import Logo from "./../../../assets/images/orijinalLogo.png";
 
@@ -28,6 +27,7 @@ const drawerWidth = 150;
 
 const GuestNavbar = (props) => {
   const { window } = props;
+  const history = useHistory();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Load Departments
@@ -137,7 +137,7 @@ const GuestNavbar = (props) => {
         position="fixed"
         sx={{
           width: "100%",
-          backgroundImage: "linear-gradient(to right,#51545B,#FED829 )",
+          bgcolor: "#51545b",
         }}
       >
         <Toolbar
@@ -169,55 +169,81 @@ const GuestNavbar = (props) => {
                   xs: "none",
                   md: "flex",
                 },
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
                 gap: 2,
               }}
             >
               <NavLink
                 to="/matches"
                 exact
-                activeStyle={{
+                style={{
+                  color: "#fed829",
                   fontWeight: "bold",
-                  color: "black",
+                  padding: "10px",
+                  fontSize: "1.1em",
+                  fontFamily: "'Quicksand', sans-serif",
+                }}
+                activeStyle={{
+                  fontWeight: "#51545b",
+                  color: "#51545b",
                   backgroundColor: "yellow",
                   borderRadius: "7px",
                 }}
               >
-                <Button sx={{ color: "#51545B", fontWeight: "bold" }}>
-                  Matches
-                </Button>
+                Matches
               </NavLink>
               <NavLink
                 to="/"
                 exact
+                style={{
+                  color: "#fed829",
+                  fontWeight: "bold",
+                  padding: "10px",
+                  fontSize: "1.1em",
+                  fontFamily: "'Quicksand', sans-serif",
+                }}
                 activeStyle={{
                   fontWeight: "bold",
-                  color: "black",
+                  color: "#51545b",
                   backgroundColor: "yellow",
                   borderRadius: "7px",
                 }}
+                onClick={() => scroll.scrollToTop()}
               >
-                <Button
-                  sx={{ color: "#51545B", fontWeight: "bold" }}
-                  onClick={() => scroll.scrollToTop()}
-                >
-                  Become FW
-                </Button>
+                Become FW
               </NavLink>
               <NavLink
                 to="/signin"
                 exact
+                style={{
+                  color: "#fed829",
+                  fontWeight: "bold",
+                  padding: "10px",
+                  fontSize: "1.1em",
+                  fontFamily: "'Quicksand', sans-serif",
+                }}
                 activeStyle={{
                   fontWeight: "bold",
-                  color: "black",
+                  color: "#51545b",
                   backgroundColor: "yellow",
                   borderRadius: "7px",
                 }}
               >
-                <Button color="primary" sx={{ fontWeight: "bold" }}>
-                  Continue to Work
-                </Button>
+                Continue to Work
               </NavLink>
             </Box>
+            <Button
+              sx={{
+                color: "#fed829",
+                fontWeight: "bold",
+                display: { xs: "inline", md: "none" },
+              }}
+              onClick={() => history.push("/signin")}
+            >
+              SIGN IN
+            </Button>
             <IconButton
               color="primary"
               aria-label="open drawer"
@@ -225,7 +251,7 @@ const GuestNavbar = (props) => {
               onClick={handleDrawerToggle}
               sx={{
                 ml: 1,
-                color: "#51545B",
+                color: "#fed829",
                 display: { xs: "inline", md: "none" },
               }}
             >

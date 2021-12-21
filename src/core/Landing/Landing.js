@@ -8,7 +8,6 @@ import { list } from "../../department/api-department";
 import LandingPC from './LandingPC'
 import LandingMobile from './LandingMobile'
 import SnackError from "../../errorHandler/SnackError";
-import Loading from "../../components/loading/Loading";
 
 const Landing = () => {
   const theme = useTheme()
@@ -29,11 +28,11 @@ const Landing = () => {
     setLoading(true);
 
     list(signal).then((data) => {
-      if (data && data.error) {
+      if (data?.error) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setDepartments(data);
@@ -45,10 +44,6 @@ const Landing = () => {
       abortController.abort();
     };
   }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
   
   if (redirect) {
     return <Redirect to="/home" />;
@@ -57,9 +52,9 @@ const Landing = () => {
   return (
     <div>
       {matches ? (
-        <LandingMobile departments={departments} />
+        <LandingMobile departments={departments} loading={loading}  />
         ) : (
-        <LandingPC departments={departments} />
+        <LandingPC departments={departments} loading={loading}  />
       )}
       <SnackError open={isError.openSnack} text={isError.error} />
     </div>

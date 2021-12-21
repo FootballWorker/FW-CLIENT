@@ -15,7 +15,6 @@ const create = async (credentials,position) => {
 
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -27,7 +26,6 @@ const listPositions = async (signal) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -43,7 +41,6 @@ const read = async (params, signal) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error)
   }
 };
 
@@ -63,7 +60,6 @@ const update = async (params, credentials, position) => {
     );
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 }; 
 
@@ -79,7 +75,6 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log()
   }
 }
 

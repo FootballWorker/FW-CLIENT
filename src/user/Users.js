@@ -52,7 +52,7 @@ export default function Users() {
   }
 
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       
         <Typography
           align="center"

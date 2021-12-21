@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import {
-  Avatar,
-  Box,
-  Grid,
-  Card,
-  CardActions,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListItemSecondaryAction,
-  MenuItem,
-  Typography,
-  Divider,
-  TextField,
-  Button,
-} from "@mui/material";
-import pollImage from "./../assets/images/poll.png";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import Grid from "@mui/material/Grid";
+import ListItem from "@mui/material/ListItem";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import CardActions from "@mui/material/CardActions";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 
+import pollImage from "./../assets/images/poll.png";
 import auth from "./../auth/auth-helper";
 import { read, vote } from "./api-poll";
 import DeletePoll from "./DeletePoll";
@@ -27,6 +25,8 @@ import Loading from "../components/loading/Loading";
 import kFormatter from "../components/numbers";
 import Timer from "./Timer";
 import config from "../config/config";
+import NotFound from "../components/outside/NotFound";
+
 
 
 const Poll = ({ match }) => {
@@ -40,6 +40,7 @@ const Poll = ({ match }) => {
     error: "",
   });
   const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false)
   const jwt = auth.isAuthenticated();
 
   // Load Poll Data
@@ -50,12 +51,11 @@ const Poll = ({ match }) => {
 
     read({ pollId: match.params.pollId }, { t: jwt.token }, signal).then(
       (data) => {
-        if (data && data.error) {
-          setIsError({
-            ...isError,
-            openSnack: true,
-            error: data.error,
-          });
+        if (data?.error == "Poll not found") {
+          setRedirect(true)
+        }
+        else if (data && data.error) {
+          setIsError({ ...isError, openSnack: true, error: "500 Server Error. Please try again." });
         } else {
           setPoll(data);
           let isVoted = checkVoter(data);
@@ -105,7 +105,7 @@ const Poll = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setVoted({
@@ -118,12 +118,13 @@ const Poll = ({ match }) => {
     });
   };
 
-  if (values.redirect) {
-    return <Redirect to="/home" />;
+
+  if(redirect){
+    return <NotFound text="the Poll" />
   }
 
   if (loading) {
-    return <Loading />;
+    return <Loading text="Poll is Loading..." />;
   }
 
 

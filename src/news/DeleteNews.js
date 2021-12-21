@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import auth from "./../auth/auth-helper.js";
 import { remove } from "./api-news";
-import SnackError from '../errorHandler/SnackError.js';
+import SnackError from "../errorHandler/SnackError.js";
 
 export default function DeleteNews(props) {
   const [isError, setIsError] = useState({
@@ -30,7 +36,7 @@ export default function DeleteNews(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setOpen(false);
@@ -38,7 +44,6 @@ export default function DeleteNews(props) {
       }
     });
   };
-
 
   return (
     <span>
@@ -63,8 +68,6 @@ export default function DeleteNews(props) {
     </span>
   );
 }
-
-
 
 DeleteNews.propTypes = {
   news: PropTypes.object.isRequired,

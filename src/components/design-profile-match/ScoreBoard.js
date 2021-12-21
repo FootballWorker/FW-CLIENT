@@ -11,17 +11,19 @@ import Typography from "@mui/material/Typography";
 import EventSeatRoundedIcon from "@mui/icons-material/EventSeatRounded";
 
 import { Link } from "react-router-dom";
+import Timing from "./Timing";
 import kFormatter from "../numbers";
 
 export default function ScoreBoard(props) {
-  const options = { weekday: 'long', year: '2-digit', month: 'long', day: 'numeric' };
   return (
     <Paper
-      elevation={12}
+      elevation={4}
       sx={{
-        bgcolor: "#000010",
-        width: "100%",
+        bgcolor: "#292C2C ",
+        maxWidth: 1400,
+        pt:1.5,
         color: "#00CED1",
+        margin:'auto'
       }}
     >
       <Grid
@@ -33,13 +35,13 @@ export default function ScoreBoard(props) {
           justifyContent: "center",
         }}
       >
-        <Grid item xs={4}>
-          <Link style={{color: "#00CED1"}} to={props.match.home && "/teams/"+ props.match.home._id} >
+        <Grid item xs={4} sx={{bgcolor:props.match?.home?.firstColor,borderRadius:'3px'}} >
+          <Link style={{ color: props.match?.home?.secondColor}} to={props.match.home && "/teams/"+ props.match.home._id} >
             <Typography
               sx={{
                 fontSize: {
-                  xs: 11,
-                  sm: 25,
+                  xs: 13,
+                  sm: 20,
                   md: 30,
                 },
                 fontWeight: "bold",
@@ -103,29 +105,16 @@ export default function ScoreBoard(props) {
           </>
         ) : (
           <Grid item xs={4}>
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: 8,
-                  sm: 15,
-                  md: 17,
-                },
-                fontWeight: "light",
-                fontFamily: "Orbitron",
-                color: "#FED829"
-              }}
-            >
-              {(new Date(props.match.date)).toLocaleString(options)}
-            </Typography>
+            <Timing endTime={props.match?.date} />
           </Grid>
         )}
-        <Grid item xs={4}>
-          <Link style={{color: "#00CED1"}} to={props.match.away && "/teams/"+ props.match.away._id} >
+        <Grid item xs={4} sx={{bgcolor: props.match.away?.firstColor,borderRadius:'3px' }} >
+          <Link style={{color: props.match?.away?.secondColor}} to={props.match.away && "/teams/"+ props.match.away._id} >
             <Typography
               sx={{
                 fontSize: {
-                  xs: 11,
-                  sm: 25,
+                  xs: 13,
+                  sm: 20,
                   md: 30,
                 },
                 fontWeight: "bold",
@@ -137,7 +126,7 @@ export default function ScoreBoard(props) {
           </Link>
         </Grid>
       </Grid>
-      <Divider variant="middle" />
+      <Divider variant="middle" sx={{color:'red',bgcolor:'red'}} />
       <Grid
         container
         spacing={1}
@@ -170,9 +159,9 @@ export default function ScoreBoard(props) {
                 xs: 9,
                 sm: 16,
                 md: 20,
-              },
-              color: "#FED829"
+              }
             }}
+            color="silver"
           />
           <Typography
             sx={{
@@ -182,8 +171,8 @@ export default function ScoreBoard(props) {
                 md: 20,
               },
               fontFamily: "Orbitron",
-              color: "#FED829"
             }}
+            color="silver"
           >
             {props.match.home && props.match.home.stadium}
           </Typography>
@@ -209,9 +198,9 @@ export default function ScoreBoard(props) {
                 xs: 9,
                 sm: 16,
                 md: 20,
-              },
-              color: "#FED829"
+              }
             }}
+            color="silver"
           />
           <Typography
             sx={{
@@ -221,8 +210,8 @@ export default function ScoreBoard(props) {
                 md: 20,
               },
               fontFamily: "Orbitron",
-              color: "#FED829"
             }}
+            color="silver"
           >
             {props.match.season}
           </Typography>
@@ -249,8 +238,8 @@ export default function ScoreBoard(props) {
                 sm: 16,
                 md: 20,
               },
-              color: "#FED829"
             }}
+            color="silver"
           />
           <Typography
             sx={{
@@ -260,8 +249,8 @@ export default function ScoreBoard(props) {
                 md: 20,
               },
               fontFamily: "Orbitron",
-              color: "#FED829"
             }}
+            color="silver"
           >
             {props.match.section}
           </Typography>
@@ -288,8 +277,8 @@ export default function ScoreBoard(props) {
                 sm: 16,
                 md: 20,
               },
-              color: "#FED829"
             }}
+            color="silver"
           />
           <Typography
             sx={{
@@ -299,10 +288,10 @@ export default function ScoreBoard(props) {
                 md: 20,
               },
               fontFamily: "Orbitron",
-              color: "#FED829"
             }}
+            color="silver"
           >
-            {props.match.audiences && kFormatter(props.match.audiences.length)}
+            {kFormatter(props.audiences)}
           </Typography>
         </Grid>
         <Grid
@@ -323,8 +312,8 @@ export default function ScoreBoard(props) {
                 sm: 16,
                 md: 20,
               },
-              color: "#FED829"
             }}
+            color="silver"
           />
           <Typography
             sx={{
@@ -334,10 +323,10 @@ export default function ScoreBoard(props) {
                 md: 20,
               },
               fontFamily: "Orbitron",
-              color: "#FED829"
             }}
+            color="silver"
           >
-            {kFormatter(props.match.views)}
+            { kFormatter(props.match.views)}
           </Typography>
         </Grid>
       </Grid>

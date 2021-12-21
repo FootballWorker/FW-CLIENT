@@ -1,15 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from "prop-types";
-import {
-  Paper,
-  List,
-  ListItemButton,
-  ListItemText,
-  IconButton,
-  Typography,
-  Divider,
-} from "@mui/material";
+import Paper from '@mui/material/Paper'
+import List from '@mui/material/List'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 

@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
 import Backdrop from "@mui/material/Backdrop";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 import CircularProgress from "@mui/material/CircularProgress";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import auth from "./../auth/auth-helper.js";
 import { remove } from "./api-match";
@@ -41,7 +39,7 @@ export default function DeleteMatch(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error.Please try again.",
           });
         } else {
           props.onRemove(props.match);

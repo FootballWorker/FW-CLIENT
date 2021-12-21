@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {format} from 'timeago.js'
 import PropTypes from "prop-types";
 import { Divider, List, ListItem, ListItemText, Paper, Typography } from '@mui/material'
 import ListHeader from '../header/ListHeader';
 
 export default function PollList(props) {
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <ListHeader header="Polls" />
       <Divider />
       <List dense>
@@ -37,7 +38,7 @@ export default function PollList(props) {
                       },
                     }}
                   >
-                    {(new Date(item.created)).toDateString()}
+                    {format(item.created)}
                   </Typography>
                 }
               />

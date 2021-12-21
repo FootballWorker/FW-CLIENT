@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid } from '@mui/material'
+import Grid from "@mui/material/Grid";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -8,9 +8,9 @@ import {read,listRelated,like,unlike} from './api-comment'
 import SideComments from '../components/design-aside/SideComments'
 import SingleComment from '../components/design-post/SingleComment'
 import SnackError from "../errorHandler/SnackError.js";
-import Loading from "../components/loading/Loading";
-
-
+import PostSkelaton from "../components/skelatons/PostSkelaton";
+import SideSkeleton from "../components/skelatons/SideSkeleton";
+import NotFound from "../components/outside/NotFound";
 
 
 const Comment = ({match}) => {
@@ -21,6 +21,7 @@ const Comment = ({match}) => {
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState({})
   const [related, setRelated] = useState([])
+  const [redirect, setRedirect] = useState(false)
   const [open, setOpen] = useState(false);
   const jwt = auth.isAuthenticated()
 
@@ -34,12 +35,11 @@ const Comment = ({match}) => {
       {commentId: match.params.commentId},
       signal
     ).then((data)=>{
-      if(data && data.error){
-        setIsError({
-          ...isError,
-          openSnack: true,
-          error: data.error,
-        });
+      if (data?.error === "Comment not found") {
+        setRedirect(true)
+      }
+      else if (data && data.error) {
+        setIsError({ ...isError, open: true, error: "500 Server Error. Please try again." });
       }else {
         setComment(data)
         let like = checkLike(data);
@@ -121,8 +121,8 @@ const Comment = ({match}) => {
     );
   }
 
-  if (loading) {
-    return <Loading />;
+  if(redirect){
+    return <NotFound text="the Comment" />
   }
 
 
@@ -130,15 +130,23 @@ const Comment = ({match}) => {
     <div>
       <Grid container spacing={2} sx={{p:2}} >
         <Grid item xs={12} md={ related ? 8 : 12 }>
-          <SingleComment
-            comment={comment}
-            like={values.like}
-            likes={values.likes}
-            clickLike={clickLike}
-          />
+        {loading ? (
+            <SideSkeleton />
+          ) : (
+            <SingleComment
+              comment={comment}
+              like={values.like}
+              likes={values.likes}
+              clickLike={clickLike}
+            />
+          )}
         </Grid>
         <Grid item xs={12} md={4}>
-          <SideComments comments={related} header="Related Comments" />
+        {loading ? (
+            [1, 2, 3, 4].map((n) => <PostSkelaton key={n} />)
+          ) : (
+            <SideComments comments={related} />
+          )}
         </Grid>
       </Grid>
       <SnackError open={isError.openSnack} text={isError.error} />

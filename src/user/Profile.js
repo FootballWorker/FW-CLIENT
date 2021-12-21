@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Paper,
-  Snackbar,
-  useTheme,
-  useMediaQuery,
-  Grid,
-  Stack,
-} from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Snackbar from "@mui/material/Snackbar";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import MuiAlert from "@mui/material/Alert";
@@ -14,12 +11,18 @@ import MuiAlert from "@mui/material/Alert";
 import auth from "./../auth/auth-helper";
 import { read } from "./api-user.js";
 import { listByUser } from "./../post/api-post";
+import { listLikedTeam } from "./../team/api-team";
 import { totalUser, totalUserComment } from "./../stats/api-stats";
 import PostList from "../components/design-list/PostList";
 import UserProfile from "../components/design-profile-user/UserProfile";
 import TransactionUser from "../components/design-transaction/user/TransactionUser";
-import Loading from "../components/loading/Loading";
 import UserStats from "../stats/UserStats";
+import PostSkelaton from "../components/skelatons/PostSkelaton";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
+import NotFound from "../components/outside/NotFound";
+import TopSection from "../components/design-profile-user/TopSection";
+import Bestie from "../components/design-aside/Bestie";
+import UserSkeleton from "../components/skelatons/UserSkeleton";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -36,6 +39,8 @@ const Profile = ({ match }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [redirect, setRedirect] = useState(false);
   const [totalPostLikes, setTotalPostLikes] = useState({});
   const [totalCommentLikes, setTotalCommentLikes] = useState({});
   const jwt = auth.isAuthenticated();
@@ -48,8 +53,10 @@ const Profile = ({ match }) => {
 
     read({ userId: match.params.userId }, { t: jwt.token }, signal).then(
       (data) => {
-        if (data && data.error) {
-          setIsError({ ...isError, open: true, error: data.error });
+        if (data?.error === "User not found") {
+          setRedirect(true);
+        } else if (data && data.error) {
+          setIsError({ ...isError, open: true, error: "500 Server Error!" });
         } else {
           setUser(data);
           let following = checkFollow(data);
@@ -81,6 +88,33 @@ const Profile = ({ match }) => {
     followers: 0,
   });
 
+  // Load Teams
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    setLoading(true);
+
+    listLikedTeam(
+      { userId: match.params.userId },
+      { t: jwt.token },
+      signal
+    ).then((data) => {
+      if (data && data.error) {
+        setIsError({
+          ...isError,
+          open: true,
+          error: "500 Server Error. Please try again.",
+        });
+      } else {
+        setTeams(data);
+        setLoading(false);
+      }
+    });
+    return () => {
+      abortController.abort();
+    };
+  }, [match.params.userId]);
+
   // Follow Button System
   const clickFollowButton = (callApi) => {
     setProgress(true);
@@ -90,7 +124,11 @@ const Profile = ({ match }) => {
       match.params.userId
     ).then((data) => {
       if (data && data.error) {
-        setIsError({ ...isError, error: data.error, open: true });
+        setIsError({
+          ...isError,
+          error: "500 Server Error. Please try again.",
+          open: true,
+        });
       } else {
         setFollowState({
           ...followState,
@@ -111,10 +149,13 @@ const Profile = ({ match }) => {
     listByUser({ userId: match.params.userId }, { t: jwt.token }, signal).then(
       (data) => {
         if (data && data.error) {
-          setIsError({ ...isError, open: true, error: data.error });
+          setIsError({
+            ...isError,
+            open: true,
+            error: "500 Server Error. Please try again.",
+          });
         } else {
           setPosts(data);
-          
         }
       }
     );
@@ -131,7 +172,11 @@ const Profile = ({ match }) => {
 
     totalUser({ userId: match.params.userId }, signal).then((data) => {
       if (data?.error) {
-        console.log(data.error);
+        setIsError({
+          ...isError,
+          error: "500 Server Error. Please try again.",
+          open: true,
+        });
       } else {
         setTotalPostLikes(data);
       }
@@ -149,7 +194,11 @@ const Profile = ({ match }) => {
 
     totalUserComment({ userId: match.params.userId }, signal).then((data) => {
       if (data?.error) {
-        console.log(data.error);
+        setIsError({
+          ...isError,
+          error: "500 Server Error. Please try again.",
+          open: true,
+        });
       } else {
         setTotalCommentLikes(data);
         setLoading(false);
@@ -187,7 +236,11 @@ const Profile = ({ match }) => {
     if (teamId && userId) {
       callApi({ userId: userId }, { t: jwt.token }, teamId).then((data) => {
         if (data.error) {
-          setIsError({ ...isError, error: data.error, open: true });
+          setIsError({
+            ...isError,
+            error: "500 Server Error. Please try again.",
+            open: true,
+          });
         } else {
           setUser(data);
         }
@@ -203,7 +256,11 @@ const Profile = ({ match }) => {
       callApi({ userId: match.params.userId }, { t: jwt.token }, teamId).then(
         (data) => {
           if (data?.error) {
-            setIsError({ ...isError, error: data.error, open: true });
+            setIsError({
+              ...isError,
+              error: "500 Server Error. Please try again.",
+              open: true,
+            });
           } else {
             setUser(data);
           }
@@ -222,7 +279,11 @@ const Profile = ({ match }) => {
       callApi({ userId: match.params.userId }, { t: jwt.token }, newsId).then(
         (data) => {
           if (data?.error) {
-            setIsError({ ...isError, error: data.error, open: true });
+            setIsError({
+              ...isError,
+              error: "500 Server Error. Please try again.",
+              open: true,
+            });
           } else {
             setUser(data);
           }
@@ -239,7 +300,11 @@ const Profile = ({ match }) => {
       callApi({ userId: match.params.userId }, { t: jwt.token }, newsId).then(
         (data) => {
           if (data?.error) {
-            setIsError({ ...isError, error: data.error, open: true });
+            setIsError({
+              ...isError,
+              error: "500 Server Error. Please try again.",
+              open: true,
+            });
           } else {
             setUser(data);
           }
@@ -250,64 +315,90 @@ const Profile = ({ match }) => {
     }
   };
 
-  if (loading) {
-    return <Loading />;
+  if (redirect) {
+    return <NotFound text="the User" />;
   }
 
   return (
-    <Paper elevation={4} sx={{ p: 1 }}>
-      {matches ? (
-        <Grid container spacing={3} sx={{ p: { md: 4, lg: 9 } }}>
-          <Grid item md={7} lg={8}>
+    <Paper elevation={0} sx={{ p: 1 }}>
+      {loading ? (
+        <UserSkeleton />
+      ) : (
+        <Grid
+          container
+          spacing={2}
+          sx={{
+            mb: { xs: 2, md: 0 },
+            pl: { sm: 1, md: 5, lg: 14 },
+            pr: { sm: 1, md: 5, lg: 14 },
+          }}
+        >
+          <Grid item xs={12} md={7} lg={8}>
+            <TopSection user={user} isError={isError} setIsError={setIsError} />
             <UserStats
               postLike={totalPostLikes?.sumLikes}
               commentLike={totalCommentLikes?.sumLikes}
             />
-            <PostList posts={posts} removePost={removePost} />
           </Grid>
-          <Grid item md={5} lg={4}>
+          <Grid
+            item
+            xs={12}
+            md={5}
+            lg={4}
+            sx={{ mt: { xs: 0, md: 0 }, mr: { xs: 1, md: 0 } }}
+          >
             <Stack spacing={1}>
               <UserProfile user={user} />
-              {auth.isAuthenticated() && (
-                <TransactionUser
-                  staff={jwt.user}
-                  user={user}
-                  followButton={clickFollowButton}
-                  following={followState.following}
-                  followers={followState.followers}
-                  followings={user.following?.length}
-                  presidentButton={presidentButton}
-                  firingTeam={firingTeam}
-                  editorButton={editorButton}
-                  employeeButton={employeeButton}
-                />
-              )}
+              <TransactionUser
+                staff={jwt.user}
+                user={user}
+                followButton={clickFollowButton}
+                following={followState.following}
+                followers={followState.followers}
+                followings={user.following?.length}
+                presidentButton={presidentButton}
+                firingTeam={firingTeam}
+                editorButton={editorButton}
+                employeeButton={employeeButton}
+              />
             </Stack>
           </Grid>
         </Grid>
+      )}
+      {matches ? (
+        <Grid
+          container
+          spacing={2}
+          sx={{ pt: 2, pr: { md: 3, lg: 12 }, pl: { md: 3, lg: 12 } }}
+        >
+          <Grid item md={7} lg={8}>
+            {loading ? (
+              [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+            ) : (
+              <PostList posts={posts} removePost={removePost} />
+            )}
+          </Grid>
+          <Grid
+            item
+            md={5}
+            lg={4}
+            sx={{ mt: { xs: 0, md: 0 }, mr: { xs: 1, md: 0 } }}
+          >
+            {loading ? (
+              <ListSkelaton />
+            ) : (
+              <Bestie values={teams} header="Starred Teams" />
+            )}
+          </Grid>
+        </Grid>
       ) : (
-        <Stack spacing={1}>
-          <UserProfile user={user} />
-          {auth.isAuthenticated() && (
-            <TransactionUser
-              staff={jwt.user}
-              user={user}
-              followButton={clickFollowButton}
-              following={followState.following}
-              followers={followState.followers}
-              followings={user.following?.length}
-              presidentButton={presidentButton}
-              firingTeam={firingTeam}
-              editorButton={editorButton}
-              employeeButton={employeeButton}
-            />
+        <div style={{ marginTop: "1em" }}>
+          {loading ? (
+            [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+          ) : (
+            <PostList posts={posts} removePost={removePost} />
           )}
-          <UserStats
-            postLike={totalPostLikes?.sumLikes}
-            commentLike={totalCommentLikes?.sumLikes}
-          />
-          <PostList posts={posts} removePost={removePost} />
-        </Stack>
+        </div>
       )}
       <Snackbar
         open={isError.open}

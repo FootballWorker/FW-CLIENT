@@ -1,28 +1,34 @@
-import React , { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from "@mui/material";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import auth from './../auth/auth-helper.js'
+import auth from "./../auth/auth-helper.js";
 import { remove } from "./api-user.js";
 import { Redirect } from "react-router-dom";
 import SnackError from "../errorHandler/SnackError.js";
 
 export default function DeleteUser(props) {
-  const [open, setOpen] = useState(false)
-  const [redirect, setRedirect] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [progress, setProgress] = useState(false);
-  const jwt = auth.isAuthenticated()
+  const jwt = auth.isAuthenticated();
   const [isError, setIsError] = useState({
     openSnack: false,
     error: "",
   });
 
-  const clickButton = ()=> {
-    setOpen(true)
-  }
+  const clickButton = () => {
+    setOpen(true);
+  };
 
   const handleRequestClose = () => {
     setOpen(false);
@@ -30,26 +36,28 @@ export default function DeleteUser(props) {
 
   const deleteAccount = () => {
     setProgress(true);
-    remove({
-      userId : props.userId
-    },{t: jwt.token}).then((data)=>{
-      if(data && data.error) {
+    remove(
+      {
+        userId: props.userId,
+      },
+      { t: jwt.token }
+    ).then((data) => {
+      if (data && data.error) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error! Please Try Again.",
         });
-      }else {
-        auth.clearJWT(()=>console.log('deleted'))
+      } else {
+        auth.clearJWT(() => console.log("deleted"));
         setProgress(false);
-        setRedirect(true)
+        setRedirect(true);
       }
-    })
-  }
+    });
+  };
 
-
-  if (redirect) {    
-    return <Redirect to='/'/>
+  if (redirect) {
+    return <Redirect to="/" />;
   }
 
   return (

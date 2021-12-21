@@ -15,7 +15,6 @@ const create = async (credentials,department) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -27,7 +26,6 @@ const read = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -39,7 +37,6 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -56,7 +53,6 @@ const update = async (params, credentials, department) => {
     });
     return await response.json();
   } catch (error) {
-    console.log(error);
   }
 }; 
 
@@ -72,7 +68,6 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log()
   }
 }
 

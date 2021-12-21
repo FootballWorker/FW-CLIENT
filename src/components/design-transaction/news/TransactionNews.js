@@ -18,7 +18,7 @@ import kFormatter from '../../numbers';
 
 export default function TransactionNews(props) {
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <Stack spacing={1}>
         {props.news &&
           props.news.editor &&

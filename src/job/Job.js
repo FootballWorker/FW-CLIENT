@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Grid,
-  useTheme,
-  useMediaQuery,
-  Box,
-  Divider,
-  IconButton,
-  Typography,
-  Stack,
-  Paper,
-} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import { useTheme, useMediaQuery } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 
 import auth from "./../auth/auth-helper";
@@ -21,7 +18,8 @@ import VacantJobs from "../components/design-profile-job/VacantJobs";
 import PostList from "../components/design-list/PostList";
 import SnackError from "../errorHandler/SnackError";
 import PageHeader from "./../components/header/PageHeader";
-import Loading from "../components/loading/Loading";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
+import PostSkelaton from "../components/skelatons/PostSkelaton";
 
 const Job = ({ match }) => {
   const theme = useTheme();
@@ -49,7 +47,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           setJob(data);
@@ -75,7 +73,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           setWorkers(data);
@@ -101,7 +99,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           setVacants(data);
@@ -127,7 +125,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           setPosts(data);
@@ -141,12 +139,8 @@ const Job = ({ match }) => {
     };
   }, [match.params.jobId]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
-    <Paper>
+    <Paper elevation={0} >
       <PageHeader header={job.title} />
       {matches ? (
         <Grid
@@ -156,10 +150,19 @@ const Job = ({ match }) => {
         >
           <Grid item md={7} lg={8}>
             <Stack spacing={1}>
-              {job.department && job.department.name !== "JOURNAL" && (
-                <VacantJobs teams={vacants} />
+              {loading ? (
+                <ListSkelaton />
+              ) : (
+                job.department &&
+                job.department.name !== "JOURNAL" && (
+                  <VacantJobs teams={vacants} />
+                )
               )}
-              <PostList posts={posts} header="Latest Posts" />
+              {loading ? (
+                [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+              ) : (
+                <PostList header="Latest Posts" posts={posts} />
+              )}
             </Stack>
           </Grid>
           <Grid item md={5} lg={4}>
@@ -183,7 +186,7 @@ const Job = ({ match }) => {
                   </Link>
                 </Box>
               ) : null}
-              <BestWorkers workers={workers} />
+              {loading ? <ListSkelaton /> : <BestWorkers workers={workers} />}
             </Stack>
           </Grid>
         </Grid>
@@ -208,11 +211,22 @@ const Job = ({ match }) => {
               </Link>
             </Box>
           ) : null}
-          {job.department && job.department.name !== "JOURNAL" && (
-            <VacantJobs teams={vacants} />
+          {loading ? (
+            <>
+              <ListSkelaton />
+              {[1, 2, 3, 4, 5].map((n) => (
+                <PostSkelaton key={n} />
+              ))}
+            </>
+          ) : (
+            <>
+              {job.department && job.department.name !== "JOURNAL" && (
+                <VacantJobs teams={vacants} />
+              )}
+              <BestWorkers workers={workers} />
+              <PostList posts={posts} />
+            </>
           )}
-          <BestWorkers workers={workers} />
-          <PostList posts={posts} />
         </Stack>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />

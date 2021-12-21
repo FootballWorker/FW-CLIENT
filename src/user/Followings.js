@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Avatar,
-  Divider,
-  List,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemSecondaryAction,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Paper from "@mui/material/Paper";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
+import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import auth from "./../auth/auth-helper";
 import { followings } from "./api-user";
 import config from "./../config/config";
 import SnackError from "../errorHandler/SnackError";
-import Loading from "../components/loading/Loading";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
 
 export default function Followings({ match }) {
   const [users, setUsers] = useState([]);
@@ -39,7 +37,7 @@ export default function Followings({ match }) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error! Please, try again.",
           });
         } else {
           setUsers(data);
@@ -53,40 +51,57 @@ export default function Followings({ match }) {
     };
   }, [match.params.userId]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
 
   return (
-    <Paper elevation={4} sx={{ margin: {xs:1,sm:2,md:3,lg:5}, p: {xs:1,sm:2,md:3,lg:14} }}>
-      <Typography align="center" variant="h5" gutterBottom>
-        Followers
-      </Typography>
-      <Divider variant="middle" />
-      <List>
-        {users &&
-          users.length > 0 &&
-          users.map((item, i) => (
-            <ListItemButton key={i}>
-              <ListItemAvatar>
-                <Avatar
-                  src={
-                    item.photo &&
-                    config.ServerURI + "/api/users/photo/" + item._id
-                  }
-                />
-              </ListItemAvatar>
-              <ListItemText primary={item.name} />
-              <ListItemSecondaryAction>
-                <Link to={"/users/" + item._id}>
-                  <ArrowForwardIcon />
-                </Link>
-              </ListItemSecondaryAction>
-            </ListItemButton>
-          ))}
-      </List>
-      <SnackError open={isError.openSnack} text={isError.error} />
-    </Paper>
+    <Paper
+    elevation={0}
+    sx={{
+      margin: { xs: 0.1, sm: 2, md: 3, lg: 5 },
+      p: { xs: 1, sm: 2, md: 3, lg: 14 },
+    }}
+  >
+    {loading ? (
+      <ListSkelaton />
+    ) : (
+      <div>
+        <Typography
+          align="center"
+          variant="h4"
+          gutterBottom
+          sx={{
+            p: 3,
+            fontWeight: "bold",
+            fontFamily: "'Quicksand', sans-serif",
+          }}
+        >
+          Followings
+        </Typography>
+        <Divider variant="middle" />
+        <List sx={{ margin: "auto", maxWidth: 600 }}>
+          {users &&
+            users.length > 0 &&
+            users.map((item, i) => (
+              <ListItemButton key={i}>
+                <ListItemAvatar>
+                  <Avatar
+                    src={
+                      item.photo &&
+                      config.ServerURI + "/api/users/photo/" + item._id
+                    }
+                  />
+                </ListItemAvatar>
+                <ListItemText primary={item.name} />
+                <ListItemSecondaryAction>
+                  <Link to={"/users/" + item._id}>
+                    <ArrowForwardIcon />
+                  </Link>
+                </ListItemSecondaryAction>
+              </ListItemButton>
+            ))}
+        </List>
+      </div>
+    )}
+    <SnackError open={isError.openSnack} text={isError.error} />
+  </Paper>
   );
 }

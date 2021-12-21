@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import auth from "./../auth/auth-helper.js";
@@ -30,18 +28,20 @@ export default function DeleteAttribute(props) {
 
   // Delete Shop API
   const deleteAttribute = () => {
-    remove({ attributeId: props.attribute._id }, { t: jwt.token }).then((data) => {
-      if (data.error) {
-        setIsError({
-          ...isError,
-          openSnack: true,
-          error: data.error,
-        });
-      } else {
-        setOpen(false);
-        props.onRemove(props.attribute);
+    remove({ attributeId: props.attribute._id }, { t: jwt.token }).then(
+      (data) => {
+        if (data.error) {
+          setIsError({
+            ...isError,
+            openSnack: true,
+            error: "500 Server Error. Please try again.",
+          });
+        } else {
+          setOpen(false);
+          props.onRemove(props.attribute);
+        }
       }
-    });
+    );
   };
 
   // Cancel Delete Request API
@@ -58,7 +58,9 @@ export default function DeleteAttribute(props) {
       <Dialog open={open} onClose={handleRequestClose}>
         <DialogTitle>Delete Attribute</DialogTitle>
         <DialogContent>
-          <DialogContentText>Confirm to delete this attribute.</DialogContentText>
+          <DialogContentText>
+            Confirm to delete this attribute.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleRequestClose} color="primary">
@@ -76,7 +78,6 @@ export default function DeleteAttribute(props) {
     </>
   );
 }
-
 
 DeleteAttribute.propTypes = {
   attribute: PropTypes.object.isRequired,

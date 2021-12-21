@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
-  Grid,
   useTheme,
   useMediaQuery,
-  Stack,
-  Typography,
-  Paper,
 } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 
 import auth from "./../auth/auth-helper";
 import { read } from "./api-department";
@@ -17,7 +17,8 @@ import JobsByDepartment from "./../components/design-profile-department/JobsByDe
 import PostList from "../components/design-list/PostList";
 import TransactionDepartment from "../components/design-transaction/department/TransactionDepartment";
 import SnackError from "../errorHandler/SnackError";
-import Loading from "../components/loading/Loading";
+import PostSkelaton from "../components/skelatons/PostSkelaton";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
 
 const Department = ({ match }) => {
   const theme = useTheme();
@@ -42,7 +43,7 @@ const Department = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setDepartment(data);
@@ -69,7 +70,7 @@ const Department = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPosts(data);
@@ -94,7 +95,7 @@ const Department = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           setJobs(data);
@@ -107,11 +108,8 @@ const Department = ({ match }) => {
     };
   }, [match.params.departmentId]);
 
-  if (loading) {
-    return <Loading />;
-  }
   return (
-    <Paper>
+    <Paper elevation={0} >
       <Box sx={{ m: 3, p: 2 }}>
         <Typography
           align="center"
@@ -127,11 +125,15 @@ const Department = ({ match }) => {
       {matches ? (
         <Grid container spacing={1} sx={{ mt: 2, p: { xs: 1, md: 3, lg: 7 } }}>
           <Grid item md={7}>
-            <PostList header="Post Listed Latest" posts={posts} />
+          {loading ? (
+                [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+              ) : (
+                <PostList header="Latest Posts" posts={posts} />
+              )}
           </Grid>
           <Grid item md={5}>
             <Stack spacing={1}>
-              <JobsByDepartment jobs={jobs} />
+            {loading ? <ListSkelaton /> : <JobsByDepartment jobs={jobs} />}
               {auth.isAuthenticated() &&
               auth.isAuthenticated().user.role === "admin" ? (
                 <TransactionDepartment department={department} />
@@ -141,12 +143,16 @@ const Department = ({ match }) => {
         </Grid>
       ) : (
         <Stack spacing={1} sx={{ p: 2 }}>
-          <JobsByDepartment jobs={jobs} />
+         {loading ? <ListSkelaton /> : <JobsByDepartment jobs={jobs} />}
           {auth.isAuthenticated() &&
           auth.isAuthenticated().user.role === "admin" ? (
             <TransactionDepartment department={department} />
           ) : null}
-          <PostList posts={posts} header="Latest Posts" />
+          {loading ? (
+            [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+          ) : (
+            <PostList header="Latest Posts" posts={posts} />
+          )}
         </Stack>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />

@@ -54,22 +54,34 @@ import Followings from "./user/Followings.js";
 import Activate from "./user/Activate.js";
 import Forgot from "./auth/Forgot.js";
 import Reset from "./auth/Reset.js";
-
+import Messanger from "./messanger/Messanger.js";
+import NotFound from "./components/outside/NotFound.js";
+import SingleChat from "./messanger/SingleChat.js";
+import EditAttribute from "./attribute/EditAttribute.js";
+import ScrollToTop from "./ScrollToTop.js";
 
 const MainRouter = () => {
   return (
-    <div>
+    <ScrollToTop>
       <Menu />
       <Switch>
         <PublicRoute path="/" component={Landing} exact />
         <PublicRoute path="/forgot/password" component={Forgot} exact />
-        <PublicRoute path="/reset/password/:resetToken" component={Reset} exact />
+        <PublicRoute
+          path="/reset/password/:resetToken"
+          component={Reset}
+          exact
+        />
         <PublicRoute path="/contact" component={Contact} exact />
         <PublicRoute path="/home" component={Home} exact />
         <PublicRoute path="/adminsignup" component={NewUser} exact />
         <PublicRoute path="/signup/to/:departmentId" component={Signup} exact />
         <PublicRoute path="/signin" component={Signin} exact />
-        <PublicRoute path="/activate/:activationToken" component={Activate} exact />
+        <PublicRoute
+          path="/activate/:activationToken"
+          component={Activate}
+          exact
+        />
         <PrivateRoute
           path="/users/edit/:userId"
           component={EditProfile}
@@ -78,9 +90,18 @@ const MainRouter = () => {
         <PrivateRoute path="/users/:userId" component={Profile} exact />
         <PrivateRoute path="/followers/:userId" component={Followers} exact />
         <PrivateRoute path="/followings/:userId" component={Followings} exact />
-        <PrivateRoute path="/notifications/by/:userId" component={Notifications} exact />
-        <PrivateRoute path="/notifications/:notificationId" component={Notification} exact />
-
+        <PrivateRoute
+          path="/notifications/by/:userId"
+          component={Notifications}
+          exact
+        />
+        <PrivateRoute
+          path="/notifications/:notificationId"
+          component={Notification}
+          exact
+        />
+        <PrivateRoute path="/messanger/:userId" component={Messanger} exact />
+        <PrivateRoute path="/chats/:chatId" component={SingleChat} exact />
 
         <AdminRoute path="/department/new" component={NewDepartment} exact />
         <PublicRoute
@@ -132,7 +153,11 @@ const MainRouter = () => {
         <PrivateRoute path="/newpost/:matchId" component={NewPost} exact />
 
         <PrivateRoute path="/comments/:commentId" component={Comment} exact />
-        <PrivateRoute path="/comments/by/:userId" component={UserComments} exact />
+        <PrivateRoute
+          path="/comments/by/:userId"
+          component={UserComments}
+          exact
+        />
         <PrivateRoute
           path="/comment/new/:postId"
           component={NewComment}
@@ -141,6 +166,12 @@ const MainRouter = () => {
 
         <PrivateRoute path="/polls/:pollId" component={Poll} exact />
         <PrivateRoute path="/new/poll/:teamId" component={NewPoll} exact />
+        <PrivateRoute
+          path="/attributes/edit/:attributeId"
+          component={EditAttribute}
+          exact
+        />
+
         <AdminRoute path="/users" component={Users} exact />
         <AdminRoute
           path="/position/edit/:positionId"
@@ -151,8 +182,9 @@ const MainRouter = () => {
         <AdminRoute path="/new/position" component={NewPosition} />
         <AdminRoute path="/dashboard" component={Dashboard} />
         <Route component={Outside} />
+        <Route component={NotFound} />
       </Switch>
-    </div>
+    </ScrollToTop>
   );
 };
 

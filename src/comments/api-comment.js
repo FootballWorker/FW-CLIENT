@@ -13,7 +13,7 @@ const create = async (params,credentials,comment) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -30,7 +30,7 @@ const list = async (params,credentials,signal) => {
     });
     return await response.json()
   }catch(error){
-    console.log(error)
+    
   }
 }
 
@@ -46,7 +46,7 @@ const listRelated = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -63,7 +63,7 @@ const listByUser = async (params,credentials,signal) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -79,7 +79,7 @@ const listTopPost = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -96,7 +96,7 @@ const listTopUser = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -108,7 +108,7 @@ const read = async (params,signal) => {
     });
     return await response.json()
   } catch (error) {
-    console.log()
+    
   }
 }
 
@@ -124,7 +124,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -144,7 +144,7 @@ const like = async (params,credentials,commentId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
@@ -164,7 +164,7 @@ const unlike = async (params, credentials,commentId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log()
+    
   }
 }
 

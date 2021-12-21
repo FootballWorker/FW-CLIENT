@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  Stack,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import {  useMediaQuery, useTheme } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-
-import { read , star, unstar } from "./api-player.js";
-import {listByPlayer} from './../post/api-post'
-import { listAttributes,averageAttributes } from "./../attribute/api-attribute";
+import { read, star, unstar } from "./api-player.js";
+import { listByPlayer } from "./../post/api-post";
+import {
+  listAttributes,
+  averageAttributes,
+  scoresByUser,
+} from "./../attribute/api-attribute";
 import auth from "./../auth/auth-helper";
 import Overall from "../components/design-profile-player/Overall.js";
 import PlayerBox from "../components/design-profile-player/PlayerBox.js";
@@ -19,19 +19,22 @@ import PostList from "../components/design-list/PostList.js";
 import TransactionPlayer from "../components/design-transaction/player/TransactionPlayer.js";
 import SnackError from "../errorHandler/SnackError.js";
 import AuthenticationError from "../errorHandler/AuthenticationError.js";
-import Loading from "../components/loading/Loading";
-
-
+import PostSkelaton from "../components/skelatons/PostSkelaton.js";
+import ProfileSkelaton from "../components/skelatons/ProfileSkelaton.js";
+import OverallSkeleton from "../components/skelatons/OverallSkeleton.js";
+import NotFound from "../components/outside/NotFound.js";
 
 const Player = ({ match }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-  const [player, setPlayer] = useState({})
-  const [posts, setPosts] = useState([])
-  const [average, setAverage] = useState([])
-  const [attributes, setAttributes] = useState([])
+  const [player, setPlayer] = useState({});
+  const [posts, setPosts] = useState([]);
+  const [average, setAverage] = useState([]);
+  const [attributes, setAttributes] = useState([]);
+  const [assessments, setAssessments] = useState([]);
   const [progress, setProgress] = useState(false);
   const [open, setOpen] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({
     openSnack: false,
@@ -46,14 +49,16 @@ const Player = ({ match }) => {
     setLoading(true);
 
     read({ playerId: match.params.playerId }, signal).then((data) => {
-      if (data && data.error) {
+      if (data?.error === "Player not found!") {
+        setRedirect(true);
+      } else if (data && data.error) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
-	      setPlayer(data)
+        setPlayer(data);
         let stars = checkLike(data);
         setStarState({
           ...starState,
@@ -61,7 +66,6 @@ const Player = ({ match }) => {
           starLength: data.stars.length,
         });
         // setLoading(false);
-        
       }
     });
     return function cleanup() {
@@ -71,7 +75,8 @@ const Player = ({ match }) => {
 
   const checkLike = (player) => {
     const match =
-      player && jwt.user &&
+      player &&
+      jwt.user &&
       player.stars.some((user) => {
         return user._id === jwt.user._id;
       });
@@ -93,10 +98,10 @@ const Player = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
-        setPosts(data)
+        setPosts(data);
         // setLoading(false);
       }
     });
@@ -118,10 +123,10 @@ const Player = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
-          setAverage(data)
+          setAverage(data);
           // setLoading(false);
         }
       }
@@ -132,31 +137,56 @@ const Player = ({ match }) => {
     };
   }, [match.params.playerId]);
 
-  // Load Attributes
+  // Load Asessments by user
   useEffect(() => {
     setLoading(true);
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    listAttributes(
+    scoresByUser(
       { playerId: match.params.playerId },
+      { t: jwt.token },
       signal
     ).then((data) => {
       if (data && data.error) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
-        setAttributes(data)
-        setLoading(false);
+        setAssessments(data);
       }
     });
     return () => {
       abortController.abort();
     };
   }, [match.params.playerId]);
+
+  // Load Attributes
+  const loadAttributes = () => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    listAttributes(
+      { playerId: match.params.playerId },
+      { t: jwt.token },
+      signal
+    ).then((data) => {
+      if (data && data.error) {
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: "500 Server Error. Please try again.",
+        });
+      } else {
+        setAttributes(data);
+      }
+    });
+    return () => {
+      abortController.abort();
+    };
+  };
 
   // --------------- FUNCTIONS ------------------
 
@@ -194,27 +224,37 @@ const Player = ({ match }) => {
     });
   };
 
-  if (loading) {
-    return <Loading />;
+  if (redirect) {
+    return <NotFound text="the Player" />;
   }
 
   return (
     <div>
-      <Overall
-        player={player}
-        average={average}
-        attributes={attributes}
-        user={jwt.user}
-        removeAttribute={removeAttribute}
-      />
+      {loading ? (
+        <OverallSkeleton />
+      ) : (
+        <Overall
+          player={player}
+          average={average}
+          attributes={attributes}
+          user={jwt.user}
+          removeAttribute={removeAttribute}
+          loadAttributes={loadAttributes}
+          assessments={assessments}
+        />
+      )}
       {matches ? (
-        <Grid container spacing={3} sx={{p:{xs:1,sm:2,md:4,lg:9}}} >
+        <Grid container spacing={3} sx={{ p: { xs: 1, sm: 2, md: 4, lg: 9 } }}>
           <Grid item md={7} lg={8}>
-            <PostList posts={posts} header="Posts" />
+            {loading ? (
+              [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+            ) : (
+              <PostList posts={posts} />
+            )}
           </Grid>
           <Grid item md={5} lg={4}>
             <Stack spacing={1}>
-              <PlayerBox player={player} />
+              {loading ? <ProfileSkelaton /> : <PlayerBox player={player} />}
               {auth.isAuthenticated() && (
                 <TransactionPlayer
                   player={player}
@@ -228,8 +268,8 @@ const Player = ({ match }) => {
           </Grid>
         </Grid>
       ) : (
-        <Stack spacing={1} sx={{mt:1}}>
-          <PlayerBox player={player} />
+        <Stack spacing={1} sx={{ mt: 1 }}>
+          {loading ? <ProfileSkelaton /> : <PlayerBox player={player} />}
           {auth.isAuthenticated() && (
             <TransactionPlayer
               player={player}
@@ -239,7 +279,11 @@ const Player = ({ match }) => {
               starLength={starState.starLength}
             />
           )}
-          <PostList posts={posts} />
+          {loading ? (
+            [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+          ) : (
+            <PostList posts={posts} />
+          )}
         </Stack>
       )}
       <AuthenticationError open={open} />

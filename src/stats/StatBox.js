@@ -4,8 +4,7 @@ import Box from "@mui/material/Box";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PeopleIcon from "@mui/icons-material/People";
-import { IconButton, Typography } from "@mui/material";
-import kFormatter from "../components/numbers";
+import Typography from "@mui/material/Typography";
 
 export default function StatBox(props) {
   return (
@@ -17,13 +16,13 @@ export default function StatBox(props) {
         m: {xs:1,sm:2,md:3,lg:4},
         p: 1,
         pt:2,
-        background: "#0F7489",
+        background: "#34495E",
         color: "#FED829",
         borderRadius: "1em",
         height: { xs: 90, sm: 110, md: 100, lg: 100 },
       }}
     >
-      <Typography sx={{ fontSize: { xs: 11, sm: 13, md: 15, lg: 21 } }}>
+      <Typography sx={{ fontSize: { xs: 11, sm: 13, md: 15, lg: 21 } }} gutterBottom >
         {props.dataName === "post"
           ? "Total Likes Posts"
           : props.dataName === "comment"
@@ -32,7 +31,7 @@ export default function StatBox(props) {
           ? "Total Followers Workers"
           : ""}
       </Typography>
-      <IconButton>
+      <>
         {props.dataName === "post" ? (
           <FavoriteIcon color="secondary" />
         ) : props.dataName === "comment" ? (
@@ -42,8 +41,8 @@ export default function StatBox(props) {
         ) : (
           ""
         )}
-      </IconButton>
-      <Typography> {props.data ? kFormatter(props.data) : 0} </Typography>
+      </>
+      <Typography> {props.data ? props.data : 0} </Typography>
     </Box>
   );
 }

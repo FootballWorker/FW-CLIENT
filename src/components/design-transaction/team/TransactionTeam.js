@@ -1,17 +1,15 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
-import { Link } from "react-router-dom";
-import {
-  Box,
-  Divider,
-  Grid,
-  IconButton,
-  Typography,
-  Tooltip,
-  Fade,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import Fade from "@mui/material/Fade";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import AddIcon from "@mui/icons-material/Add";
 import StarIcon from "@mui/icons-material/Star";
@@ -73,7 +71,7 @@ export default function TransactionTeam(props) {
   };
 
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <Stack spacing={1}>
         <Grid container spacing={1} sx={{ m: 1 }}>
           <Grid xs={4}>

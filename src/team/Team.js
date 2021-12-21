@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  useMediaQuery,
-  useTheme,
-  Stack,
-  Paper,
-} from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -44,7 +41,13 @@ import PollList from "../components/design-profile-team/PollList.js";
 import TeamProfile from "../components/design-profile-team/TeamProfile";
 import SnackError from "../errorHandler/SnackError.js";
 import AuthenticationError from "../errorHandler/AuthenticationError.js";
-import Loading from "../components/loading/Loading";
+import TeamProfileSkeleton from "../components/skelatons/TeamProfileSkeleton.js";
+import StaffSkeleton from "../components/skelatons/StaffSkeleton.js";
+import PostSkelaton from "../components/skelatons/PostSkelaton.js";
+import SideSkeleton from "../components/skelatons/SideSkeleton.js";
+import NotFound from "../components/outside/NotFound.js";
+import ListSkelaton from "../components/skelatons/ListSkelaton.js";
+import { totalValue } from "../stats/api-stats.js";
 
 const Team = ({ match }) => {
   const theme = useTheme();
@@ -57,6 +60,7 @@ const Team = ({ match }) => {
   const [postCoach, setPostCoach] = useState([]);
   const [postYouth, setPostYouth] = useState([]);
   const [postScout, setPostScout] = useState([]);
+  const [total, setTotal] = useState({});
   const [polls, setPolls] = useState([]);
   const [latMatches, setLatMatches] = useState([]);
   const [values, setValues] = useState({
@@ -65,6 +69,7 @@ const Team = ({ match }) => {
     whole: false,
   });
   const [loading, setLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [progress, setProgress] = useState(false);
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState({
@@ -86,7 +91,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setTeam(data);
@@ -167,7 +172,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPlayers(data);
@@ -192,7 +197,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPostPresident(data);
@@ -217,7 +222,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPostVice(data);
@@ -242,7 +247,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPostManager(data);
@@ -267,7 +272,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPostCoach(data);
@@ -292,7 +297,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPostScout(data);
@@ -317,7 +322,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPostYouth(data);
@@ -341,7 +346,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPolls(data);
@@ -365,7 +370,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setLatMatches(data);
@@ -388,11 +393,33 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setValues({ ...values, applicants: data });
         setLoading(false);
+      }
+    });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [match.params.teamId]);
+
+  // Total Value
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    totalValue({ teamId: match.params.teamId }, signal).then((data) => {
+      if (data?.error) {
+        setIsError({
+          ...isError,
+          open: true,
+          error: "500 Server Error. Please try again.",
+        });
+      } else {
+        setTotal(data);
       }
     });
 
@@ -511,98 +538,142 @@ const Team = ({ match }) => {
     });
   };
 
-  if (loading) {
-    return <Loading />;
+  if (redirect) {
+    return <NotFound text="the Team" />;
   }
 
   return (
     <div>
-      <TeamProfile team={team} />
-      <TeamStaff
-        president={team.president}
-        vicepresidents={team.vicePresident}
-        manager={team.manager}
-        coach={team.coach}
-        scout={team.scout}
-        youth={team.youth}
-      />
+      {loading ? (
+        <Stack spacing={1}>
+          <TeamProfileSkeleton />
+        </Stack>
+      ) : (
+        <Stack>
+          <TeamProfile
+            team={team}
+            total={total?.sumValue}
+            players={players?.length}
+          />
+          {!matches && (
+            <TeamStaff
+              president={team.president}
+              vicepresidents={team.vicePresident}
+              manager={team.manager}
+              coach={team.coach}
+              scout={team.scout}
+              youth={team.youth}
+              firstColor={team.firstColor}
+              secondColor={team.secondColor}
+            />
+          )}
+        </Stack>
+      )}
       {matches ? (
-        <Grid container spacing={matches ? 5 : 2} sx={{ p: { md: 3, lg: 8 } }}>
+        <Grid
+          container
+          spacing={matches ? 5 : 2}
+          sx={{ mt: 2, pr: { md: 3, lg: 8 }, pl: { md: 3, lg: 8 } }}
+        >
           <Grid item md={7}>
-            {auth.isAuthenticated() && (
-              <Paper
-                elevation={12}
-                sx={{
-                  mb: 1,
-                  p: 1,
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 1,
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <WebSiteButton onClick={clickWholePosts} text="Whole" />
-                <CancelButton onClick={clickBack} text="Staff" />
-              </Paper>
+            {loading ? (
+              <StaffSkeleton />
+            ) : (
+              <div>
+                <TeamStaff
+                  president={team.president}
+                  vicepresidents={team.vicePresident}
+                  manager={team.manager}
+                  coach={team.coach}
+                  scout={team.scout}
+                  youth={team.youth}
+                  firstColor={team.firstColor}
+                  secondColor={team.secondColor}
+                />
+                {auth.isAuthenticated() && (
+                  <Paper
+                    elevation={12}
+                    sx={{
+                      mb: 1,
+                      p: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 1,
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    <WebSiteButton onClick={clickWholePosts} text="Whole" />
+                    <CancelButton onClick={clickBack} text="Staff" />
+                  </Paper>
+                )}
+              </div>
             )}
-            {!values.whole ? (
+            {loading ? (
+              [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+            ) : !values.whole ? (
               <>
                 <PostList posts={postPresident} header="Posts of President" />
-                <PostList
-                  posts={postVice}
-                  header="Posts of Vice Presidents"
-                />
+                <PostList posts={postVice} header="Posts of Vice Presidents" />
                 <PostList posts={postManager} header="Posts of Manager" />
-                <PostList posts={postCoach} header="Posts of Coaches" />
+                <PostList posts={postCoach} header="Posts of Coachs" />
                 <PostList posts={postScout} header="Posts of Scouts" />
-                <PostList
-                  posts={postYouth}
-                  header="Posts of Youth Staff"
-                />
+                <PostList posts={postYouth} header="Posts of Youth Staff" />
               </>
             ) : (
-                <PostList posts={values.wholePosts} header="Whole Posts" />
+              <PostList posts={values.wholePosts} header="Whole Posts" />
             )}
           </Grid>
           <Grid item md={5}>
-            <Stack spacing={1}>
-              <PlayerSideList players={players} header="Players" />
-              {auth.isAuthenticated() && (
-                <TransactionTeam
-                  team={team}
-                  user={auth.isAuthenticated() && auth.isAuthenticated().user}
-                  clickLike={clickStar}
-                  stars={starState.stars}
-                  starLength={starState.starLength}
-                  clickApply={clickApply}
-                  applicant={applyState.applicants}
-                  clickCandidate={clickCandidate}
-                  candidate={candidateState.candidate}
-                />
-              )}
-              <Users header="Candidates" users={team && team.candidates} />
-              <LatestMatches matches={latMatches} header="Latest Matches" />
-              <PollList polls={polls} />
-              {auth.isAuthenticated() &&
-                (jwt.user?._id === team.president?._id ||
-                  jwt.user?._id === team.manager?._id) && (
-                  <Users
-                    header="Applicants"
-                    users={values.applicants}
+            {loading ? (
+              <div>
+                <ListSkelaton />
+                <SideSkeleton />
+                <ListSkelaton />
+              </div>
+            ) : (
+              <Stack spacing={1}>
+                <PlayerSideList players={players} header="Players" />
+                {auth.isAuthenticated() && (
+                  <TransactionTeam
                     team={team}
+                    user={auth.isAuthenticated() && auth.isAuthenticated().user}
+                    clickLike={clickStar}
+                    stars={starState.stars}
+                    starLength={starState.starLength}
+                    clickApply={clickApply}
+                    applicant={applyState.applicants}
+                    clickCandidate={clickCandidate}
+                    candidate={candidateState.candidate}
                   />
                 )}
-            </Stack>
+                <Users header="Candidates" users={team && team.candidates} />
+                <LatestMatches matches={latMatches} header="Latest Matches" />
+                <PollList polls={polls} />
+                {auth.isAuthenticated() &&
+                  (jwt.user?._id === team.president?._id ||
+                    jwt.user?._id === team.manager?._id) && (
+                    <Users
+                      header="Applicants"
+                      users={values.applicants}
+                      team={team}
+                      setTeam={setTeam}
+                    />
+                  )}
+              </Stack>
+            )}
           </Grid>
         </Grid>
+      ) : loading ? (
+        <div>
+          <StaffSkeleton />
+          <ListSkelaton />
+          {[1, 2, 3, 4, 5].map((n) => (
+            <PostSkelaton key={n} />
+          ))}
+        </div>
       ) : (
-        <Stack spacing={1} sx={{m:{xs:1,sm:2}}} >
-          {
-            polls?.length > 0 && (
-              <PollList polls={polls} />
-            )
-          }
+        <Stack spacing={1} sx={{ m: { xs: 1, sm: 2 } }}>
           <PlayerSideList players={players} header="Players" />
           <LatestMatches matches={latMatches} header="Latest Matches" />
           {auth.isAuthenticated() && (
@@ -620,12 +691,12 @@ const Team = ({ match }) => {
           )}
           {auth.isAuthenticated() && (
             <Paper
-              elevation={12}
+              elevation={8}
               sx={{
                 mb: 1,
-                p:1,
+                p: 1,
                 display: "flex",
-                gap:2,
+                gap: 2,
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
@@ -636,27 +707,16 @@ const Team = ({ match }) => {
             </Paper>
           )}
           {!values.whole ? (
-            <Paper elevation={12}>
-              <PostList
-                posts={postPresident}
-                header="Post of President"
-              />
-              <PostList
-                posts={postVice}
-                header="Post of Vice Presidents"
-              />
+            <>
+              <PostList posts={postPresident} header="Post of President" />
+              <PostList posts={postVice} header="Post of Vice Presidents" />
               <PostList posts={postManager} header="Post of Manager" />
-              <PostList posts={postCoach} header="Post of Coaches" />
+              <PostList posts={postCoach} header="Post of Coachs" />
               <PostList posts={postScout} header="Post of Scouts" />
-              <PostList
-                posts={postYouth}
-                header="Post of Youth Staff"
-              />
-            </Paper>
+              <PostList posts={postYouth} header="Post of Youth Staff" />
+            </>
           ) : (
-            <Paper elevation={12} >
-              <PostList posts={values.wholePosts} header="Whole Posts" />
-            </Paper>
+            <PostList posts={values.wholePosts} header="Whole Posts" />
           )}
         </Stack>
       )}

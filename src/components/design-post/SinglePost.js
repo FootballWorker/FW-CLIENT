@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { format } from "timeago.js";
 import PropTypes from "prop-types";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -487,7 +488,7 @@ export default function SinglePost(props) {
                     },
                   }}
                 >
-                  {new Date(props.post.created).toLocaleString()}
+                  {format(props.post.created)}
                 </Typography>
                 <Link
                   to={

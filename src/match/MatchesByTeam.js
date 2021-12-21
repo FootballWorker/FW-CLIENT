@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  Paper,
-  Typography,
-  Grid,
-  Card,
-  TextField,
-  MenuItem,
-  Button,
-  CardActions
-} from "@mui/material";
+
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import Grid from "@mui/material/Grid";
+import ListItem from "@mui/material/ListItem";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Loading from "../components/loading/Loading";
 
-
+import ListSkelaton from "../components/skelatons/ListSkelaton";
 import { listByTeam  , searchMatchByTeam } from "./api-match.js";
 import SnackError from "../errorHandler/SnackError.js";
 
@@ -76,7 +74,7 @@ export default function MatchesByTeam({match}) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again." ,
         });
       } else {
         setMatchList(data);
@@ -105,7 +103,7 @@ export default function MatchesByTeam({match}) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again." ,
           });
         }else{
           setMatchList(data)
@@ -113,10 +111,6 @@ export default function MatchesByTeam({match}) {
         }
       })
     }
-  }
-
-  if (loading) {
-    return <Loading />;
   }
 
   return (
@@ -174,95 +168,103 @@ export default function MatchesByTeam({match}) {
           </Card>
         </Grid>
         <Grid item xs={12} sm={8}>
-          <Paper elevation={12}>
-            <Typography align="center" gutterBottom variant="h6">
-              All Matches
-            </Typography>
-            <List dense>
-              {matchList ? (
-                matchList.map((item, i) => {
-                  return (
-                    <Link to={"/matches/" + item._id} key={i}>
-                      <ListItem button>
-                        <ListItemText
-                          sx={{
-                            justifyContent: "center",
-                            alignItems: "center",
-                            textAlign: "center",
-                          }}
-                          primary={
-                            <Grid container>
-                              <Grid xs={4}>
-                                <Typography
-                                  sx={{
-                                    fontSize: {
-                                      xs: 8,
-                                      sm: 13,
-                                      md: 17,
-                                    },
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  {item.home && item.home.name}
-                                </Typography>
-                              </Grid>
-                              <Grid xs={4}>
-                                {item.homeScore ? (
-                                  <Typography
-                                    sx={{
-                                      fontSize: {
-                                        xs: 8,
-                                        sm: 13,
-                                        md: 17,
-                                      },
-                                    }}
-                                  >
-                                    {item.homeScore + " - " + item.awayScore}
-                                  </Typography>
-                                ) : (
-                                  <Typography
-                                    sx={{
-                                      fontSize: {
-                                        xs: 8,
-                                        sm: 13,
-                                        md: 17,
-                                      },
-                                    }}
-                                  >
-                                    {new Date(item.date).toDateString()}
-                                  </Typography>
-                                )}
-                              </Grid>
-                              <Grid xs={4}>
-                                <Typography
-                                  sx={{
-                                    fontSize: {
-                                      xs: 8,
-                                      sm: 13,
-                                      md: 17,
-                                    },
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  {item.away && item.away.name}
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          }
-                        />
-                        <ListItemSecondaryAction>
-                          <IconButton>
-                            <ArrowForwardIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    </Link>
-                  );
-                })
-              ) : (
-                <Typography> No Match Found </Typography>
-              )}
-            </List>
+        <Paper elevation={4}>
+            {loading ? (
+              <ListSkelaton />
+            ) : (
+              <>
+                <Typography align="center" gutterBottom variant="h6">
+                  All Matches
+                </Typography>
+                <List dense>
+                  {matchList ? (
+                    matchList.map((item, i) => {
+                      return (
+                        <Link to={"/matches/" + item._id} key={i}>
+                          <ListItem button>
+                            <ListItemText
+                              sx={{
+                                justifyContent: "center",
+                                alignItems: "center",
+                                textAlign: "center",
+                              }}
+                              primary={
+                                <Grid container>
+                                  <Grid xs={4}>
+                                    <Typography
+                                      sx={{
+                                        fontSize: {
+                                          xs: 8,
+                                          sm: 13,
+                                          md: 17,
+                                        },
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {item.home && item.home.name}
+                                    </Typography>
+                                  </Grid>
+                                  <Grid xs={4}>
+                                    {item.homeScore ? (
+                                      <Typography
+                                        sx={{
+                                          fontSize: {
+                                            xs: 8,
+                                            sm: 13,
+                                            md: 17,
+                                          },
+                                        }}
+                                      >
+                                        {item.homeScore +
+                                          " - " +
+                                          item.awayScore}
+                                      </Typography>
+                                    ) : (
+                                      <Typography
+                                        sx={{
+                                          fontSize: {
+                                            xs: 8,
+                                            sm: 13,
+                                            md: 17,
+                                          },
+                                        }}
+                                      >
+                                        {new Date(item.date).toDateString()}
+                                      </Typography>
+                                    )}
+                                  </Grid>
+                                  <Grid xs={4}>
+                                    <Typography
+                                      sx={{
+                                        fontSize: {
+                                          xs: 8,
+                                          sm: 13,
+                                          md: 17,
+                                        },
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {item.away && item.away.name}
+                                    </Typography>
+                                  </Grid>
+                                </Grid>
+                              }
+                            />
+                            <ListItemSecondaryAction>
+                              <IconButton>
+                                <ArrowForwardIcon />
+                              </IconButton>
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        </Link>
+                      );
+                    })
+                  ) : (
+                    <Typography> No Match Found </Typography>
+                  )}
+                </List>
+              </>
+            )}
           </Paper>
         </Grid>
       </Grid>

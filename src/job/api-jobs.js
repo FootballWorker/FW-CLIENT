@@ -14,7 +14,6 @@ const create = async (params,credentials,job) => {
     })
     return await response.json()
   }catch(error){
-    console.log(error)
   }
 }
 
@@ -26,7 +25,6 @@ const listJobs = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -38,7 +36,6 @@ const listByDepartment = async (params,signal) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -55,7 +52,6 @@ const bestWorkers = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -72,7 +68,6 @@ const vacantJobs = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -88,7 +83,6 @@ const read = async (params,credentials,signal) => {
       }})
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -105,7 +99,6 @@ const update = async (params,credentials,job) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -121,7 +114,6 @@ const remove = async (params,credentials,job) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 

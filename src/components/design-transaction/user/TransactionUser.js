@@ -41,7 +41,7 @@ export default function TransactionUser(props) {
             sx={{
               mr: 0.5,
               fontSize: {
-                xs: 14,
+                xs: 17,
                 md: 19,
               },
             }}
@@ -50,7 +50,7 @@ export default function TransactionUser(props) {
             <Typography
               sx={{
                 fontSize: {
-                  xs: 14,
+                  xs: 17,
                   md: 19,
                 },
               }}

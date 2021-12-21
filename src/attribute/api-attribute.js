@@ -14,37 +14,107 @@ const create = async (params,credentials,attribute) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
-const listAttributes = async (params,credentials,signal) => {
+const read = async (params, credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/attributes/by/"+params.playerId,{
-      method: 'GET',
-      signal:signal,
-    })
-    return await response.json()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const remove = async (params,credentials ) => {
-  try {
-    let response = await fetch(config.ServerURI + "/api/attributes/"+params.attributeId,{
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type':'application/json',
-        'Authorization':'Bearer ' + credentials.t
+    let response = await fetch(
+      config.ServerURI + "/api/attributes/" + params.attributeId,
+      {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
       }
-    })
-    return await response.json()
+    );
+    return await response.json();
   } catch (error) {
-    console.log(error)
+    console.log("500 Server Error!");
   }
-}
+};
+
+const scoresByUser = async (params, credentials, signal) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/assessments/user/" + params.playerId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log("500 Server Error!")
+  }
+};
+
+const listAttributes = async (params, credentials, signal) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/attributes/by/" + params.playerId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log("500 Server Error!");
+  }
+};
+
+const updateAttribute = async (credentials, attribute) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/attributes/rescore",
+      {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+        body: JSON.stringify(attribute),
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log("500 Server Error!")
+  }
+};
+
+const remove = async (params, credentials) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/attributes/" + params.attributeId,
+      {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log("500 Server Error!")
+  }
+};
 
 const averageAttributes = async (params,signal) => {
   try {
@@ -54,14 +124,17 @@ const averageAttributes = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    
   }
 }
 
 
 export {
   create,
+  read,
   averageAttributes,
+  scoresByUser,
   listAttributes,
-  remove
+  updateAttribute,
+  remove,
 }

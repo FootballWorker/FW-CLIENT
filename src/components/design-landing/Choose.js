@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Card from "@mui/material/Card";
@@ -17,14 +16,10 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import kFormatter from "../numbers";
 
 
 export default function Choose(props) {
-  function kFormatter(num) {
-    return Math.abs(num) > 999
-      ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
-      : Math.sign(num) * Math.abs(num);
-  }
   return (
     <section id="choose">
       <Box
@@ -33,9 +28,7 @@ export default function Choose(props) {
           p: 5,
           pt: 7,
           maxHeight: "100%",
-          bgcolor:"#17202A",
-          borderTopLeftRadius:'10px',
-          borderTopRightRadius:'10px'
+          bgcolor:"#0C0D0F"
         }}
       >
         <Typography
@@ -68,7 +61,7 @@ export default function Choose(props) {
                   sx={{
                     borderRadius: "10px",
                     maxWidth: "100%",
-                    bgcolor: "#51545B",
+                    bgcolor: "#17202A",
                     mb: 2,
                     mr: {
                       xs: 0,
@@ -177,6 +170,40 @@ export default function Choose(props) {
               </Grid>
             ))}
         </Grid>
+        {/* <Box
+          sx={{
+            mt: 3,
+            maxWidth: 170,
+            display: "flex",
+            margin: "auto",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 1.5,
+            bgcolor: "#FED829",
+            borderRadius: "4%",
+            ":hover": { bgcolor: "yellow" },
+          }}
+        >
+          <Link to="/home" style={{ textDecoration: "none", color: "#51545B" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                borderRadius: "10px",
+                gap: 0.9,
+                ":hover": { color: "#05252C" },
+              }}
+            >
+              <Typography variant="h6" color="primary">
+                Go as a Fan !
+              </Typography>
+              <Avatar src={Fans} />
+            </Box>
+          </Link>
+        </Box> */}
       </Box>
     </section>
   );

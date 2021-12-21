@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { format } from "timeago.js";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -31,7 +32,7 @@ export default function SideComments(props) {
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   const jwt = auth.isAuthenticated();
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <ListHeader header={props.header} />
       <Divider variant="middle" />
       {props.comments &&
@@ -66,7 +67,7 @@ export default function SideComments(props) {
                 </Link>
               }
               title={item.commentedBy.name}
-              subheader={new Date(item.created).toLocaleString()}
+              subheader={format(item.created)}
             />
             <Grid container spacing={1} sx={{ p: 1, alignItems: "center" }}>
               {item.imageOne && (

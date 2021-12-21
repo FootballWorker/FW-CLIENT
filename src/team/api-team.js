@@ -16,7 +16,6 @@ const create = async (credentials,team) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -28,7 +27,6 @@ const read = async (params,signal) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -44,7 +42,6 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -60,7 +57,6 @@ const listByStar = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -72,7 +68,6 @@ const listCountries = async (signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -85,7 +80,22 @@ const searchForTeams = async (params) => {
 
     return await response.json()
   } catch (error) {
-    console.log(error)
+  }
+}
+
+const listLikedTeam = async (params,credentials,signal) => {
+  try {
+    let response = await fetch(config.ServerURI + "/api/liked/teams/by/" + params.userId, {
+      method: "GET",
+      signal:signal,
+      headers: {
+        "Accept": "application/json",
+        "Authorization": 'Bearer ' + credentials.t
+      }
+    });
+    return await response.json()
+  } catch (error) {
+    console.log("500 Server Error!")
   }
 }
 
@@ -102,7 +112,6 @@ const update = async (params,credentials,team) => {
     });
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 } 
 
@@ -118,7 +127,6 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -138,7 +146,6 @@ const star = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -158,7 +165,6 @@ const unstar = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -180,7 +186,6 @@ const hirePresident = async (params,credentials,teamId) => {
     }) 
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -200,7 +205,6 @@ const firePresident = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -220,7 +224,6 @@ const hireVice = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -240,7 +243,6 @@ const fireVice = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -260,7 +262,6 @@ const hireManager = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -280,7 +281,6 @@ const fireManager = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -300,7 +300,6 @@ const hireCoach = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -320,7 +319,6 @@ const fireCoach = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -340,7 +338,6 @@ const hireScout = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -360,7 +357,6 @@ const fireScout = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -380,7 +376,6 @@ const hireYouth = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -400,7 +395,6 @@ const fireYouth = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -420,7 +414,6 @@ const runFor = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -440,7 +433,6 @@ const cancelCandidate = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -460,7 +452,6 @@ const apply = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -480,7 +471,6 @@ const cancelApply = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
   }
 }
 
@@ -493,6 +483,7 @@ export {
   listByStar,
   listCountries,
   searchForTeams,
+  listLikedTeam,
   update,
   remove,
   star,

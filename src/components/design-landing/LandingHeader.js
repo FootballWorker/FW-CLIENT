@@ -3,26 +3,30 @@ import { Grid, Box, Typography, Button, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import Logo from "./../../assets/images/orijinalLogo.png";
+import Back from "./../../assets/images/back6.jpg";
 import { animateScroll as scroll } from "react-scroll";
-import { Link,useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function LandingHeader({ ScrollLink }) {
-  const history = useHistory()
+  const history = useHistory();
   return (
     <section id="header">
       <Grid
         container
-        spacing={1}
         sx={{
-          height: "100%",
           bgcolor: "#17202A",
-          pb: { md: 12, lg: 15 },
+          backgroundImage: `url(${Back})`,
+          backgroundRepeat:'no-repeat',
+          backgroundAttachment:'fixed',
+          backgroundPosition:'cover',
+          p: 1,
+          pb: { xs: 2, md: 12, lg: 15 },
         }}
       >
-        <Grid item md={5}>
+        <Grid item xs={12} md={5}>
           <Box
             sx={{
-              mt: 10,
+              mt: { xs: 2, md: 10 },
               justifyContent: "center",
               alignItems: "center",
               textAlign: "center",
@@ -40,7 +44,16 @@ export default function LandingHeader({ ScrollLink }) {
             />
           </Box>
         </Grid>
-        <Grid item md={7}>
+        <Grid
+          item
+          xs={12}
+          md={7}
+          sx={{
+            mt: { xs: 2, md: 0 },
+            pl: { xs: 0, md: 2 },
+            textAlign: { xs: "center", md: "left" },
+          }}
+        >
           <Typography
             align="center"
             variant="h2"
@@ -49,7 +62,7 @@ export default function LandingHeader({ ScrollLink }) {
               mt: 3,
               color: "#fed829",
               fontFamily: "'Merriweather', serif",
-              fontSize: { md: 40, lg: 50 },
+              fontSize: {xs:35, md: 40, lg: 50 },
             }}
           >
             FOOTBALL WORKER
@@ -89,7 +102,7 @@ export default function LandingHeader({ ScrollLink }) {
           </Typography>
           <Box
             sx={{
-              pt: 5,
+              pt: 3,
               display: "grid",
               gridTemplateColumns: "repeat(3,1fr)",
               justifyContent: "center",
@@ -114,7 +127,11 @@ export default function LandingHeader({ ScrollLink }) {
                   duration={2000}
                   style={{ color: "#51545b" }}
                 >
-                  Become FW
+                  <Typography
+                    sx={{ fontSize: { xs: 10,sm:15, md: 17 }, fontWeight: 500 }}
+                  >
+                    Become FW
+                  </Typography>
                 </ScrollLink>
               </Button>
             </Box>
@@ -134,7 +151,11 @@ export default function LandingHeader({ ScrollLink }) {
                   duration={3000}
                   style={{ color: "#51545b" }}
                 >
-                  Tour Website
+                  <Typography
+                    sx={{ fontSize: { xs: 10,sm:15, md: 17 }, fontWeight: 500 }}
+                  >
+                    Tour Website
+                  </Typography>
                 </ScrollLink>
               </Button>
             </Box>
@@ -155,7 +176,11 @@ export default function LandingHeader({ ScrollLink }) {
                   duration={2000}
                   style={{ color: "#51545b" }}
                 >
-                  Contact Us
+                  <Typography
+                    sx={{ fontSize: { xs: 10,sm:15, md: 17 }, fontWeight: 500 }}
+                  >
+                    Recommend
+                  </Typography>                  
                 </ScrollLink>
               </Button>
             </Box>
@@ -169,9 +194,8 @@ export default function LandingHeader({ ScrollLink }) {
                 fontFamily: "'Quicksand', sans-serif",
               }}
             >
-              {" "}
               We are a new brand enterprise. We would be grateful for your
-              financial help.{" "}
+              financial help.
             </Typography>
             <Button
               onClick={() => scroll.scrollToBottom()}
@@ -191,22 +215,22 @@ export default function LandingHeader({ ScrollLink }) {
             >
               footballworker@hotmail.com
             </Typography>
-            <Box sx={{ pr: 9, textAlign: "right" }}>
+            <Box sx={{ pr: 9, textAlign: {xs:'center',md:"right"}, alignItems: {xs:"center",md: "flex-end"} }}>
               <Button
                 sx={{
-                  justifyContent: "space-between",
-                  textAlign: "right",
-                  alignItems: "flex-end",
+                  alignItems: "center",
                   mt: 2,
                   p: 2,
                   bgcolor: "#51545b",
-                  color:'whitesmoke',
-                  width: 350,
-                  ":hover": {bgcolor:'whitesmoke', color: "#51545b" },
+                  gap: {xs:1,sm:3,md:5,lg:9},
+                  borderRadius:'10px',
+                  color: "whitesmoke",
+                  maxWidth: '100%',
+                  ":hover": { bgcolor: "whitesmoke", color: "#51545b" },
                 }}
-                onClick={()=> history.push("/home")}
+                onClick={() => history.push("/home")}
               >
-                <Typography>
+                <Typography noWrap={true} sx={{ fontSize: { xs: 15, md: 21 } }}>
                   Continue As a Fan
                 </Typography>
                 <ArrowForwardIcon />

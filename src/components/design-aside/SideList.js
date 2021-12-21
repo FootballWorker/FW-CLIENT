@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { format } from "timeago.js";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useMediaQuery, useTheme } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -18,7 +19,7 @@ export default function SideList(props) {
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   return (
     <Paper
-      elevation={12}
+      elevation={4}
       sx={{
         maxWidth: "100%",
         p: 1,
@@ -160,7 +161,7 @@ export default function SideList(props) {
                         fontFamily: "Arial",
                       }}
                     >
-                      {item.created && new Date(item.created).toDateString()}
+                      {format(item.created)}
                     </Typography>
                   </Link>
                 </Box>

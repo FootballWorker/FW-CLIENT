@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {  Redirect } from "react-router-dom";
-import {
-  Card,
-  CardActions,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Typography,
-  Paper,
-  Divider,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 
 import { create , list } from "../user/api-user.js";
 import CancelButton from "../components/design-button/CancelButton.js";
@@ -72,7 +70,7 @@ const Signup = () => {
     };
     create(user).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error!" });
       } else {
         setValues({ ...values, error: "", open: true });
       }

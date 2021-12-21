@@ -1,4 +1,4 @@
-import * as React from "react";
+import React,{useState,useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -26,26 +26,41 @@ import BusinessIcon from "@mui/icons-material/Business";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import Badge from "@mui/material/Badge";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MessageIcon from "@mui/icons-material/Message";
 
 import auth from "./../../../auth/auth-helper";
 import { listUnread } from "./../../../user/api-user";
+import { unRead } from "./../../../messanger/api-messanger";
 import Logo from "./../../../assets/images/orijinalLogo.png";
+import { Button } from "@mui/material";
+import config from "../../../config/config";
 
 const drawerWidth = 215;
 
 function UserNavbar() {
   let history = useHistory();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [ntfs, setNtfs] = React.useState([]);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [ntfs, setNtfs] = useState([]);
+  const [messages, setMessages] = useState([]);
   const jwt = auth.isAuthenticated();
 
-  React.useEffect(() => {
+  useEffect(() => {
     listUnread({ t: jwt.token }).then((data) => {
       if (data && data.error) {
         console.log(data.error);
       } else {
         setNtfs(data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    unRead({ t: jwt.token }).then((data) => {
+      if (data && data.error) {
+        console.log(data.error);
+      } else {
+        setMessages(data);
       }
     });
   }, []);
@@ -455,6 +470,36 @@ function UserNavbar() {
                 </ListItemButton>
               </Tooltip>
             </Link>
+            <Link to={"/messanger/" + jwt.user?._id}>
+              <Tooltip
+                disableFocusListener
+                title="Messanger"
+                placement="right"
+                arrow
+              >
+                <ListItemButton sx={{ color: "#FED829" }}>
+                  <ListItemIcon sx={{ color: "#FED829" }}>
+                  <Badge
+                      color="warning"
+                      badgeContent={messages?.length}
+                      max={999}
+                    >
+                      <MessageIcon />
+                    </Badge>
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{
+                      display: {
+                        xs: "none",
+                        md: "inline",
+                        lg: "inline",
+                      },
+                    }}
+                    primary="Messanger"
+                  />
+                </ListItemButton>
+              </Tooltip>
+            </Link>
             <Link to={"/notifications/by/" + jwt.user._id}>
               <Tooltip
                 disableFocusListener
@@ -520,7 +565,7 @@ function UserNavbar() {
         position="fixed"
         sx={{
           width: "100%",
-          backgroundImage: "linear-gradient(to right,#51545B,#FED829 )",
+          bgcolor: "#51545b",
         }}
       >
         <Toolbar
@@ -550,6 +595,30 @@ function UserNavbar() {
               <Avatar src={Logo} sx={{ width: 35, height: 35 }} />
             </Link>
           </Box>
+          <Button
+            onClick={() => history.push("/users/" + jwt.user._id)}
+            sx={{
+              maxWidth: "100%",
+              display: {xs:"flex",md:'none'},
+              flexDirection: "column",
+              borderRadius: "5%",
+              color: "#51545b",
+              background: "#fed829",
+              marginLeft: 3,
+              paddingLeft: "30px",
+              paddingRight: "30px",
+              justifyContent: "center",
+              alignItems: "center",
+              ":hover":{
+                bgcolor:'#fed829'
+              }
+            }}
+          >
+            <Typography sx={{fontSize:13}} > {jwt.user && jwt.user.name} </Typography>
+            <Typography sx={{fontSize:10}} >
+              {jwt.user && jwt.user.job && jwt.user.job.title.toUpperCase()}
+            </Typography>
+          </Button>
           <Box
             sx={{
               display: {
@@ -562,14 +631,13 @@ function UserNavbar() {
             }}
           >
             <Link
-              to={"/users/" + jwt.user._id}
+              to={"/users/" + jwt.user?._id}
               style={{
                 maxWidth: "100%",
                 display: "flex",
-                flexDirection: "column",
-                borderRadius: "5%",
-                color: "yellow",
-                background: "#51545B",
+                borderRadius: "7px",
+                color: "#51545b",
+                background: "#fed829",
                 marginLeft: 3,
                 paddingLeft: "30px",
                 paddingRight: "30px",
@@ -578,18 +646,29 @@ function UserNavbar() {
                 alignItems: "center",
               }}
             >
+              <Avatar src={config.ServerURI + "/api/users/photo/"+jwt.user?._id} />
+              <Box sx={{display: "flex",
+                flexDirection: "column",gap: 0.5,
+                justifyContent: "center",
+                alignItems: "center",marginLeft: 3}} >
               <Typography> {jwt.user && jwt.user.name} </Typography>
               <Typography>
                 {jwt.user && jwt.user.job && jwt.user.job.title.toUpperCase()}
               </Typography>
+              </Box>
+            </Link>
+            <Link to={"/messanger/" + jwt.user._id}>
+              <Badge color="secondary" badgeContent={messages?.length} max={999}>
+                <MessageIcon color="secondary" />
+              </Badge>
             </Link>
             <Link to={"/notifications/by/" + jwt.user._id}>
               <Badge
-                color="warning"
+                color="secondary"
                 badgeContent={ntfs ? ntfs.length : 0}
                 max={999}
               >
-                <NotificationsIcon color="primary" />
+                <NotificationsIcon color="secondary" />
               </Badge>
             </Link>
             <IconButton
@@ -597,7 +676,7 @@ function UserNavbar() {
                 auth.clearJWT(() => history.push("/"));
               }}
             >
-              <LogoutIcon sx={{ color: "#51545B" }} />
+              <LogoutIcon sx={{ color: "#fed829" }} />
             </IconButton>
           </Box>
         </Toolbar>

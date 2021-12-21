@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Backdrop from "@mui/material/Backdrop";
@@ -25,7 +24,12 @@ import TransactionNews from "../components/design-transaction/news/TransactionNe
 import NewsBox from "../components/design-news/NewsBox";
 import AuthenticationError from "../errorHandler/AuthenticationError.js";
 import SnackError from "../errorHandler/SnackError.js";
-import Loading from "../components/loading/Loading";
+import ListSkelaton from "../components/skelatons/ListSkelaton";
+import ProfileSkelaton from "../components/skelatons/ProfileSkelaton";
+import PostSkelaton from "../components/skelatons/PostSkelaton";
+import NotFound from "../components/outside/NotFound";
+import StatsSkeleton from "../components/skelatons/StatsSkeleton";
+
 import { Stack } from "@mui/material";
 
 const SingleNews = ({ match }) => {
@@ -41,6 +45,7 @@ const SingleNews = ({ match }) => {
     openSnack: false,
     error: "",
   });
+  const [redirect, setRedirect] = useState(false);
   const [progress, setProgress] = useState(false);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,11 +59,13 @@ const SingleNews = ({ match }) => {
 
     read({ newsId: match.params.newsId }, { t: jwt.token }, signal).then(
       (data) => {
-        if (data && data.error) {
+        if (data?.error === "Could not retrieve News") {
+          setRedirect(true);
+        } else if (data && data.error) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           let employee = checkEmployee(data);
@@ -114,7 +121,7 @@ const SingleNews = ({ match }) => {
       news &&
       jwt.user &&
       news.subscribers.some((user) => {
-        return user._id == jwt.user._id;
+        return user._id === jwt.user._id;
       });
     return match;
   };
@@ -136,7 +143,7 @@ const SingleNews = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Please try again.",
           });
         } else {
           setPinnedPosts(data);
@@ -161,7 +168,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setPosts(data);
@@ -185,7 +192,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setApplicants(data);
@@ -209,7 +216,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setLikes(data);
@@ -233,7 +240,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Please try again.",
         });
       } else {
         setFollow(data);
@@ -301,8 +308,8 @@ const SingleNews = ({ match }) => {
     });
   };
 
-  if (loading) {
-    return <Loading />;
+  if (redirect) {
+    return <NotFound text="the News" />;
   }
 
   return (
@@ -310,22 +317,31 @@ const SingleNews = ({ match }) => {
       {matches ? (
         <Grid container spacing={3} sx={{ p: { xs: 1, sm: 2, md: 3, lg: 7 } }}>
           <Grid item md={7} lg={8}>
-            <Paper elevation={12}>
-              <NewsStats
-                postLike={likes?.sumLikes}
-                followLength={follow?.sumLikes}
-              />
-              <PostList
-                posts={pinnedPosts}
-                header={pinnedPosts && "Pinned Posts"}
-              />
-              <Divider variant="middle" sx={{ pb: 5 }} />
-              <PostList posts={posts} header="Latest" />
-            </Paper>
+            {loading ? (
+              <div>
+                <StatsSkeleton />
+                {[1, 2, 3].map((n) => (
+                  <PostSkelaton key={n} />
+                ))}
+              </div>
+            ) : (
+              <Stack>
+                <NewsStats
+                  postLike={likes?.sumLikes}
+                  followLength={follow?.sumLikes}
+                />
+                <PostList
+                  posts={pinnedPosts}
+                  header={pinnedPosts && "Pinned Posts"}
+                />
+                <Divider variant="middle" sx={{ pb: 5 }} />
+                <PostList posts={posts} header="Latest" />
+              </Stack>
+            )}
           </Grid>
           <Grid item md={5} lg={4}>
             <Stack spacing={1}>
-              <NewsBox news={news} />
+              {loading ? <ProfileSkelaton /> : <NewsBox news={news} />}
               {auth.isAuthenticated() && (
                 <TransactionNews
                   applyClick={applyClick}
@@ -338,38 +354,55 @@ const SingleNews = ({ match }) => {
                   subs={stateSubs.subsLength}
                 />
               )}
-              {((news.editor && jwt.user._id === news.editor._id) ||
-                jwt.user.role === "admin") && (
-                <Users header="Applicants" users={applicants} news={news} />
+              {loading ? (
+                <ListSkelaton />
+              ) : (
+                ((news.editor && jwt.user._id === news.editor._id) ||
+                  jwt.user.role === "admin") && (
+                  <Users header="Applicants" users={applicants} news={news} />
+                )
               )}
             </Stack>
           </Grid>
         </Grid>
       ) : (
-        <Stack spacing={1} sx={{ p: 0.4 }}>
-          <NewsBox news={news} />
-          {auth.isAuthenticated() && (
-            <TransactionNews
-              applyClick={applyClick}
-              subscribeClick={subscribeClick}
-              user={jwt.user}
-              news={news}
-              employee={empState.employee}
-              applied={stateApply.applied}
-              subscribe={stateSubs.subscribe}
-              subs={stateSubs.subsLength}
+        <div>
+        {loading ? (
+          <div>
+            <ProfileSkelaton />
+            <StatsSkeleton />
+            {[1, 2, 3].map((n) => (
+              <PostSkelaton key={n} />
+            ))}
+          </div>
+        ) : (
+          <Stack spacing={1} sx={{ p: 0.4 }}>
+            <NewsBox news={news} />
+            {auth.isAuthenticated() && (
+              <TransactionNews
+                applyClick={applyClick}
+                subscribeClick={subscribeClick}
+                user={jwt.user}
+                news={news}
+                employee={empState.employee}
+                applied={stateApply.applied}
+                subscribe={stateSubs.subscribe}
+                subs={stateSubs.subsLength}
+              />
+            )}
+            <NewsStats
+              postLike={likes?.sumLikes}
+              followLength={follow?.sumLikes}
             />
-          )}
-          <NewsStats
-            postLike={likes?.sumLikes}
-            followLength={follow?.sumLikes}
-          />
-          <Paper>
-            <PostList posts={pinnedPosts} header="Pinned Posts" />
-          </Paper>
-          <Divider variant="middle" sx={{ p: 4 }} />
-          <PostList posts={posts} header="Latest Posts" />
-        </Stack>
+            <PostList
+              posts={pinnedPosts}
+              header={pinnedPosts && "Pinned Posts"}
+            />
+            <Divider variant="middle" sx={{ pb: 5 }} />
+            <PostList posts={posts} header="Latest" />
+          </Stack>
+        )}
+      </div>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />
       <AuthenticationError open={open} />
