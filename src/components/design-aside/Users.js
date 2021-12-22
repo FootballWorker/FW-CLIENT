@@ -47,7 +47,6 @@ export default function Users(props) {
       {props.header && (
         <ListHeader header={props.header} />
       )}
-      <Divider variant="middle" />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {props.users && props.users.length > 0 ? (
           props.users.map((item, i) => (

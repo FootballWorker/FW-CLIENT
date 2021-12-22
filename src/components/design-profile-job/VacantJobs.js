@@ -17,7 +17,6 @@ export default function VacantJobs (props){
   return (
     <Paper elevation={4}>
       <ListHeader header="Vacant Jobs" />
-      <Divider />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {props.teams && (
           props.teams.map((item, i) => (

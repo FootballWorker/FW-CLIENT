@@ -5,6 +5,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PeopleIcon from "@mui/icons-material/People";
 import Typography from "@mui/material/Typography";
+import kFormatter from "../components/numbers";
 
 export default function StatBox(props) {
   return (
@@ -13,16 +14,19 @@ export default function StatBox(props) {
         justifyContent: "center",
         textAlign: "center",
         alignItems: "center",
-        m: {xs:1,sm:2,md:3,lg:4},
+        m: { xs: 1, sm: 2, md: 3, lg: 4 },
         p: 1,
-        pt:2,
+        pt: 2,
         background: "#34495E",
         color: "#FED829",
         borderRadius: "1em",
         height: { xs: 90, sm: 110, md: 100, lg: 100 },
       }}
     >
-      <Typography sx={{ fontSize: { xs: 11, sm: 13, md: 15, lg: 21 } }} gutterBottom >
+      <Typography
+        sx={{ fontSize: { xs: 11, sm: 13, md: 15, lg: 21 } }}
+        gutterBottom
+      >
         {props.dataName === "post"
           ? "Total Likes Posts"
           : props.dataName === "comment"
@@ -42,7 +46,7 @@ export default function StatBox(props) {
           ""
         )}
       </>
-      <Typography> {props.data ? props.data : 0} </Typography>
+      <Typography> {props.data ? kFormatter(props.data) : 0} </Typography>
     </Box>
   );
 }

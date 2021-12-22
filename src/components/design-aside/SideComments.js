@@ -35,7 +35,6 @@ export default function SideComments(props) {
   return (
     <Paper elevation={4}>
       <ListHeader header={props.header} />
-      <Divider variant="middle" />
       {props.comments &&
         props.comments.map((item, i) => (
           <Card sx={{ maxWidth: "100%", p: 1 }} key={i}>

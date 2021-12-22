@@ -36,7 +36,7 @@ export default function Matches() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Matches could not be uploaded."
+          error: "500 Server Error. Matches could not be uploaded.",
         });
       } else {
         setMatches(data);
@@ -56,58 +56,51 @@ export default function Matches() {
     setMatches(updatedMatches);
   };
 
-
   return (
     <Paper elevation={12}>
       <ListHeader header="Matches" />
       {loading ? (
         <ListSkelaton />
       ) : (
-        <>
-          <ListHeader header="Matches" />
-          <List dense>
-            <Grid container spacing={2} sx={{ p: { xs: 1, md: 3, lg: 5 } }}>
-              {matches?.length > 0 ? (
-                matches.map((item, i) => {
-                  return (
-                    <Grid key={i} item xs={12} md={6} lg={4}>
-                      <ListItem button>
-                        <ListItemText
-                          primary={item.title}
-                          secondary={
-                            "Season : " +
-                            item.season +
-                            "    ----   " +
-                            "  Section : " +
-                            item.section
-                          }
-                        />
-                        <ListItemSecondaryAction>
-                          <IconButton>
-                            <Link to={"/matches/" + item._id}>
-                              <ArrowForwardIcon />
-                            </Link>
-                          </IconButton>
-                          {auth.isAuthenticated() &&
-                            auth.isAuthenticated().user.role === "admin" && (
-                              <DeleteMatch
-                                match={item}
-                                onRemove={removeMatch}
-                              />
-                            )}
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    </Grid>
-                  );
-                })
-              ) : (
-                <Grid xs={12}>
-                  <Typography align="center">No match found.</Typography>
-                </Grid>
-              )}
-            </Grid>
-          </List>
-        </>
+        <List dense>
+          <Grid container spacing={2} sx={{ p: { xs: 1, md: 3, lg: 5 } }}>
+            {matches?.length > 0 ? (
+              matches.map((item, i) => {
+                return (
+                  <Grid key={i} item xs={12} md={6} lg={4}>
+                    <ListItem button>
+                      <ListItemText
+                        primary={item.title}
+                        secondary={
+                          "Season : " +
+                          item.season +
+                          "    ----   " +
+                          "  Section : " +
+                          item.section
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton>
+                          <Link to={"/matches/" + item._id}>
+                            <ArrowForwardIcon />
+                          </Link>
+                        </IconButton>
+                        {auth.isAuthenticated() &&
+                          auth.isAuthenticated().user.role === "admin" && (
+                            <DeleteMatch match={item} onRemove={removeMatch} />
+                          )}
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </Grid>
+                );
+              })
+            ) : (
+              <Grid xs={12}>
+                <Typography align="center">No match found.</Typography>
+              </Grid>
+            )}
+          </Grid>
+        </List>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />
     </Paper>

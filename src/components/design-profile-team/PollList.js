@@ -15,7 +15,6 @@ export default function PollList(props) {
   return (
     <Paper elevation={4}>
       <ListHeader header="Polls" />
-      <Divider />
       <List dense>
         {props.polls && props.polls.map((item, i) => (
           <Link key={i} to={"/polls/" + item._id}>

@@ -7,7 +7,6 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -19,7 +18,7 @@ import Paper from "@mui/material/Paper";
 
 import auth from "../auth/auth-helper";
 import { createChats, listChats } from "./api-messanger";
-import { read } from "../user/api-user";
+import { followings } from "../user/api-user";
 import Conversation from "./Conversation";
 import CreateSection from "./CreateSection";
 import {config} from "../config/config";
@@ -29,7 +28,7 @@ import ListHeader from "../components/header/ListHeader";
 import PageHeader from "../components/header/PageHeader";
 
 const Messanger = ({ match }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({
@@ -50,7 +49,7 @@ const Messanger = ({ match }) => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    read({ userId: match.params.userId }, { t: jwt.token }, signal).then(
+    followings({ userId: match.params.userId }, { t: jwt.token }, signal).then(
       (data) => {
         if (data?.error) {
           setIsError({
@@ -128,7 +127,7 @@ const Messanger = ({ match }) => {
             <ListSkelaton />
           ) : (
             <Paper
-              elevation={4}
+              elevation={1}
               sx={{
                 m: 1,
                 p: 1,
@@ -139,7 +138,7 @@ const Messanger = ({ match }) => {
             >
               {isPresident && (
                 <CreateSection
-                  following={user?.following}
+                  following={user}
                   setConversations={setConversations}
                   setIsError={setIsError}
                   isError={isError}
@@ -147,7 +146,6 @@ const Messanger = ({ match }) => {
               )}
               <Box sx={{ p: 1 }}>
                 <ListHeader header="Conversations" />
-                <Divider variant="middle" />
                 <List>
                   {conversations?.map((c) => (
                     <ListItemButton
@@ -189,9 +187,8 @@ const Messanger = ({ match }) => {
           ) : (
             <Paper elevation={4} sx={{ m: 1, p: 1 }}>
               <ListHeader header="Following Users" />
-              <Divider variant="middle" />
               <List sx={{ margin: "auto" }}>
-                {user?.following?.map((item) => (
+                {user?.map((item) => (
                   <ListItemButton
                     onClick={() => handleSubmit(item._id, item.name)}
                     key={item._id}

@@ -14,7 +14,8 @@ export default function ListHeader(props) {
         fontFamily: "Raleway",
         fontWeight: 700,
         bgcolor:'#51545B',
-        borderRadius:'5px'
+        borderTopLeftRadius:'5px',
+        borderTopRightRadius:'5px'
       }}
       color="secondary"
     >

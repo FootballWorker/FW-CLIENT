@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
-import { io } from "socket.io-client";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";

@@ -65,7 +65,7 @@ const Player = ({ match }) => {
           stars: stars,
           starLength: data.stars.length,
         });
-        // setLoading(false);
+        setLoading(false);
       }
     });
     return function cleanup() {
@@ -102,7 +102,7 @@ const Player = ({ match }) => {
         });
       } else {
         setPosts(data);
-        // setLoading(false);
+        setLoading(false);
       }
     });
 
@@ -127,7 +127,7 @@ const Player = ({ match }) => {
           });
         } else {
           setAverage(data);
-          // setLoading(false);
+          setLoading(false);
         }
       }
     );
@@ -156,6 +156,7 @@ const Player = ({ match }) => {
         });
       } else {
         setAssessments(data);
+        setLoading(false);
       }
     });
     return () => {
@@ -181,6 +182,7 @@ const Player = ({ match }) => {
         });
       } else {
         setAttributes(data);
+        setLoading(false);
       }
     });
     return () => {

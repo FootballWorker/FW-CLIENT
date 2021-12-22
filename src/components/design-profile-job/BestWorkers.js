@@ -17,7 +17,6 @@ export default function BestWorkers (props) {
   return (
     <Paper elevation={4}>
       <ListHeader header="Best Workers" />
-      <Divider />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {props.workers ? (
           props.workers.map((item, i) => (

@@ -7,28 +7,15 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ListHeader from '../header/ListHeader';
 
 
 
 export default function JobsByDepartment (props){
   return (
     <Paper elevation={4}>
-      <Typography
-        align="center"
-        variant="h6"
-        gutterBottom
-        component="div"
-        sx={{
-          pt: 1,
-          fontFamily: "Raleway",
-          fontWeight: 700,
-        }}
-      >
-        Jobs
-      </Typography>
-      <Divider />
+      <ListHeader header='Jobs' />
       <List dense>
         {props.jobs ? (
           props.jobs.map((item, i) => (
