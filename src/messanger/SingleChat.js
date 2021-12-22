@@ -107,8 +107,10 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("https://footballworker.herokuapp.com");
+    socket.current = io("footballworker.herokuapp.com");
+    console.log(socket.current)
     socket.current.emit("join chat room", { room: match.params.chatId });
+    console.log("Connected")
     return () => {
       socket.current.emit("leave chat room", {
         room: match.params.chatId,
@@ -119,6 +121,7 @@ const SingleChat = ({ match }) => {
   useEffect(() => {
     socket?.current?.on("new message", (payload) => {
       setMessages((messages) => [...messages, payload]);
+      console.log(payload)
     });
     return () => {
       socket?.current?.off("new message");
@@ -136,7 +139,7 @@ const SingleChat = ({ match }) => {
       text: newMessage,
     };
 
-    socket?.current?.emit("new message", {
+    socket.current?.emit("new message", {
       messageInfo: messageInfo,
       room: match.params.chatId,
     });
