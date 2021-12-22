@@ -1,4 +1,7 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
+
+
 
 // ---------------- CREATING APIs ------------------ 
 
@@ -14,6 +17,7 @@ const createForNews = async (params,credentials,post) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -29,6 +33,7 @@ const createForTeam = async (params, credentials, post) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -44,6 +49,7 @@ const createForPlayer = async (params, credentials, post) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -59,6 +65,7 @@ const createForMatch = async (params,credentials,post) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -73,6 +80,7 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -87,6 +95,7 @@ const read = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -102,6 +111,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -113,6 +123,7 @@ const listByFollowings = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -128,6 +139,7 @@ const listByUser = async (params,credentials,signal) => {
     });
     return await response.json()
   }catch(error){
+    errorHandler(error)
   }
 }
 
@@ -143,6 +155,7 @@ const listPostByTeam = async (params,credentials,signal) => {
     });
     return await response.json()
   }catch(error){
+    errorHandler(error)
   }
 }
 
@@ -154,6 +167,7 @@ const listByPlayer = async (params,signal) => {
     });
     return await response.json()
   }catch(error){
+    errorHandler(error)
   }
 }
 
@@ -165,6 +179,7 @@ const listByMatch = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -176,6 +191,7 @@ const postListByDepartment = async (params,signal) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -192,6 +208,7 @@ const postListByJob = async (params,credentials,signal) => {
     })
     return await response.json()
   }catch(error) {
+    errorHandler(error)
   }
 }
 
@@ -203,6 +220,7 @@ const postListByNews = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -218,6 +236,7 @@ const listPinned = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -234,6 +253,7 @@ const listRelated = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -245,6 +265,7 @@ const listBestMatch = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -260,6 +281,7 @@ const latestTeam = async (credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 } 
 
@@ -273,6 +295,7 @@ const listByPresident = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -284,6 +307,7 @@ const listByVicePresident = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -296,6 +320,7 @@ const listByManager = async (params,signal) => {
     })
     return response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -307,6 +332,7 @@ const listByCoach = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -318,6 +344,7 @@ const listByScout = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -329,6 +356,7 @@ const listByYouth = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -350,6 +378,7 @@ const like = async (params,credentials,postId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -369,6 +398,7 @@ const unlike = async (params,credentials,postId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -388,6 +418,7 @@ const pin = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -406,6 +437,7 @@ const unpin = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -424,6 +456,7 @@ const complain = async (content) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

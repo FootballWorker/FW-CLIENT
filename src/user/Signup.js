@@ -324,7 +324,7 @@ export default function Signup({ match }) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Jobs could not be uploaded."
           });
         } else {
           setJobs(data);
@@ -347,7 +347,7 @@ export default function Signup({ match }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Teams could not be uploaded."
         });
       } else {
         setTeams(data);

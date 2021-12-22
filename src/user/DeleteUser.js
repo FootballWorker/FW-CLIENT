@@ -46,7 +46,7 @@ export default function DeleteUser(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error! Please Try Again.",
+          error: "500 Server Error. Deleting operation could not be carried out."
         });
       } else {
         auth.clearJWT(() => console.log("deleted"));

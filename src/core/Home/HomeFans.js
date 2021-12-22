@@ -38,7 +38,7 @@ export default function HomeFans(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Posts could not be uploaded."
         });
       } else {
         setValues(data);
@@ -48,7 +48,6 @@ export default function HomeFans(props) {
 
     return () => {
       abortController.abort();
-      setLoading(false);
     };
   }, []);
 
@@ -63,7 +62,7 @@ export default function HomeFans(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. News could not be uploaded."
         });
       } else {
         setNews(data);

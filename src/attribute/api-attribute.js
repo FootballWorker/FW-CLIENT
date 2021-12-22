@@ -1,4 +1,5 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
 
 
 const create = async (params,credentials,attribute) => {
@@ -14,7 +15,7 @@ const create = async (params,credentials,attribute) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -33,7 +34,7 @@ const read = async (params, credentials) => {
     );
     return await response.json();
   } catch (error) {
-    console.log("500 Server Error!");
+    errorHandler(error)
   }
 };
 
@@ -53,7 +54,7 @@ const scoresByUser = async (params, credentials, signal) => {
     );
     return await response.json();
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 };
 
@@ -73,7 +74,7 @@ const listAttributes = async (params, credentials, signal) => {
     );
     return await response.json();
   } catch (error) {
-    console.log("500 Server Error!");
+    errorHandler(error)
   }
 };
 
@@ -93,7 +94,7 @@ const updateAttribute = async (credentials, attribute) => {
     );
     return await response.json();
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 };
 
@@ -112,7 +113,7 @@ const remove = async (params, credentials) => {
     );
     return await response.json();
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 };
 
@@ -124,7 +125,7 @@ const averageAttributes = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 

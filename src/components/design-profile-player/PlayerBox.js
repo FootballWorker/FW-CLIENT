@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ImageListItem from "@mui/material/ImageListItem";
 import profilePic from "./../../assets/images/profile-pic.png";
-import config from "./../../config/config.js";
+import {config} from "./../../config/config.js";
 import numberWithCommas from "../wage";
 
 const countries = [
@@ -441,7 +441,7 @@ export default function PlayerBox(props) {
   );
   return (
     <Paper
-      elevation={12}
+      elevation={8}
       sx={{
         margin: "auto",
         p: 2,

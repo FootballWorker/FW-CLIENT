@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  Paper,
-  Typography,
-  Divider,
-  Button,
-  TextField,
-  Card,
-  CardActions,
-} from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 

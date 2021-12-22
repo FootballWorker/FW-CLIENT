@@ -2,7 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {format} from 'timeago.js'
 import PropTypes from "prop-types";
-import { Divider, List, ListItem, ListItemText, Paper, Typography } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+
 import ListHeader from '../header/ListHeader';
 
 export default function PollList(props) {

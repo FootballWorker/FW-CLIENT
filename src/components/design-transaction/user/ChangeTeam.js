@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { IconButton } from "@mui/material";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,11 +11,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Tooltip from '@mui/material/Tooltip';
 import Slide from '@mui/material/Slide';
 
-
-
 import auth from './../../../auth/auth-helper'
 import {list} from './../../../team/api-team'
 import {changeFavorite} from './../../../user/api-user'
+import SnackError from '../../../errorHandler/SnackError.js';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -29,6 +28,10 @@ export default function ChangeTeam(props) {
   const [values, setValues] = useState({
     favoriteTeam: ""
   })
+  const [isError, setIsError] = useState({
+    openSnack: false,
+    error: "",
+  });
   const jwt = auth.isAuthenticated()
 
   useEffect(() => {
@@ -37,7 +40,11 @@ export default function ChangeTeam(props) {
 
     list(signal).then((data)=>{
       if(data?.error){
-        console.log(data.error)
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: "500 Server Error! Teams could not be loaded."
+        });
       }else{
         setTeams(data)
       }
@@ -70,13 +77,21 @@ export default function ChangeTeam(props) {
         favoriteTeam
       ).then((data)=> {
         if(data?.error){
-          console.log(data.error)
+          setIsError({
+            ...isError,
+            openSnack: true,
+            error: "500 Server Error! Your team could not be changed."
+          });
         }else{
           setRedirect(true)
         }
       })
     }else{
-      console.log("No team")
+      setIsError({
+        ...isError,
+        openSnack: true,
+        error: "500 Server Error! Team could not be founded."
+      });
     }
   }
 
@@ -91,6 +106,7 @@ export default function ChangeTeam(props) {
           <ChangeCircleIcon />
         </IconButton>
       </Tooltip>
+      <SnackError open={isError.openSnack} text={isError.error} />
       <Dialog fullWidth open={open} onClose={handleClose} TransitionComponent={Transition} >
         <DialogTitle sx={{textAlign:'center'}} >Change Team</DialogTitle>
         <DialogContent sx={{margin:'auto'}} >

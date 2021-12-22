@@ -1,47 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import auth from './../auth/auth-helper'
-import {read,listRelated,like,unlike} from './api-comment'
-import SideComments from '../components/design-aside/SideComments'
-import SingleComment from '../components/design-post/SingleComment'
+import auth from "./../auth/auth-helper";
+import { read, listRelated, like, unlike } from "./api-comment";
+import SideComments from "../components/design-aside/SideComments";
+import SingleComment from "../components/design-post/SingleComment";
 import SnackError from "../errorHandler/SnackError.js";
 import PostSkelaton from "../components/skelatons/PostSkelaton";
 import SideSkeleton from "../components/skelatons/SideSkeleton";
 import NotFound from "../components/outside/NotFound";
 
-
-const Comment = ({match}) => {
+const Comment = ({ match }) => {
   const [isError, setIsError] = useState({
     openSnack: false,
     error: "",
-  });  
+  });
   const [loading, setLoading] = useState(false);
-  const [comment, setComment] = useState({})
-  const [related, setRelated] = useState([])
-  const [redirect, setRedirect] = useState(false)
+  const [comment, setComment] = useState({});
+  const [related, setRelated] = useState([]);
+  const [redirect, setRedirect] = useState(false);
   const [open, setOpen] = useState(false);
-  const jwt = auth.isAuthenticated()
+  const jwt = auth.isAuthenticated();
 
   // Load Comment Data
   useEffect(() => {
     setLoading(true);
-    const abortController = new AbortController()
-    const signal = abortController.signal
+    const abortController = new AbortController();
+    const signal = abortController.signal;
 
-    read(
-      {commentId: match.params.commentId},
-      signal
-    ).then((data)=>{
+    read({ commentId: match.params.commentId }, signal).then((data) => {
       if (data?.error === "Comment not found") {
-        setRedirect(true)
-      }
-      else if (data && data.error) {
-        setIsError({ ...isError, open: true, error: "500 Server Error. Please try again." });
-      }else {
-        setComment(data)
+        setRedirect(true);
+      } else if (data && data.error) {
+        setIsError({
+          ...isError,
+          open: true,
+          error: "500 Server Error! Comment could not be loaded.",
+        });
+      } else {
+        setComment(data);
         let like = checkLike(data);
         setValues({
           ...values,
@@ -50,19 +49,22 @@ const Comment = ({match}) => {
         });
         setLoading(false);
       }
-    })
+    });
 
     return () => {
-      abortController.abort()
-    }
-  }, [match.params.commentId])
+      abortController.abort();
+    };
+  }, [match.params.commentId]);
 
   const checkLike = (comment) => {
-    const match = comment &&  comment.likes.some((user) => {
-      return user._id === jwt.user._id;
-    });
+    const match =
+      comment &&
+      comment.likes.some((user) => {
+        return user._id === jwt.user._id;
+      });
     return match;
   };
+  
   const [values, setValues] = useState({
     like: false,
     likes: 0,
@@ -83,7 +85,7 @@ const Comment = ({match}) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error! Related Comments could not be loaded.",
         });
       } else {
         setRelated(data);
@@ -92,7 +94,7 @@ const Comment = ({match}) => {
     });
 
     return () => {
-      abortController.abort()
+      abortController.abort();
     };
   }, [match.params.commentId]);
 
@@ -106,7 +108,7 @@ const Comment = ({match}) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error! Like function could not work.",
           });
           setOpen(false);
         } else {
@@ -119,18 +121,17 @@ const Comment = ({match}) => {
         }
       }
     );
-  }
+  };
 
-  if(redirect){
-    return <NotFound text="the Comment" />
+  if (redirect) {
+    return <NotFound text="the Comment" />;
   }
-
 
   return (
     <div>
-      <Grid container spacing={2} sx={{p:2}} >
-        <Grid item xs={12} md={ related ? 8 : 12 }>
-        {loading ? (
+      <Grid container spacing={2} sx={{ p: 2 }}>
+        <Grid item xs={12} md={related ? 8 : 12}>
+          {loading ? (
             <SideSkeleton />
           ) : (
             <SingleComment
@@ -142,7 +143,7 @@ const Comment = ({match}) => {
           )}
         </Grid>
         <Grid item xs={12} md={4}>
-        {loading ? (
+          {loading ? (
             [1, 2, 3, 4].map((n) => <PostSkelaton key={n} />)
           ) : (
             <SideComments comments={related} />
@@ -158,6 +159,6 @@ const Comment = ({match}) => {
       </Backdrop>
     </div>
   );
-}
+};
 
-export default Comment
+export default Comment;

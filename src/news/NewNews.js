@@ -42,7 +42,7 @@ const NewNews = () => {
 
     create({ t: jwt.token }, newsData).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: "500 Server Error!" });
+        setValues({ ...values, error: "500 Server Error. News could not be created." });
       } else {
         setValues({ ...values, error: "", redirect: true });
       }

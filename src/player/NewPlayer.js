@@ -300,7 +300,7 @@ const NewPlayer = ({ match }) => {
 
     listPositions(signal).then((data)=>{
       if(data && data.error){
-        setValues({...values,error: data.error})
+        setValues({...values,error: "500 Server Error. Positions could not be uploaded."})
       }else{
         setPositions(data)
       }
@@ -345,7 +345,7 @@ const NewPlayer = ({ match }) => {
       player
     ).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error. Player could not be created." });
         setProgress(false)
       } else {
         setValues({

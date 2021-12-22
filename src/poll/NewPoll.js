@@ -55,7 +55,7 @@ const NewPoll = ({ match }) => {
       poll
     ).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: "500 Server" });
+        setValues({ ...values,  error: "500 Server Error. Poll could not be created." });
         setProgress(false);
       } else {
         setValues({

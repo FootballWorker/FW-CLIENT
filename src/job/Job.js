@@ -47,7 +47,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Job could not be uploaded."
           });
         } else {
           setJob(data);
@@ -73,7 +73,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Workers could not be loaded."
           });
         } else {
           setWorkers(data);
@@ -99,7 +99,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Vacant jobs could not be loaded."
           });
         } else {
           setVacants(data);
@@ -125,7 +125,7 @@ const Job = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Posts could not be uploaded."
           });
         } else {
           setPosts(data);
@@ -139,6 +139,8 @@ const Job = ({ match }) => {
     };
   }, [match.params.jobId]);
 
+
+  
   return (
     <Paper elevation={0} >
       <PageHeader header={job.title} />

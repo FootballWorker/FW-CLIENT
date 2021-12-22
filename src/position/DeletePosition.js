@@ -39,7 +39,7 @@ export default function DeletePosition(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again."
+            error: "500 Server Error. Position could not be deleted."
           });
         } else {
           props.onRemove(props.position);

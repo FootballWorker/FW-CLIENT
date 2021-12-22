@@ -14,7 +14,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export default function JobsByDepartment (props){
   return (
-    <Paper elevation={12}>
+    <Paper elevation={4}>
       <Typography
         align="center"
         variant="h6"
@@ -45,7 +45,7 @@ export default function JobsByDepartment (props){
                         },
                       }}
                     >
-                      {item.title.toUpperCase()}
+                      {item.title?.toUpperCase()}
                     </Typography>
                   }
                 />

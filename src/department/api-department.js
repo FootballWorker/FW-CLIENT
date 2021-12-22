@@ -1,4 +1,4 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
 
 
 
@@ -15,6 +15,7 @@ const create = async (credentials,department) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -26,6 +27,7 @@ const read = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -37,6 +39,7 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -53,6 +56,7 @@ const update = async (params, credentials, department) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 }; 
 
@@ -68,6 +72,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

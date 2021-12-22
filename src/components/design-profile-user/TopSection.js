@@ -15,7 +15,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ImageIcon from "@mui/icons-material/Image";
 
 import Star from "./../../assets/images/back6.jpg";
-import config from "../../config/config";
+import {config} from "../../config/config";
 import auth from "../../auth/auth-helper";
 import { updateBackground } from "../../user/api-user";
 

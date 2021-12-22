@@ -53,7 +53,7 @@ const NewJob = ({match}) => {
       {t: jwt.token },
       job).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: "500 Server Error. Please try again." });
+        setValues({ ...values, error: "500 Server Error. Job could not be created." });
       } else {
         setValues({ ...values, error: "", open: true });
         setProgress(false);

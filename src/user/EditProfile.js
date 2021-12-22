@@ -18,7 +18,7 @@ import { read, update } from "./api-user.js";
 import CancelButton from "../components/design-button/CancelButton.js";
 import WebSiteButton from "../components/design-button/WebSiteButton.js";
 import FormError from "../errorHandler/FormError.js";
-import config from "./../config/config";
+import {config} from "./../config/config";
 import Loading from "../components/loading/Loading.js";
 
 const countries = [
@@ -312,7 +312,7 @@ const EditProfile = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. User could not be uploaded."
         });
       } else {
         setValues(data);
@@ -366,7 +366,7 @@ const EditProfile = ({ match }) => {
     update({ userId: match.params.userId }, { t: jwt.token }, userData).then(
       (data) => {
         if (data && data.error) {
-          setValues({ ...values, error: data.error });
+          setValues({ ...values, error: "500 Server Error. User could not be edited." });
           setProgress(false);
         } else {
           setValues({ ...values, redirectToProfile: true });

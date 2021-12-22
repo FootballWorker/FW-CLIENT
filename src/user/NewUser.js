@@ -69,8 +69,8 @@ const Signup = () => {
       role: values.role || undefined
     };
     create(user).then((data) => {
-      if (data.error) {
-        setValues({ ...values, error: "500 Server Error!" });
+      if (data?.error) {
+        setValues({ ...values, error: data.error});
       } else {
         setValues({ ...values, error: "", open: true });
       }

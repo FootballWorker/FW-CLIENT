@@ -24,7 +24,7 @@ import Tooltip from "@mui/material/Tooltip";
 import SnackError from "../../errorHandler/SnackError.js";
 import auth from "./../../auth/auth-helper";
 import { complain } from "./../../post/api-post";
-import config from "./../../config/config.js";
+import {config} from "./../../config/config.js";
 import kFormatter from "../numbers.js";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -442,7 +442,7 @@ export default function SinglePost(props) {
                       },
                     }}
                   >
-                    {props.post.postedBy && props.post.postedBy.name}
+                    { props.post?.postedBy?.name}
                   </Typography>
                 </Link>
                 <Link
@@ -461,7 +461,7 @@ export default function SinglePost(props) {
                       },
                     }}
                   >
-                    {props.post.department && props.post.department.name}
+                    {props.post?.department?.name}
                   </Typography>
                 </Link>
                 <Link to={props.post.job && "/jobs/" + props.post.job._id}>
@@ -475,7 +475,7 @@ export default function SinglePost(props) {
                       },
                     }}
                   >
-                    {props.post.job && props.post.job.title.toUpperCase()}
+                    {props.post?.job?.title?.toUpperCase()}
                   </Typography>
                 </Link>
                 <Typography

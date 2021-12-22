@@ -47,7 +47,7 @@ const Match = ({ match }) => {
         setRedirect(true);
       }
       if (data && data.error) {
-        setIsError({ ...isError, open: true, error: "500 Server Error. Please try again." });
+        setIsError({ ...isError, open: true, error: "500 Server Error. Match could not be uploaded." });
       } else {
         setMatchData(data);
         let audience = checkAudience(data);
@@ -112,7 +112,7 @@ const Match = ({ match }) => {
 
     listByMatch({ matchId: match.params.matchId }, signal).then((data) => {
       if (data && data.error) {
-        setIsError({ ...isError, open: true, error: "500 Server Error. Please try again." });
+        setIsError({ ...isError, open: true, error: "500 Server Error. Posts could not be uploaded." });
       } else {
         setPosts(data);
         setLoading(false);
@@ -131,7 +131,7 @@ const Match = ({ match }) => {
 
     listBestMatch({ matchId: match.params.matchId }, signal).then((data) => {
       if (data && data.error) {
-        setIsError({ ...isError, open: true, error: "500 Server Error. Please try again." });
+        setIsError({ ...isError, open: true, error: "500 Server Error. Best Posts could not be uploaded." });
       } else {
         setBestPosts(data);
         setLoading(false);

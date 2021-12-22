@@ -1,4 +1,6 @@
-import config from './../config/config'
+import {config,errorHandler} from './../config/config.js'
+
+
 
 const createChats = async (params,credentials,name) => {
   try {
@@ -16,7 +18,7 @@ const createChats = async (params,credentials,name) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -32,7 +34,7 @@ const readChat = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -48,7 +50,7 @@ const listChats = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -64,7 +66,7 @@ const unRead = async (credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -78,7 +80,7 @@ const listMessages = async (params) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -94,7 +96,7 @@ const listGroups = async (credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -114,7 +116,7 @@ const renameGroup = async (params,credentials,chatName) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -134,7 +136,7 @@ const addToGroup = async (params,credentials,userId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -154,7 +156,7 @@ const removeFromGroup = async (params,credentials,userId) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -171,7 +173,7 @@ const createTeamChat = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 
@@ -184,7 +186,7 @@ const listTeamWorkers = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
-    console.log("500 Server Error!")
+    errorHandler(error)
   }
 }
 

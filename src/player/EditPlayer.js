@@ -25,7 +25,7 @@ import { list } from "./../team/api-team";
 import { listPositions } from "./../position/api-position";
 import FormError from "../errorHandler/FormError.js";
 import SnackError from "../errorHandler/SnackError.js";
-import config from './../config/config.js'
+import {config} from './../config/config.js'
 import defaultPic from './../assets/images/profile-pic.png'
 
 const countries = [
@@ -317,7 +317,7 @@ const EditPlayer = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Player data could not be uploaded."
         });
       } else {
         setValues(data);
@@ -342,7 +342,7 @@ const EditPlayer = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Teams could not be uploaded."
         });
       } else {
         setTeams(data);
@@ -366,7 +366,7 @@ const EditPlayer = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Positions could not be uploaded."
         });
       } else {
         setPositions(data);
@@ -422,7 +422,7 @@ const EditPlayer = ({ match }) => {
     update({ playerId: match.params.playerId }, { t: jwt.token }, player).then(
       (data) => {
         if (data && data.error) {
-          setValues({ ...values, error: data.error });
+          setValues({ ...values, error: "500 Server Error. Player could not be edited." });
           setProgress(false);
         } else {
           setValues({ ...values, redirectToProfile: true });

@@ -329,7 +329,7 @@ const EditTeam = ({ match }) => {
       team
     ).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error. Team could not be edited." });
       } else {
         setValues({ ...values, id: data._id, redirectToProfile: true });
         setProgress(false);

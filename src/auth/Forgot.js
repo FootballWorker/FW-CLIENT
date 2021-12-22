@@ -45,7 +45,7 @@ const Forgot = () => {
     };
     forgot(email).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error! Your request could not be sent." });
       } else {
         setValues({ ...values, error: "", open: true });
         setOpen(true);

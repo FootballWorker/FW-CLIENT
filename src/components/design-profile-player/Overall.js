@@ -17,7 +17,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Accordion from "@mui/material/Accordion";
@@ -93,7 +92,7 @@ export default function Overall(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error! Attribute cannot be created.",
         });
         setOpen(false);
       } else {

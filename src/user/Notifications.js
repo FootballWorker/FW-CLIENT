@@ -49,7 +49,7 @@ export default function Notifications({ match }) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Notification could not be uploaded."
           });
         } else {
           setNtf(data);
@@ -93,7 +93,7 @@ export default function Notifications({ match }) {
         setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Notifications could not be deleted."
           });
         setProgress(false);
       } else {
@@ -111,7 +111,7 @@ export default function Notifications({ match }) {
         setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Notification could not be deleted."
           });
       } else {
         removeNotifcation(item);

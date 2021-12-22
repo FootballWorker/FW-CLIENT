@@ -1,5 +1,5 @@
 import queryString from "query-string"
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
 
 
 
@@ -16,6 +16,7 @@ const create = async (credentials,team) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -27,6 +28,7 @@ const read = async (params,signal) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -42,6 +44,7 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -57,6 +60,7 @@ const listByStar = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -68,6 +72,7 @@ const listCountries = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -80,6 +85,7 @@ const searchForTeams = async (params) => {
 
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -95,6 +101,7 @@ const listLikedTeam = async (params,credentials,signal) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
     console.log("500 Server Error!")
   }
 }
@@ -112,6 +119,7 @@ const update = async (params,credentials,team) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 } 
 
@@ -127,6 +135,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -146,6 +155,7 @@ const star = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -165,6 +175,7 @@ const unstar = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -186,6 +197,7 @@ const hirePresident = async (params,credentials,teamId) => {
     }) 
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -205,6 +217,7 @@ const firePresident = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -224,6 +237,7 @@ const hireVice = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -243,6 +257,7 @@ const fireVice = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -262,6 +277,7 @@ const hireManager = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -281,6 +297,7 @@ const fireManager = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -300,6 +317,7 @@ const hireCoach = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -319,6 +337,7 @@ const fireCoach = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -338,6 +357,7 @@ const hireScout = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -357,6 +377,7 @@ const fireScout = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -376,6 +397,7 @@ const hireYouth = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -395,6 +417,7 @@ const fireYouth = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -414,6 +437,7 @@ const runFor = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -433,6 +457,7 @@ const cancelCandidate = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -452,6 +477,7 @@ const apply = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -471,6 +497,7 @@ const cancelApply = async (params,credentials,teamId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

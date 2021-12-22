@@ -1,4 +1,4 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
 
 
 const signin = async (user) => {  
@@ -14,8 +14,8 @@ const signin = async (user) => {
       body: JSON.stringify(user)    
     })    
     return await response.json()  
-  } catch(err) {    
-    console.log(err)  
+  } catch(error) {    
+    errorHandler(error) 
   }
 }
 
@@ -31,7 +31,7 @@ const contact = async (content) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    errorHandler(error)
   }
 }
 
@@ -47,7 +47,7 @@ const presidentMail = async (content) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    errorHandler(error)
   }
 }
 
@@ -64,7 +64,7 @@ const forgot = async (email) => {
 
     return await response.json()
   } catch (error) {
-    console.log(error)
+    errorHandler(error)
   }
 }
 
@@ -79,7 +79,7 @@ const reset = async (params,password) => {
     })
     return await response.json()
   } catch (error) {
-    console.log(error)
+    errorHandler(error)
   }
 }
 
@@ -88,8 +88,8 @@ const signout = async () => {
     let response = await fetch(config.ServerURI + '/api/auth/signout/', { method: 'GET' 
     })    
     return await response.json()  
-  } catch(err) {    
-    console.log(err)  
+  } catch(error) {    
+    errorHandler(error) 
   }
 }
 

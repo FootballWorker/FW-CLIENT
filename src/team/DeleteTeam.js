@@ -38,7 +38,7 @@ export default function DeleteTeam(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Team could not be deleted."
         });
       } else {
         props.onRemove(props.team);

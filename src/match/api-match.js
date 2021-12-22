@@ -1,5 +1,6 @@
 import queryString from 'query-string'
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
 
 
 const create = async (params,credentials,match) => {
@@ -15,6 +16,7 @@ const create = async (params,credentials,match) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -30,6 +32,7 @@ const read = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -46,6 +49,7 @@ const update = async (params,credentials,matchData) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 } 
 
@@ -61,6 +65,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -76,6 +81,7 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -91,6 +97,7 @@ const listByTeam = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -102,6 +109,7 @@ const latestMatches = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -118,6 +126,7 @@ const listForHome = async (credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -129,6 +138,7 @@ const searchMatchByTeam = async (params) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -140,6 +150,7 @@ const listByAudience = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -152,6 +163,7 @@ const searchForMatch = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -171,6 +183,7 @@ const audience = async (params,credentials,matchId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -190,6 +203,7 @@ const disaudience = async (params,credentials,matchId) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -209,6 +223,7 @@ const predictHome = async (params,credentials,matchId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -228,6 +243,7 @@ const predictDraw = async (params,credentials,matchId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -247,6 +263,7 @@ const predictAway = async (params,credentials,matchId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

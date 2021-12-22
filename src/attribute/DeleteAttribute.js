@@ -34,7 +34,7 @@ export default function DeleteAttribute(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error! Attribute could not be deleted.",
           });
         } else {
           setOpen(false);

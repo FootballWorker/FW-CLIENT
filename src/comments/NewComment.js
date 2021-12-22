@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import {  Button, Card, CardActions, Divider, Paper, TextField, Typography } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -46,7 +52,7 @@ export default function NewComment({match}) {
       commentData
     ).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error! Comment could not be created.", });
         setOpen(false);
       } else {
         setValues({ ...values, redirectToHome: true });

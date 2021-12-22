@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
 import Grid from "@mui/material/Grid";
@@ -24,7 +24,7 @@ import SnackError from "../errorHandler/SnackError";
 import Loading from "../components/loading/Loading";
 import kFormatter from "../components/numbers";
 import Timer from "./Timer";
-import config from "../config/config";
+import {config} from "../config/config";
 import NotFound from "../components/outside/NotFound";
 
 
@@ -51,11 +51,11 @@ const Poll = ({ match }) => {
 
     read({ pollId: match.params.pollId }, { t: jwt.token }, signal).then(
       (data) => {
-        if (data?.error == "Poll not found") {
+        if (data?.error === "Poll not found") {
           setRedirect(true)
         }
         else if (data && data.error) {
-          setIsError({ ...isError, openSnack: true, error: "500 Server Error. Please try again." });
+          setIsError({ ...isError, openSnack: true,  error: "500 Server Error. Poll could not be uploaded." });
         } else {
           setPoll(data);
           let isVoted = checkVoter(data);
@@ -105,7 +105,7 @@ const Poll = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Voting could not be carried out."
         });
       } else {
         setVoted({

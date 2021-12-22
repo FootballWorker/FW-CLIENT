@@ -36,7 +36,7 @@ export default function Jobs() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Jobs could not be uploaded."
         });
       } else {
         setJobs(data);

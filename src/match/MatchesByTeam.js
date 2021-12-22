@@ -74,7 +74,7 @@ export default function MatchesByTeam({match}) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again." ,
+          error: "500 Server Error. Matches could not be uploaded."
         });
       } else {
         setMatchList(data);
@@ -103,7 +103,7 @@ export default function MatchesByTeam({match}) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again." ,
+            error: "500 Server Error. Matches could not be uploaded."
           });
         }else{
           setMatchList(data)

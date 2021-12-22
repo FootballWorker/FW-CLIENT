@@ -17,7 +17,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Visibility from "@mui/icons-material/Visibility";
 import PushPinIcon from "@mui/icons-material/PushPin";
 
-import config from "./../../config/config.js";
+import {config} from "./../../config/config.js";
 import auth from "./../../auth/auth-helper";
 import DeletePost from "../../post/DeletePost";
 import ListHeader from "../header/ListHeader.js";

@@ -49,7 +49,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts could not be uploaded."
         });
       } else {
         setFollowing(data);
@@ -73,7 +73,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Matches could not be uploaded."
         });
       } else {
         setLatMatches(data);
@@ -97,7 +97,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts from team could not be uploaded."
         });
       } else {
         setLatest(data);
@@ -121,7 +121,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Polls could not be uploaded."
         });
       } else {
         setValues({ ...values, polls: data });
@@ -146,7 +146,7 @@ export default function HomeWorkers(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Subscribed News could not be uploaded."
         });
       } else {
         setNews(data);

@@ -1,4 +1,6 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
+
 
 
 const create = async (params,credentials,job) => {
@@ -14,6 +16,7 @@ const create = async (params,credentials,job) => {
     })
     return await response.json()
   }catch(error){
+    errorHandler(error)
   }
 }
 
@@ -25,6 +28,7 @@ const listJobs = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -36,6 +40,7 @@ const listByDepartment = async (params,signal) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -52,6 +57,7 @@ const bestWorkers = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -68,6 +74,7 @@ const vacantJobs = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -83,6 +90,7 @@ const read = async (params,credentials,signal) => {
       }})
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -99,6 +107,7 @@ const update = async (params,credentials,job) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -114,6 +123,7 @@ const remove = async (params,credentials,job) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

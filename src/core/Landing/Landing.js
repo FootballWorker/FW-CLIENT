@@ -32,7 +32,7 @@ const Landing = () => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Departments could not be uploaded."
         });
       } else {
         setDepartments(data);

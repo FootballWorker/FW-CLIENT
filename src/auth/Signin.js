@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
-import DoorBackIcon from '@mui/icons-material/DoorBack';
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import DoorBackIcon from "@mui/icons-material/DoorBack";
+import Checkbox from "@mui/material/Checkbox";
 
 import auth from "./../auth/auth-helper";
-import {  Link, Redirect } from "react-router-dom";
 import { signin } from "./api-auth.js";
 import FormError from "./../errorHandler/FormError";
 
@@ -21,6 +22,11 @@ export default function Signin(props) {
     error: "",
     redirectToReferrer: false,
   });
+  const [checked, setChecked] = useState(false);
+
+  const handleStatus = (event) => {
+    setChecked(event.target.checked);
+  };
 
   const clickSubmit = () => {
     const user = {
@@ -30,13 +36,16 @@ export default function Signin(props) {
 
     signin(user).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({
+          ...values,
+          error: "Email or password wrong ! Please try again.",
+        });
       } else {
-        auth.authenticate(data, () => {
+        auth.authenticate(checked,data, () => {
           setValues({ ...values, error: "", redirectToReferrer: true });
         });
       }
-    })
+    });
   };
 
   const handleChange = (name) => (event) => {
@@ -58,11 +67,11 @@ export default function Signin(props) {
   }
 
   const enterKey = (event) => {
-    if(event.keyCode === 13){
-      event.preventDefault()
-      clickSubmit()
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      clickSubmit();
     }
-  }
+  };
 
   return (
     <Card
@@ -74,7 +83,15 @@ export default function Signin(props) {
         height: "100%",
       }}
     >
-      <Box sx={{display:'flex',gap:2 , justifyContent:'center',alignItems:'center',textAlign:'center' }}  >
+      <Box
+        sx={{
+          display: "flex",
+          gap: 2,
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
         <Typography variant="h6">Open Door</Typography>
         <DoorBackIcon />
       </Box>
@@ -120,16 +137,46 @@ export default function Signin(props) {
           GET IN
         </Button>
       </CardActions>
-      <Box sx={{mt:1,ml:3,mb:1,display:'flex',flexDirection:'column', gap:1}} >
-        <Link to="/forgot/password" style={{padding:'5px',maxWidth:150,borderRadius:'5px',textDecoration:'underline'}} >
-          <Typography sx={{fontWeight:'bold'}} >
-            Forgot Password
-          </Typography>
+      <Box sx={{display:'flex',alignItems:'center',textAlign:'center'}} >
+        <Checkbox
+          checked={checked}
+          onChange={handleStatus}
+          sx={{ml:2, alignItems:'flex-start',textAlign:'left',justifyContent:'flex-start'}}
+          inputProps={{ "aria-label": "controlled" }}
+        />
+        <Typography  sx={{ fontWeight: 500}} >Remember Me</Typography>
+      </Box>
+      <Box
+        sx={{
+          mt: 1,
+          ml: 3,
+          mb: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
+        }}
+      >
+        <Link
+          to="/forgot/password"
+          style={{
+            padding: "5px",
+            maxWidth: 150,
+            borderRadius: "5px",
+            textDecoration: "underline",
+          }}
+        >
+          <Typography sx={{ fontWeight: "bold" }}>Forgot Password</Typography>
         </Link>
-        <Link to="/" style={{padding:'5px',maxWidth:150,borderRadius:'5px',textDecoration:'underline'}} >
-          <Typography sx={{fontWeight:'bold'}} >
-            Become FW
-          </Typography>
+        <Link
+          to="/"
+          style={{
+            padding: "5px",
+            maxWidth: 150,
+            borderRadius: "5px",
+            textDecoration: "underline",
+          }}
+        >
+          <Typography sx={{ fontWeight: "bold" }}>Become FW</Typography>
         </Link>
       </Box>
     </Card>

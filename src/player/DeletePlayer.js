@@ -38,7 +38,7 @@ export default function DeletePlayer(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: data.error,
+            error: "500 Server Error. Player could not be deleted."
           });
         } else {
           props.onRemove(props.player);

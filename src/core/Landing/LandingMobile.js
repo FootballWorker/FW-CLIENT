@@ -7,10 +7,6 @@ import LandingHeader from "../../components/design-landing/LandingHeader";
 import Contact from '../Contact';
 import DepSkeleton from "../../components/skelatons/DepSkeleton";
 
-// import VisibilityIcon from "@mui/icons-material/Visibility";
-// import Logo from "./../../assets/images/orijinalLogo.png";
-// import Fans from "./../../assets/images/fans.png";
-
 
 const LandingMobile = (props) => {
   return (

@@ -34,7 +34,7 @@ import { listUnread } from "./../../../user/api-user";
 import { unRead } from "./../../../messanger/api-messanger";
 import Logo from "./../../../assets/images/orijinalLogo.png";
 import { Button } from "@mui/material";
-import config from "../../../config/config";
+import {config} from "../../../config/config";
 
 const drawerWidth = 215;
 

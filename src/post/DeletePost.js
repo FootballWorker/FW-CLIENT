@@ -38,7 +38,7 @@ export default function DeletePost(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Post could not be deleted."
         });
       } else {
         props.onRemove(props.post);

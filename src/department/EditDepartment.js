@@ -10,12 +10,11 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import auth from "./../auth/auth-helper.js";
-import {read,update} from './api-department'
+import { read, update } from "./api-department";
 import CancelButton from "../components/design-button/CancelButton.js";
 import WebSiteButton from "../components/design-button/WebSiteButton.js";
 import FormError from "../errorHandler/FormError.js";
-import Loading from '../components/loading/Loading';
-
+import Loading from "../components/loading/Loading";
 
 const EditDepartment = ({ match }) => {
   const [values, setValues] = useState({
@@ -27,7 +26,7 @@ const EditDepartment = ({ match }) => {
     redirectToProfile: false,
     id: "",
   });
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const jwt = auth.isAuthenticated();
 
@@ -35,15 +34,15 @@ const EditDepartment = ({ match }) => {
     // SETTING SIGNAL
     const abortController = new AbortController();
     const signal = abortController.signal;
-    setLoading(true)
+    setLoading(true);
 
     // GETTING INFORMATION ABOUT PROFIL
-    read(
-      { departmentId: match.params.departmentId },
-      signal
-    ).then((data) => {
+    read({ departmentId: match.params.departmentId }, signal).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({
+          ...values,
+          error: "500 Server Error. Department could not be uploaded.",
+        });
       } else {
         setValues({
           ...values,
@@ -60,12 +59,10 @@ const EditDepartment = ({ match }) => {
     };
   }, [match.params.departmentId]);
 
-  
-
   const clickSubmit = () => {
     setOpen(true);
     let department = {
-      name: values.name || undefined ,
+      name: values.name || undefined,
       aboutOne: values.aboutOne || undefined,
       aboutTwo: values.aboutTwo || undefined,
       aboutThree: values.aboutThree || undefined,
@@ -78,9 +75,12 @@ const EditDepartment = ({ match }) => {
       department
     ).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({
+          ...values,
+          error: "500 Server Error. Department could not be edited.",
+        });
       } else {
-        setValues({ ...values,redirectToProfile: true });
+        setValues({ ...values, redirectToProfile: true });
         setOpen(false);
       }
     });
@@ -88,28 +88,23 @@ const EditDepartment = ({ match }) => {
 
   // Targeting value
   const handleChange = (name) => (event) => {
-    const value = name === "photo" ? 
-          event.target.files[0] : 
-          event.target.value;
+    const value = name === "photo" ? event.target.files[0] : event.target.value;
     // userData.set(name,value)
     setValues({ ...values, [name]: value });
-  }
+  };
 
   const clearForm = () => {
-    setValues({ name: "",aboutOne:'',aboutTwo:'',aboutThree:''});
+    setValues({ name: "", aboutOne: "", aboutTwo: "", aboutThree: "" });
   };
 
   if (loading) {
-    return <Loading />;
+    return <Loading text="Department is loading..." />;
   }
-
 
   // REDIRECT AFTER SUCCESSFULLY ENDING EDITING
   if (values.redirectToProfile) {
     return <Redirect to={"/departments/" + values.id} />;
   }
-
-  
 
   return (
     <Paper
@@ -137,7 +132,7 @@ const EditDepartment = ({ match }) => {
         EDIT DEPARTMENT
       </Typography>
       <Divider variant="middle" />
-      <Card sx={{p:2}} >
+      <Card sx={{ p: 2 }}>
         <TextField
           id="name"
           label="Name"

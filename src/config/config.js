@@ -3,4 +3,13 @@ const config = {
   ClientURI : 'https://footballworker.net'
 }
 
-export default config
+const isDev = false
+
+const errorHandler = (error) => {
+  if (isDev) {
+    console.log(error)
+  } else {
+  }
+}
+
+export {config , errorHandler}

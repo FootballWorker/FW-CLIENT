@@ -1,12 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
-import {Box,Typography,Divider,IconButton, Paper, Stack } from "@mui/material";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
+import Stack from '@mui/material/Stack'
 import AddIcon from '@mui/icons-material/Add';
 import EventSeatRoundedIcon from '@mui/icons-material/EventSeatRounded';
 import EventSeatOutlinedIcon from '@mui/icons-material/EventSeatOutlined';
 
 import TransactionEdit from "../TransactionEdit";
+import ListHeader from "../../header/ListHeader";
+
 
 export default function TransactionMatch (props) {
   const presentDate  = (new Date()).toTimeString()
@@ -15,7 +22,7 @@ export default function TransactionMatch (props) {
   return (
     <Paper elevation={4}>
       <Stack spacing={1}>
-	      <Typography align="center" variant="h5" sx={{p:2 , fontWeight:'bold' }} >Transactions </Typography>
+      <ListHeader header="Transactions" />
         {props.audience && (
           <Box
             sx={{

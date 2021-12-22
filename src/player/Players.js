@@ -36,7 +36,7 @@ export default function Players() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Players could not be uploaded."
         });
       } else {
         setPlayers(data);

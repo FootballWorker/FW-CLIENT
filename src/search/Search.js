@@ -106,7 +106,7 @@ export default function Search(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Jobs could not be uploaded."
         });
       } else {
         setJobs(data);
@@ -128,7 +128,7 @@ export default function Search(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Countries could not be uploaded."
         });
       } else {
         setCountries(data);
@@ -150,7 +150,7 @@ export default function Search(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Positions could not be uploaded."
         });
       } else {
         setPositions(data);

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 
 import auth from './../auth/auth-helper'
 import {listByUser,listTopUser} from './api-comment'
 import SnackError from "../errorHandler/SnackError";
-import Loading from "../components/loading/Loading";
 import Comments from "./Comments";
 import SideComments from './../components/design-aside/SideComments'
-
+import PostSkelaton from "../components/skelatons/PostSkelaton";
 
 
 
@@ -33,7 +32,7 @@ export default function UserComments({match}) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error! Comments could not be loaded."
         });
       }else{
         setComments(data)
@@ -57,7 +56,7 @@ export default function UserComments({match}) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error! Best Comments could not be loaded.",
         });
       }else{
         setBestie(data)
@@ -79,9 +78,6 @@ export default function UserComments({match}) {
     setComments(updatedComments);
   };
 
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <div>
@@ -91,10 +87,22 @@ export default function UserComments({match}) {
         lg: 4
       }}} >
         <Grid item xs={12} md={5}  >
-          <SideComments comments={bestie} header="Top Comments" />
+        {loading ? (
+            [1, 2, 3].map((n) => <PostSkelaton key={n} />)
+          ) : (
+            <SideComments comments={bestie} header="Top Comments" />
+          )}
         </Grid>
         <Grid item xs={12} md={7} >
-          <Comments comments={comments} removeComment={removeComment} header="All Comments"  />
+        {loading ? (
+            [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)
+          ) : (
+            <Comments
+              comments={comments}
+              removeComment={removeComment}
+              header="All Comments"
+            />
+          )}
         </Grid>
       </Grid>
       <SnackError open={isError.openSnack} text={isError.error} />

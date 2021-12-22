@@ -1,4 +1,6 @@
-import config from './../config/config'
+import {config,errorHandler} from './../config/config.js'
+
+
 
 const totalUser = async (params,signal) => {
   try {
@@ -8,6 +10,7 @@ const totalUser = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
     
   }
 }
@@ -20,6 +23,7 @@ const totalUserComment = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
     
   }
 }
@@ -32,6 +36,7 @@ const totalNews = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
     
   }
 }
@@ -44,6 +49,7 @@ const totalFollowers = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
     
   }
 }
@@ -56,6 +62,7 @@ const totalValue = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
     
   }
 }

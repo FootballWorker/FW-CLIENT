@@ -95,7 +95,7 @@ const NewMatch = ({match}) => {
     };
     create({ teamId: match.params.teamId }, { t: jwt.token }, matchData).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: "500 Server Error!" });
+        setValues({ ...values, error: "500 Server Error. Match could not be created." });
         setProgress(false);
       } else {
         setValues({

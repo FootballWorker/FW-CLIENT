@@ -315,7 +315,7 @@ const NewTeam = () => {
       team
     ).then(data => {
       if(data && data.error){
-        setValues({...values,error: data.error})
+        setValues({...values,error: "500 Server Error. Team could not be created."})
       }else{
         setValues({
           ...values,open: true

@@ -10,9 +10,13 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Avatar, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
-import config from "./../../config/config.js";
+
+import {config} from "./../../config/config.js";
 import defaultNews from "./../../assets/images/default-news.jpg";
 
 export default function NewsBox(props) {
@@ -115,12 +119,11 @@ export default function NewsBox(props) {
             <Link
               style={{ color: "#FED829" }}
               to={
-                props.news.creator &&
-                props.news.creator._id &&
-                "/users/" + props.news.creator._id
+                
+                "/users/" + props.news?.creator?._id
               }
             >
-              {props.news.creator && props.news.creator.name}
+              {props.news?.creator?.name}
             </Link>
           </Typography>
         </Box>
@@ -157,12 +160,11 @@ export default function NewsBox(props) {
             <Link
               style={{ color: "#FED829" }}
               to={
-                props.news.editor &&
-                props.news.editor._id &&
-                "/users/" + props.news.editor._id
+                
+                "/users/" + props.news?.editor?._id
               }
             >
-              {props.news.editor && props.news.editor.name}
+              {props.news?.editor?.name}
             </Link>
           </Typography>
         </Box>
@@ -221,8 +223,8 @@ export default function NewsBox(props) {
           </AccordionSummary>
           <AccordionDetails>
             <List sx={{ maxWidth: "100%" }}>
-              {props.news.employees &&
-                props.news.employees.map((item, i) => (
+              {
+                props.news?.employees?.map((item, i) => (
                   <Link key={i} to={"/users/" + item._id}>
                     <ListItem>
                       <ListItemAvatar>

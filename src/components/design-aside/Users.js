@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -17,7 +17,7 @@ import auth from './../../auth/auth-helper'
 import {hireEditor,hireEmployee} from './../../news/api-news'
 import {hireVice,hireManager,hireCoach,hireYouth,hireScout} from './../../team/api-team'
 import WebSiteButton from "../design-button/WebSiteButton";
-import config from './../..//config/config.js'
+import {config} from './../..//config/config.js'
 import ListHeader from "../header/ListHeader";
 
 

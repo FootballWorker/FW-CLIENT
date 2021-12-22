@@ -49,7 +49,7 @@ const EditJob = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error!"
+            error: "500 Server Error. Job could not be uploaded."
           });
         } else {
           setValues({
@@ -79,7 +79,7 @@ const EditJob = ({ match }) => {
     update({ jobId: match.params.jobId }, { t: jwt.token }, job).then(
       (data) => {
         if (data && data.error) {
-          setValues({ ...values, error: data.error });
+          setValues({ ...values, error: "500 Server Error. Job could not be edited." });
         } else {
           setValues({
             ...values,

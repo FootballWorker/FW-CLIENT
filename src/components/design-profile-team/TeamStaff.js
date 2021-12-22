@@ -9,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import HelpIcon from '@mui/icons-material/Help';
 
-import config from './../../config/config.js'
+import {config} from './../../config/config.js'
 import InfoBox from "../fades/InfoBox.js";
 
 export default function TeamStaff(props) {

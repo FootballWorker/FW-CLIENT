@@ -56,7 +56,7 @@ const Profile = ({ match }) => {
         if (data?.error === "User not found") {
           setRedirect(true);
         } else if (data && data.error) {
-          setIsError({ ...isError, open: true, error: "500 Server Error!" });
+          setIsError({ ...isError, open: true, error: "500 Server Error. User could not be uploaded." });
         } else {
           setUser(data);
           let following = checkFollow(data);
@@ -103,7 +103,7 @@ const Profile = ({ match }) => {
         setIsError({
           ...isError,
           open: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Teams could not be uploaded."
         });
       } else {
         setTeams(data);
@@ -126,7 +126,7 @@ const Profile = ({ match }) => {
       if (data && data.error) {
         setIsError({
           ...isError,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Follow function do not work .",
           open: true,
         });
       } else {
@@ -152,7 +152,7 @@ const Profile = ({ match }) => {
           setIsError({
             ...isError,
             open: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Posts could not be uploaded."
           });
         } else {
           setPosts(data);

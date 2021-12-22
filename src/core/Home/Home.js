@@ -45,7 +45,7 @@ export default function Home({ history }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Teams could not be uploaded."
         });
       } else {
         setTeams(data)
@@ -69,7 +69,7 @@ export default function Home({ history }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Players could not be uploaded."
         });
       } else {
         setBestPlayers(data)
@@ -93,7 +93,7 @@ export default function Home({ history }) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Matches could not be uploaded."
         });
       } else {
         setMatches(data)

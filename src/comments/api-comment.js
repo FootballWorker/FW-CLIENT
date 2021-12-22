@@ -1,4 +1,5 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
 
 
 const create = async (params,credentials,comment) => {
@@ -13,7 +14,7 @@ const create = async (params,credentials,comment) => {
     });
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -30,7 +31,7 @@ const list = async (params,credentials,signal) => {
     });
     return await response.json()
   }catch(error){
-    
+    errorHandler(error)
   }
 }
 
@@ -46,7 +47,7 @@ const listRelated = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -63,7 +64,7 @@ const listByUser = async (params,credentials,signal) => {
     });
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -79,7 +80,7 @@ const listTopPost = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -96,7 +97,7 @@ const listTopUser = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -108,7 +109,7 @@ const read = async (params,signal) => {
     });
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -124,7 +125,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -144,7 +145,7 @@ const like = async (params,credentials,commentId) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 
@@ -164,7 +165,7 @@ const unlike = async (params, credentials,commentId) => {
     })
     return await response.json()
   } catch (error) {
-    
+    errorHandler(error)
   }
 }
 

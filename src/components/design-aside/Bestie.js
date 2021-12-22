@@ -25,7 +25,7 @@ export default function Bestie(props) {
                   primary={item.name}
                   secondary={
                     item.members &&
-                    "Members : " + kFormatter(item.members.length)
+                    "Members : " + kFormatter(item.members?.length)
                   }
                 />
                 <ListItemSecondaryAction

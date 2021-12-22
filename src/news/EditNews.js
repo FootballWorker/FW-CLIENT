@@ -18,7 +18,7 @@ import CancelButton from "../components/design-button/CancelButton.js";
 import WebSiteButton from "../components/design-button/WebSiteButton.js";
 import FormError from "../errorHandler/FormError";
 import Loading from "../components/loading/Loading";
-import config from "./../config/config";
+import {config} from "./../config/config";
 
 const EditNews = ({ match }) => {
   const [values, setValues] = useState({

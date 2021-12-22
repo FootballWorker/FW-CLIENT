@@ -37,7 +37,7 @@ const DeletePoll = (props) => {
     remove({ pollId: props.pollId }, { t: jwt.token }).then(
       (data) => {
         if (data?.error) {
-          setIsError({ ...isError, openSnack: true, error: "500 Server Error. Please try again." });
+          setIsError({ ...isError, openSnack: true, error: "500 Server Error. Poll could not be deleted." });
         } else {
           setRedirect(true);
         }

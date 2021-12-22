@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import config from './../../config/config.js'
+import {config} from './../../config/config.js'
 import ListHeader from '../header/ListHeader.js';
 
 export default function PlayerSideList(props) {
@@ -50,7 +50,7 @@ export default function PlayerSideList(props) {
                       },
                     }}
                   >
-                    {item.position && "Position : " + item.position.title}
+                    {item.position && "Position : " + item.position?.title}
                   </Typography>
                 }
               />

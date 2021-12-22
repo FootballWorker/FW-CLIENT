@@ -38,7 +38,7 @@ const Notification = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again."
+          error: "500 Server Error. Notifications could not be uploaded."
         });
       } else {
         setNtf(data);

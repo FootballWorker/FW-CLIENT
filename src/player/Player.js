@@ -55,7 +55,7 @@ const Player = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Player data could not be uploaded."
         });
       } else {
         setPlayer(data);
@@ -98,7 +98,7 @@ const Player = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts could not be uploaded."
         });
       } else {
         setPosts(data);
@@ -123,7 +123,7 @@ const Player = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Attribute datas could not be uploaded."
           });
         } else {
           setAverage(data);
@@ -152,7 +152,7 @@ const Player = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Assessments by User could not be uploaded."
         });
       } else {
         setAssessments(data);
@@ -177,7 +177,7 @@ const Player = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Attributes could not be uploaded."
         });
       } else {
         setAttributes(data);

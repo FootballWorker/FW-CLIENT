@@ -13,7 +13,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import auth from "./../auth/auth-helper";
 import { followings } from "./api-user";
-import config from "./../config/config";
+import {config} from "./../config/config";
 import SnackError from "../errorHandler/SnackError";
 import ListSkelaton from "../components/skelatons/ListSkelaton";
 
@@ -37,7 +37,7 @@ export default function Followings({ match }) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error! Please, try again.",
+            error: "500 Server Error. Followings could not be uploaded."
           });
         } else {
           setUsers(data);

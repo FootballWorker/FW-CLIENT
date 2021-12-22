@@ -36,7 +36,7 @@ export default function DeleteNews(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. News could not be deleted."
         });
       } else {
         setOpen(false);

@@ -49,7 +49,7 @@ const EditMatch = ({ match }) => {
       signal
     ).then((data) => {
       if (data && data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error. Match could not be uploaded." });
       } else {
         setValues(data);
         setLoading(false);
@@ -95,7 +95,7 @@ const EditMatch = ({ match }) => {
     update({ matchId: match.params.matchId }, { t: jwt.token }, matchData).then(
       (data) => {
         if (data && data.error) {
-          setValues({ ...values, error: "500 Server Error!" });
+          setValues({ ...values, error: "500 Server Error. Match could not be updated." });
           setOpen(false);
         } else {
           setValues({ ...values, redirectToMatch: true });

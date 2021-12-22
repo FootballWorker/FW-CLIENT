@@ -11,17 +11,18 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
+import Grid from "@mui/material/Grid";
+import Tooltip from "@mui/material/Tooltip";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
-  CardMedia,
-  Grid,
-  Tooltip,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
-import config from "./../..//config/config.js";
+
+import {config} from "./../..//config/config.js";
 import ListHeader from "../header/ListHeader.js";
 import kFormatter from "../numbers.js";
 import auth from "./../../auth/auth-helper";
@@ -100,9 +101,9 @@ export default function SideComments(props) {
                         fontSize: { xs: 13, md: 22 },
                       }}
                     >
-                      {item.title.length < 20
+                      {item.title?.length < 20
                         ? item.title
-                        : item.title.substring(0, 20) + "..."}
+                        : item.title?.substring(0, 20) + "..."}
                     </Typography>
                   )}
                   {isLarge ? (
@@ -115,7 +116,7 @@ export default function SideComments(props) {
                         hyphens: "auto",
                       }}
                     >
-                      {item.textOne.substring(0, 300) + "..."}
+                      {item.textOne?.substring(0, 300) + "..."}
                     </Typography>
                   ) : (
                     <Typography
@@ -127,7 +128,7 @@ export default function SideComments(props) {
                         hyphens: "auto",
                       }}
                     >
-                      {item.textOne.substring(0, 150) + "..."}
+                      {item.textOne?.substring(0, 150) + "..."}
                     </Typography>
                   )}
                 </CardContent>
@@ -168,13 +169,13 @@ export default function SideComments(props) {
                 <Typography>{kFormatter(item.likeLength)}</Typography>
               </Box>
               <Box>
-                <Link to={"/departments/" + item.department._id}>
-                  <Typography variant="body">{item.department.name}</Typography>
+                <Link to={"/departments/" + item.department?._id}>
+                  <Typography variant="body">{item.department?.name}</Typography>
                 </Link>
                 <Divider color="primary" />
-                <Link to={"/jobs/" + item.job._id}>
+                <Link to={"/jobs/" + item.job?._id}>
                   <Typography variant="body">
-                    {item.job.title && item.job.title.toUpperCase()}
+                    {item.job?.title && item.job?.title?.toUpperCase()}
                   </Typography>
                 </Link>
               </Box>

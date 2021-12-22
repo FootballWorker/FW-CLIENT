@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { format } from "timeago.js";
 import PropTypes from 'prop-types'
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,7 +22,7 @@ export default function PollsAside(props) {
               <ListItem>
                 <ListItemText
                   primary={item.title}
-                  secondary={(new Date(item.pollEnd)).toLocaleString()}
+                  secondary={format(item.pollEnd)}
                 />
                 <ListItemSecondaryAction>
                   <ListItemIcon>

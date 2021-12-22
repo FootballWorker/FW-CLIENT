@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { animateScroll } from "react-scroll";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import {
-  Avatar,
-  Divider,
-  Grid,
-  IconButton,
-  List,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-} from "@mui/material";
-import { Box } from "@mui/system";
 import { useHistory } from "react-router";
 import { Redirect } from "react-router-dom";
+
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
 
 import auth from "../auth/auth-helper";
 import { createChats, listChats } from "./api-messanger";
 import { read } from "../user/api-user";
 import Conversation from "./Conversation";
 import CreateSection from "./CreateSection";
-import config from "../config/config";
+import {config} from "../config/config";
 import SnackError from "../errorHandler/SnackError";
 import ListSkelaton from "../components/skelatons/ListSkelaton";
 import ListHeader from "../components/header/ListHeader";
@@ -57,7 +56,7 @@ const Messanger = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Try again, please.",
+            error: "500 Server Error. User could not be uploaded."
           });
         } else {
           setUser(data);
@@ -79,7 +78,7 @@ const Messanger = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Try again, please.",
+            error: "500 Server Error. Conversations could not be uploaded."
           });
         } else {
           setConversations(data);
@@ -95,7 +94,7 @@ const Messanger = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Try again, please.",
+          error: "500 Server Error. Chat could not be created."
         });
       } else {
         if (data?._id) {

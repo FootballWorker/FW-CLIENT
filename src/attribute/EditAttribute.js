@@ -33,7 +33,7 @@ const EditAttribute = ({match}) => {
   useEffect(() => {
     read( {attributeId:match.params.attributeId},{t:jwt.token}).then((data)=>{
       if(data?.error){
-        setIsError({ ...isError, open: true, error: "500 Server Error. Please try again." });
+        setIsError({ ...isError, open: true, error: "500 Server Error! Attribute could not be loaded." });
       }else{
         setValues(data)
         setPlayer(data?.player?._id)
@@ -71,7 +71,7 @@ const EditAttribute = ({match}) => {
           ...isError,
           openSnack: true,
           error: "",
-          editError: data.error,
+          editError: "500 Server Error! Attribute could not be edited."
         });
         setProgress(false);
       } else {
@@ -128,6 +128,7 @@ const EditAttribute = ({match}) => {
           }}
         />
         {isError.error && <FormError text={isError.error} />}
+        {isError.editError && <FormError text={isError.editError} />}
         <CardActions
           sx={{
             alignItems: "center",

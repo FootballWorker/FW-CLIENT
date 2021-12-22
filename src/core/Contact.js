@@ -65,7 +65,7 @@ export default function Contact() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Your request could not be sent."
         });
       } else {
         setOpen(true);

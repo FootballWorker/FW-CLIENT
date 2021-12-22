@@ -14,7 +14,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import auth from "./../auth/auth-helper";
 import { followers } from "./api-user";
-import config from "./../config/config";
+import {config} from "./../config/config";
 import SnackError from "../errorHandler/SnackError";
 import ListSkelaton from "../components/skelatons/ListSkelaton";
 
@@ -38,7 +38,7 @@ export default function Followers({ match }) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error! Please, try again.",
+            error: "500 Server Error. Followers could not be uploaded."
           });
         } else {
           setUsers(data);

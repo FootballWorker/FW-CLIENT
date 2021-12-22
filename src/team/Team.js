@@ -91,7 +91,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Team could not be uploaded."
         });
       } else {
         setTeam(data);
@@ -172,7 +172,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Players could not be uploaded."
         });
       } else {
         setPlayers(data);
@@ -197,7 +197,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts of president could not be uploaded."
         });
       } else {
         setPostPresident(data);
@@ -222,7 +222,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts of vice president could not be uploaded."
         });
       } else {
         setPostVice(data);
@@ -247,7 +247,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts of manager could not be uploaded."
         });
       } else {
         setPostManager(data);
@@ -272,7 +272,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts of coach could not be uploaded."
         });
       } else {
         setPostCoach(data);
@@ -297,7 +297,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts of scout could not be uploaded."
         });
       } else {
         setPostScout(data);
@@ -322,7 +322,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts of youth could not be uploaded."
         });
       } else {
         setPostYouth(data);
@@ -346,7 +346,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Poll could not be uploaded."
         });
       } else {
         setPolls(data);
@@ -370,7 +370,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Latest matches could not be uploaded."
         });
       } else {
         setLatMatches(data);
@@ -393,7 +393,7 @@ const Team = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Applicants could not be uploaded."
         });
       } else {
         setValues({ ...values, applicants: data });

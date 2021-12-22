@@ -1,5 +1,6 @@
 import queryString from 'query-string'
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
 
 
 const create = async (user) =>{
@@ -14,6 +15,7 @@ const create = async (user) =>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -28,6 +30,7 @@ const activation = async (params) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -39,6 +42,7 @@ const list = async(signal) =>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -50,6 +54,7 @@ const searchForUser = async (params) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -66,6 +71,7 @@ const read = async (params,credentials,signal) =>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -81,6 +87,7 @@ const update = async (params,credentials,user) =>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -100,6 +107,7 @@ const changeFavorite = async (params,credentials,favoriteTeam) =>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -115,6 +123,7 @@ const remove = async (params,credentials)=>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -134,6 +143,7 @@ const follow = async (params, credentials, followId) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -150,6 +160,7 @@ const unfollow = async(params,credentials,unfollowId)=>{
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -166,6 +177,7 @@ const followers = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -182,6 +194,7 @@ const followings = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -195,6 +208,7 @@ const applicants = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -206,6 +220,7 @@ const newsApplicants = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -224,6 +239,7 @@ const sendNtf = async (params,credentials,ntf) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -240,6 +256,7 @@ const listNtf = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -256,6 +273,7 @@ const readNtf = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -271,6 +289,7 @@ const listUnread = async (credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -286,6 +305,7 @@ const removeNtf = async( params, credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -301,6 +321,7 @@ const removeAll = async( credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

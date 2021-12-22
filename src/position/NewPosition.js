@@ -49,7 +49,7 @@ const NewPosition = () => {
       position
     ).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error. Position could not be created." });
       } else {
         setValues({ ...values, error: "", open: true });
         setProgress(false);

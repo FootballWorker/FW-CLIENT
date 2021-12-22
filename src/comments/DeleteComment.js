@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Dialog from "@mui/material/Dialog";
+import Button from "@mui/material/Button";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import IconButton from "@mui/material/IconButton";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -39,7 +37,7 @@ export default function DeleteComment(props) {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error! Comment could not be deleted.",
         });
       } else {
         props.onRemove(props.comment);

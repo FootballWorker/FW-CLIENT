@@ -1,13 +1,8 @@
-import {
-  Avatar,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  ListItemText,
-  Typography,
-} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { format } from "timeago.js";
-import config from "../config/config";
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
 
 import auth from "./../auth/auth-helper";
 import { read } from "./../user/api-user";
@@ -28,7 +23,7 @@ export default function Conversation({ conversation, currentUser,isError,setIsEr
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Try again, please.",
+          error: "500 Server Error. User could not be uploaded."
         });
       } else {
         setUser(data);

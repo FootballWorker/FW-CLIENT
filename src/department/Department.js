@@ -43,7 +43,7 @@ const Department = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Department could not be uploaded."
         });
       } else {
         setDepartment(data);
@@ -70,7 +70,7 @@ const Department = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts could not be uploaded."
         });
       } else {
         setPosts(data);
@@ -95,7 +95,7 @@ const Department = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Jobs could not be uploaded."
           });
         } else {
           setJobs(data);

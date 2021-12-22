@@ -20,7 +20,7 @@ import BestieNews from "../components/design-news/BestieNews";
 import DeleteNews from "./DeleteNews";
 import SnackError from "../errorHandler/SnackError.js";
 import ListSkelaton from "../components/skelatons/ListSkelaton";
-import config from "./../config/config.js";
+import {config} from "./../config/config.js";
 import defaultPic from "./../assets/images/default-news.jpg";
 import kFormatter from "../components/numbers";
 
@@ -45,7 +45,7 @@ const News = (props) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Newspapers could not be uploaded."
         });
       } else {
         setNews(data);
@@ -69,7 +69,7 @@ const News = (props) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Best Newspapers could not be uploaded."
         });
       } else {
         setBesties(data);

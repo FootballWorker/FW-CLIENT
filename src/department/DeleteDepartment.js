@@ -38,7 +38,7 @@ export default function DeleteDepartment(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again."
+            error: "500 Server Error. Department could not be deleted."
           })
         } else {
           props.onRemove(props.department);

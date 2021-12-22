@@ -1,5 +1,7 @@
 import queryString from "query-string";
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
+
 
 
 const create = async (params, credentials, player) => {
@@ -15,6 +17,7 @@ const create = async (params, credentials, player) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -31,6 +34,7 @@ const list = async (credentials, signal) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -42,6 +46,7 @@ const listByTeam = async (params, signal) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -53,6 +58,7 @@ const listPlayerByStar = async (signal) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -64,6 +70,7 @@ const searchForPlayer = async (params) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -79,6 +86,7 @@ const read = async (params, signal) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -94,6 +102,7 @@ const update = async (params, credentials, player) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -109,6 +118,7 @@ const remove = async (params, credentials) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -128,6 +138,7 @@ const star = async (params, credentials, playerId) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 
@@ -147,6 +158,7 @@ const unstar = async (params, credentials, playerId) => {
     });
     return await response.json();
   } catch (error) {
+    errorHandler(error)
   }
 };
 

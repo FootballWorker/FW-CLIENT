@@ -33,7 +33,7 @@ export default function Departments() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Departments could not be uploaded."
         });
       } else {
         setDepartments(data);

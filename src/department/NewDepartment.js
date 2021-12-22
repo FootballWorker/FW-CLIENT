@@ -54,7 +54,7 @@ const NewDepartment = () => {
 
     create({ t: jwt.token }, departmentData).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: "500 Server Error. Department could not be created." });
       } else {
         setValues({ ...values, error: "", open: true });
         setOpen(false);
@@ -67,7 +67,7 @@ const NewDepartment = () => {
   return (
     <div>
       <Paper
-        elevation={12}
+        elevation={8}
         sx={{
           margin: "auto",
           mt: 11,

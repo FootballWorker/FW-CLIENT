@@ -37,7 +37,7 @@ export default function Teams() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Teams could not be uploaded."
         });
       } else {
         setTeams(data);

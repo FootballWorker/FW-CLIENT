@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
+import { io } from "socket.io-client";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -10,28 +12,24 @@ import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRound
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import { Box } from "@mui/system";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import {
-  Paper,
-  Typography,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  ListItemButton,
-  ListItemAvatar,
-  Avatar,
-} from "@mui/material";
 
-import config from "../config/config";
+import {config} from "../config/config";
 import auth from "../auth/auth-helper";
 import {
   readChat,

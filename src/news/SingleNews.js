@@ -65,7 +65,7 @@ const SingleNews = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Newspaper could not be uploaded."
           });
         } else {
           let employee = checkEmployee(data);
@@ -143,7 +143,7 @@ const SingleNews = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Pinned posts could not be uploaded."
           });
         } else {
           setPinnedPosts(data);
@@ -168,7 +168,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Posts could not be uploaded."
         });
       } else {
         setPosts(data);
@@ -192,7 +192,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Applicants could not be uploaded."
         });
       } else {
         setApplicants(data);
@@ -216,7 +216,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Total Likes data could not be uploaded."
         });
       } else {
         setLikes(data);

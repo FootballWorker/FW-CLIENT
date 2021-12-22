@@ -38,7 +38,7 @@ export default function CreateSection(props) {
         props.setIsError({
           ...props.isError,
           openSnack: true,
-          error: "500 Server Error. Try again, please.",
+          error: "500 Server Error. The meeting could not be created."
         });
       }else{
         history.push("/chats/"+data?._id)

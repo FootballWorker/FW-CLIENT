@@ -39,7 +39,7 @@ export default function Positions(props) {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again."
+            error: "500 Server Error. Positions could not be uploaded."
           });
         } else {
           setPositions(data);

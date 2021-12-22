@@ -36,7 +36,7 @@ export default function Matches() {
         setIsError({
           ...isError,
           openSnack: true,
-          error: data.error,
+          error: "500 Server Error. Matches could not be uploaded."
         });
       } else {
         setMatches(data);

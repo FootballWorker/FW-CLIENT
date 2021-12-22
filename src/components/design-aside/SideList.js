@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import config from './../..//config/config.js'
+import {config} from './../..//config/config.js'
 import ListHeader from "../header/ListHeader.js";
 
 export default function SideList(props) {

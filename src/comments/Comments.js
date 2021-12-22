@@ -11,17 +11,17 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Paper from "@mui/material/Paper";
+import CardMedia from "@mui/material/CardMedia";
+import Grid from "@mui/material/Grid";
+import Tooltip from "@mui/material/Tooltip";
 import {
-  CardMedia,
-  Grid,
-  Tooltip,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 
 import auth from "./../auth/auth-helper";
 import DeleteComment from "./DeleteComment";
-import config from "./../config/config.js";
+import {config} from "./../config/config.js";
 import kFormatter from "../components/numbers";
 
 export default function Comments(props) {

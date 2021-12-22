@@ -1,4 +1,5 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
+
 
 
 const create = async ( params,credentials,poll) => {
@@ -14,6 +15,7 @@ const create = async ( params,credentials,poll) => {
     });
     return await response.json()
   }catch(error){
+    errorHandler(error)
   }
 }
 
@@ -30,6 +32,7 @@ const read = async (params,credentials,signal) => {
     })
     return await response.json()
   }catch(error){
+    errorHandler(error)
   }
 }
 
@@ -41,6 +44,7 @@ const pollListByTeam = async (params,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -52,6 +56,7 @@ const openPolls = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -68,6 +73,7 @@ const vote = async (params,credentials,userId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -83,6 +89,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

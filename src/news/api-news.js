@@ -1,4 +1,4 @@
-import config from './../config/config.js'
+import {config,errorHandler} from './../config/config.js'
 
 
 const create = async (credentials,news) => {
@@ -13,6 +13,7 @@ const create = async (credentials,news) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -29,6 +30,7 @@ const read = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -45,6 +47,7 @@ const list = async (credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -56,6 +59,7 @@ const listTop = async (signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -72,6 +76,7 @@ const listByUser = async (params,credentials,signal) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -89,6 +94,7 @@ const update = async (params,credentials,news) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 } 
 
@@ -104,6 +110,7 @@ const remove = async (params,credentials) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -125,6 +132,7 @@ const hireEditor = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -144,6 +152,7 @@ const hireEmployee = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 } 
 
@@ -163,6 +172,7 @@ const fireEditor = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -182,6 +192,7 @@ const fireEmployee = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -201,6 +212,7 @@ const subscribe = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -220,6 +232,7 @@ const unsubscribe = async (params,credentials,newsId) => {
     });
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -239,6 +252,7 @@ const apply = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -258,6 +272,7 @@ const cancelApply = async (params,credentials,newsId) => {
     })
     return await response.json()
   } catch (error) {
+    errorHandler(error)
   }
 }
 

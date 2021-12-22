@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -14,6 +15,7 @@ import Slide from "@mui/material/Slide";
 
 import auth from "./../../../auth/auth-helper";
 import { sendNtf } from "./../../../user/api-user";
+import SnackError from '../../../errorHandler/SnackError.js';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,10 +23,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function SendingNtf(props) {
   const [open, setOpen] = useState(false);
+  const [redirect, setRedirect] = useState(false)
   const [values, setValues] = useState({
     text: "",
     title: "",
     link: ""
+  });
+  const [isError, setIsError] = useState({
+    openSnack: false,
+    error: "",
   });
   const jwt = auth.isAuthenticated();
 
@@ -50,13 +57,21 @@ export default function SendingNtf(props) {
 
     sendNtf({ userId: props.user._id }, { t: jwt.token }, ntf).then((data) => {
       if (data && data.error) {
-        console.log(data.error);
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: "500 Server Error! Notification could not be sent."
+        });
       } else {
-        console.log(data);
         setOpen(false);
+        setRedirect(true)
       }
     });
   };
+
+  if(redirect){
+    return <Redirect to="/home" />
+  }
 
   return (
     <Box
@@ -72,6 +87,7 @@ export default function SendingNtf(props) {
       <IconButton onClick={handleClickOpen}>
         <NotificationAddIcon />
       </IconButton>
+      <SnackError open={isError.openSnack} text={isError.error} />
       <Dialog
         fullScreen
         open={open}

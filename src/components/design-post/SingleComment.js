@@ -12,7 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import config from './../../config/config.js'
+import {config} from './../../config/config.js'
 import { Stack } from '@mui/material';
 import kFormatter from '../numbers.js';
 
@@ -248,7 +248,7 @@ export default function SingleComment(props) {
                       },
                     }}
                   >
-                    {props.comment.commentedBy && props.comment.commentedBy.name}
+                    {props.comment?.commentedBy?.name}
                   </Typography>
                 </Link>
                 <Typography
@@ -261,7 +261,7 @@ export default function SingleComment(props) {
                     },
                   }}
                 >
-                  {props.comment.department && props.comment.department.name}
+                  {props.comment?.department?.name}
                 </Typography>
                 <Typography
                   gutterBottom
@@ -273,7 +273,7 @@ export default function SingleComment(props) {
                     },
                   }}
                 >
-                  {props.comment.job && props.comment.job.title.toUpperCase()}
+                  {props.comment?.job?.title?.toUpperCase()}
                 </Typography>
                 <Typography
                   gutterBottom

@@ -47,7 +47,7 @@ const EditPosition = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again."
+            error: "500 Server Error. Position could not be uploaded."
           });
         } else {
           setValues({
@@ -80,7 +80,7 @@ const EditPosition = ({ match }) => {
       ).then(
       (data) => {
         if (data && data.error) {
-          setValues({ ...values, error: data.error });
+          setValues({ ...values, error: "500 Server Error. Position could not be edited." });
         } else {
           setValues({
             ...values,

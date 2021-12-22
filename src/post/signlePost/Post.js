@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   useMediaQuery,
   useTheme,
-  Grid,
-  Box,
-  Typography,
-  Stack,
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -52,7 +52,7 @@ const Post = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Post could not be uploaded."
         });
       } else {
         setPost(data);
@@ -100,7 +100,7 @@ const Post = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Related posts could not be uploaded."
         });
       } else {
         setValues({ ...values, related: data });
@@ -125,7 +125,7 @@ const Post = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Please try again.",
+            error: "500 Server Error. Commments could not be uploaded."
           });
         } else {
           setComments(data);
@@ -162,7 +162,7 @@ const Post = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Like function could not work."
         });
       } else {
         setLikeState({
@@ -184,7 +184,7 @@ const Post = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Please try again.",
+          error: "500 Server Error. Pin function could not work."
         });
         setProgress(false);
       } else {
