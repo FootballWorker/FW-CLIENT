@@ -98,7 +98,6 @@ const Messanger = ({ match }) => {
       } else {
         if (data?._id) {
           history.push("/chats/" + data?._id);
-          window.location.reload(false);
         }
       }
     });
@@ -151,7 +150,6 @@ const Messanger = ({ match }) => {
                     <ListItemButton
                       onClick={() => {
                         history.push("/chats/" + c._id);
-                        window.location.reload(false);
                       }}
                       key={c._id}
                     >
