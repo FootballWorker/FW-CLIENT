@@ -1,131 +1,160 @@
-import queryString from 'query-string'
-import {config,errorHandler} from './../config/config.js'
+import queryString from "query-string";
+import { config, errorHandler } from "./../config/config.js";
 
-
-
-const create = async (user) =>{
+const create = async (user) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/users",{
-      method: 'POST',
+    let response = await fetch(config.ServerURI + "/api/users", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        "Accept": "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
-    })
-    return await response.json()
+      body: JSON.stringify(user),
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
 const activation = async (params) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/activation/"+params.activationToken,{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    })
-    return await response.json()
+    let response = await fetch(
+      config.ServerURI + "/api/activation/" + params.activationToken,
+      {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const list = async(signal) =>{
+const list = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/users',{
-      method: 'GET',
-      signal: signal,
-    })
-    return await response.json()
-  } catch (error) {
-    errorHandler(error)
-  }
-}
-
-const searchForUser = async (params) => {
-  const query = queryString.stringify(params)
-  try {
-    let response = await fetch(config.ServerURI + "/api/searchusers?"+query,{
-      method: 'GET',
-    })
-    return await response.json()
-  } catch (error) {
-    errorHandler(error)
-  }
-}
-
-const read = async (params,credentials,signal) =>{
-  try {
-    let response = await fetch(config.ServerURI + "/api/users/" + params.userId, {
+    let response = await fetch(config.ServerURI + "/api/users", {
       method: "GET",
       signal: signal,
-      headers: {
-        'Accept': "application/json",
-        'Content-Type': "application/json",
-        'Authorization': "Bearer " + credentials.t,
-      }
-    })
-    return await response.json()
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const update = async (params,credentials,user) =>{
+const searchForUser = async (params) => {
+  const query = queryString.stringify(params);
   try {
-    let response = await fetch(config.ServerURI + "/api/users/" + params.userId, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        'Authorization': 'Bearer ' + credentials.t
-      },
-      body: user
-    })
-    return await response.json()
+    let response = await fetch(config.ServerURI + "/api/searchusers?" + query, {
+      method: "GET",
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const changeFavorite = async (params,credentials,favoriteTeam) =>{
+const read = async (params, credentials, signal) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/users/" + params.userId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+const update = async (params, credentials, user) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/users/" + params.userId,
+      {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+        body: user,
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+const updateBackground = async (params, credentials, user) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/background/" + params.userId,
+      {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+        body: user,
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+const changeFavorite = async (params, credentials, favoriteTeam) => {
   try {
     let response = await fetch(config.ServerURI + "/api/changeFavorite", {
       method: "PUT",
       headers: {
         "Accept": "application/json",
-        "Content-Type":"application/json",
-        'Authorization': 'Bearer ' + credentials.t
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + credentials.t,
       },
       body: JSON.stringify({
         userId: params.userId,
-        favoriteTeam: favoriteTeam
-      })
-    })
-    return await response.json()
+        favoriteTeam: favoriteTeam,
+      }),
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const remove = async (params,credentials)=>{
+const remove = async (params, credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/users/" + params.userId, {
-      method: "DELETE",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + credentials.t,
+    let response = await fetch(
+      config.ServerURI + "/api/users/" + params.userId,
+      {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
       }
-    })
-    return await response.json()
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
 const follow = async (params, credentials, followId) => {
   try {
@@ -143,189 +172,211 @@ const follow = async (params, credentials, followId) => {
     });
     return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
 };
 
-const unfollow = async(params,credentials,unfollowId)=>{
+const unfollow = async (params, credentials, unfollowId) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/unfollowing/user',{
-      method: 'PUT',
+    let response = await fetch(config.ServerURI + "/api/unfollowing/user", {
+      method: "PUT",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + credentials.t
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + credentials.t,
       },
-      body: JSON.stringify({userId:params.userId,unfollowId:unfollowId})
-    })
-    return await response.json()
+      body: JSON.stringify({ userId: params.userId, unfollowId: unfollowId }),
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const followers = async (params,credentials,signal) => {
+const followers = async (params, credentials, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/followers/by/"+params.userId,{
-      method: 'GET',
-      signal : signal,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + credentials.t
-      },
-    })
-    return await response.json()
+    let response = await fetch(
+      config.ServerURI + "/api/followers/by/" + params.userId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const followings = async (params,credentials,signal) => {
+const followings = async (params, credentials, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/followings/by/"+params.userId,{
-      method: 'GET',
-      signal : signal,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + credentials.t
-      },
-    })
-    return await response.json()
+    let response = await fetch(
+      config.ServerURI + "/api/followings/by/" + params.userId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
 // ------------------------ Applicants --------------------------------
 
-const applicants = async (params,signal) => {
+const applicants = async (params, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/applicants/by/"+params.teamId,{
-      method: 'GET',
-      signal : signal
-    })
-    return await response.json()
+    let response = await fetch(
+      config.ServerURI + "/api/applicants/by/" + params.teamId,
+      {
+        method: "GET",
+        signal: signal,
+      }
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const newsApplicants = async (params,signal) => {
+const newsApplicants = async (params, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/newsapplications/by/"+params.newsId,{
-      method:'GET',
-      signal:signal
-    })
-    return await response.json()
+    let response = await fetch(
+      config.ServerURI + "/api/newsapplications/by/" + params.newsId,
+      {
+        method: "GET",
+        signal: signal,
+      }
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
 // ------------------------ Ntfcations ------------------------------
 
-const sendNtf = async (params,credentials,ntf) => {
+const sendNtf = async (params, credentials, ntf) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/newntf/'+params.userId,{
-      method: 'POST',
-      headers: {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + credentials.t
-      },
-      body: JSON.stringify(ntf)
-    })
-    return await response.json()
-  } catch (error) {
-    errorHandler(error)
-  }
-}
-
-const listNtf = async (params,credentials,signal) => {
-  try {
-    let response = await fetch(config.ServerURI + '/api/notifications/by/'+params.userId,{
-      method: 'GET',
-      signal : signal,
-      headers: {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + credentials.t
-      },
-    })
-    return await response.json()
-  } catch (error) {
-    errorHandler(error)
-  }
-}
-
-const readNtf = async (params,credentials,signal) => {
-  try {
-    let response = await fetch(config.ServerURI + "/api/notifications/"+params.notificationId,{
-      method: 'GET',
-      signal:signal,
-      headers: {
-        'Accept':'application/json',
-        'Content-Type':'application/json',
-        'Authorization':'Bearer ' + credentials.t
+    let response = await fetch(
+      config.ServerURI + "/api/newntf/" + params.userId,
+      {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+        body: JSON.stringify(ntf),
       }
-    })
-    return await response.json()
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
+
+const listNtf = async (params, credentials, signal) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/notifications/by/" + params.userId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    errorHandler(error);
+  }
+};
+
+const readNtf = async (params, credentials, signal) => {
+  try {
+    let response = await fetch(
+      config.ServerURI + "/api/notifications/" + params.notificationId,
+      {
+        method: "GET",
+        signal: signal,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    errorHandler(error);
+  }
+};
 
 const listUnread = async (credentials) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/unread/notifications',{
-      method: 'GET',
+    let response = await fetch(config.ServerURI + "/api/unread/notifications", {
+      method: "GET",
       headers: {
-        'Accept':'application/json',
-        'Content-Type':'application/json',
-        'Authorization': 'Bearer ' + credentials.t
-      }
-    })
-    return await response.json()
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + credentials.t,
+      },
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const removeNtf = async( params, credentials) => {
+const removeNtf = async (params, credentials) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/notifications/'+params.notificationId,{
-      method: 'DELETE',
-      headers: {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + credentials.t
+    let response = await fetch(
+      config.ServerURI + "/api/notifications/" + params.notificationId,
+      {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + credentials.t,
+        },
       }
-    })
-    return await response.json()
+    );
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
+};
 
-const removeAll = async( credentials) => {
+const removeAll = async (credentials) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/remove/notifications',{
-      method: 'DELETE',
+    let response = await fetch(config.ServerURI + "/api/remove/notifications", {
+      method: "DELETE",
       headers: {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + credentials.t
-      }
-    })
-    return await response.json()
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + credentials.t,
+      },
+    });
+    return await response.json();
   } catch (error) {
-    errorHandler(error)
+    errorHandler(error);
   }
-}
-
-
+};
 
 export {
   create,
@@ -334,6 +385,7 @@ export {
   searchForUser,
   read,
   update,
+  updateBackground,
   changeFavorite,
   remove,
   follow,
@@ -347,5 +399,5 @@ export {
   listNtf,
   listUnread,
   removeAll,
-  removeNtf
+  removeNtf,
 };
