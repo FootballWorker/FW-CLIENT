@@ -18,7 +18,7 @@ import Paper from "@mui/material/Paper";
 
 import auth from "../auth/auth-helper";
 import { createChats, listChats } from "./api-messanger";
-import { followings } from "../user/api-user";
+import { read } from "../user/api-user";
 import Conversation from "./Conversation";
 import CreateSection from "./CreateSection";
 import {config} from "../config/config";
@@ -28,7 +28,7 @@ import ListHeader from "../components/header/ListHeader";
 import PageHeader from "../components/header/PageHeader";
 
 const Messanger = ({ match }) => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState({
@@ -49,7 +49,7 @@ const Messanger = ({ match }) => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    followings({ userId: match.params.userId }, { t: jwt.token }, signal).then(
+    read({ userId: match.params.userId }, { t: jwt.token }, signal).then(
       (data) => {
         if (data?.error) {
           setIsError({
@@ -138,7 +138,7 @@ const Messanger = ({ match }) => {
             >
               {isPresident && (
                 <CreateSection
-                  following={user}
+                  following={user?.following}
                   setConversations={setConversations}
                   setIsError={setIsError}
                   isError={isError}
@@ -188,7 +188,7 @@ const Messanger = ({ match }) => {
             <Paper elevation={4} sx={{ m: 1, p: 1 }}>
               <ListHeader header="Following Users" />
               <List sx={{ margin: "auto" }}>
-                {user?.map((item) => (
+                {user?.following?.map((item) => (
                   <ListItemButton
                     onClick={() => handleSubmit(item._id, item.name)}
                     key={item._id}

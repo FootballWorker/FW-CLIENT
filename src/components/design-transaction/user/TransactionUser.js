@@ -25,7 +25,9 @@ import kFormatter from "../../numbers";
 
 export default function TransactionUser(props) {
   return (
-    <Paper  sx={{margin:'auto'}} >
+    <Paper
+      sx={{ p: 1, width: "100%", bgcolor: "#f6f2f6", borderRadius: "10px" }}
+    >
       <Stack spacing={1}>
         <Box
           sx={{
@@ -34,7 +36,7 @@ export default function TransactionUser(props) {
             alignItems: "center",
             textAlign: "center",
             gap: 1,
-            pt:1
+            pt: 1,
           }}
         >
           <CommentIcon
@@ -68,14 +70,24 @@ export default function TransactionUser(props) {
         >
           <Grid container>
             <Grid xs={6}>
-              <Typography gutterBottom variant="h6" > Followers </Typography>
-              <Link to={"/followers/" + props.user?._id} style={{fontWeight: 'normal'}} >
+              <Typography gutterBottom variant="h6">
+                Followers
+              </Typography>
+              <Link
+                to={"/followers/" + props.user?._id}
+                style={{ fontWeight: "normal" }}
+              >
                 {kFormatter(props.followers)}
               </Link>
             </Grid>
             <Grid xs={6}>
-              <Typography gutterBottom variant="h6" > Followings </Typography>
-              <Link to={"/followings/" + props.user?._id} style={{fontWeight: 'normal'}} >
+              <Typography gutterBottom variant="h6">
+                Followings
+              </Typography>
+              <Link
+                to={"/followings/" + props.user?._id}
+                style={{ fontWeight: "normal" }}
+              >
                 {kFormatter(props.followings)}
               </Link>
             </Grid>

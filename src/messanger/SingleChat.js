@@ -81,26 +81,6 @@ const SingleChat = ({ match }) => {
     });
   }, [match.params.chatId]);
 
-  // Socket API
-  useEffect(() => {
-    socket.current = io(config.ServerURI);
-    socket.current.emit("join chat room", { room: match.params.chatId });
-    return () => {
-      socket.current.emit("leave chat room", {
-        room: match.params.chatId,
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    socket?.current?.on("new message", (payload) => {
-      setMessages((messages) => [...messages, payload]);
-    });
-    return () => {
-      socket?.current?.off("new message");
-    };
-  }, []);
-
   // Load Workers
   useEffect(() => {
     setLoading(true);
@@ -123,6 +103,27 @@ const SingleChat = ({ match }) => {
       abortController.abort();
     };
   }, [jwt.user?.team?._id]);
+
+
+  // Socket API
+  useEffect(() => {
+    socket.current = io("ws://footballworker.herokuapp.com");
+    socket.current.emit("join chat room", { room: match.params.chatId });
+    return () => {
+      socket.current.emit("leave chat room", {
+        room: match.params.chatId,
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    socket?.current?.on("new message", (payload) => {
+      setMessages((messages) => [...messages, payload]);
+    });
+    return () => {
+      socket?.current?.off("new message");
+    };
+  }, []);
 
   const receiver = chat?.users?.find((member) => member?._id !== jwt.user._id);
 
