@@ -107,7 +107,7 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("https://footballworker.herokuapp.com/",{
+    socket.current = io("footballworker.herokuapp.com",{
       reconnectionAttempts: 5 // defaults to Infinity
     });
     socket.current.emit("join chat room", { room: match.params.chatId });
