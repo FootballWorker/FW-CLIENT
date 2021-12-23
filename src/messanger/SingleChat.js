@@ -65,7 +65,7 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("wss://footballworker.herokuapp.com:8081",{
+    socket.current = io("wss://footballworker.herokuapp.com/",{
       withCredentials: true,
       transports: [ "websocket" ]
     });
@@ -106,6 +106,8 @@ const SingleChat = ({ match }) => {
         setChat(data);
         setMessages(data?.messages);
         setLoading(false);
+        console.log(data?.messages)
+        console.log(messages)
       }
     });
   }, [match.params.chatId]);
