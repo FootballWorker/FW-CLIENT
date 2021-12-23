@@ -29,7 +29,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import { Box } from "@mui/system";
 
-import {config} from "../config/config";
+import { config } from "../config/config";
 import auth from "../auth/auth-helper";
 import {
   readChat,
@@ -81,12 +81,13 @@ const SingleChat = ({ match }) => {
     });
   }, [match.params.chatId]);
 
-
   // Socket API
   useEffect(() => {
-    socket.current = io("footballworker.herokuapp.com/socket.io/");
+    socket.current = io("footballworker.herokuapp.com/socket.io/", {
+      transports: ["websocket"],
+    });
     socket.current.emit("join chat room", { room: match.params.chatId });
-    console.log(socket.current)
+    console.log(socket.current);
     return () => {
       socket.current.emit("leave chat room", {
         room: match.params.chatId,
@@ -96,36 +97,33 @@ const SingleChat = ({ match }) => {
 
   useEffect(() => {
     socket.current.on("new message", (payload) => {
-      console.log("message " + socket.current)
+      console.log("message " + socket.current);
       setMessages((messages) => [...messages, payload]);
     });
-
   }, []);
 
-    // Load Workers
-    useEffect(() => {
-      setLoading(true);
-      const abortController = new AbortController();
-      const signal = abortController.signal;
-  
-      listTeamWorkers({ teamId: jwt.user?.team?._id }, signal).then((data) => {
-        if (data?.error) {
-          setIsError({
-            ...isError,
-            openSnack: true,
-            error: "Your collegues not found!",
-          });
-        } else {
-          setUsers(data);
-          setLoading(false);
-        }
-      });
-      return () => {
-        abortController.abort();
-      };
-    }, [jwt.user?.team?._id]);
-  
-  
+  // Load Workers
+  useEffect(() => {
+    setLoading(true);
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    listTeamWorkers({ teamId: jwt.user?.team?._id }, signal).then((data) => {
+      if (data?.error) {
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: "Your collegues not found!",
+        });
+      } else {
+        setUsers(data);
+        setLoading(false);
+      }
+    });
+    return () => {
+      abortController.abort();
+    };
+  }, [jwt.user?.team?._id]);
 
   const receiver = chat?.users?.find((member) => member?._id !== jwt.user._id);
 
@@ -138,11 +136,9 @@ const SingleChat = ({ match }) => {
       text: newMessage,
     };
 
-
     socket.current.emit("new message", {
       messageInfo: messageInfo,
       room: match.params.chatId,
-      
     });
     setNewMessage("");
   };
