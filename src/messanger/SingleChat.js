@@ -58,7 +58,7 @@ const SingleChat = ({ match }) => {
     error: "",
   });
   const jwt = auth.isAuthenticated();
-  const socket = io("footballworker.herokuapp.com/");
+  const socket = io('/',{transports: ['websocket'],upgrade:false});
   const scrollRef = useRef();
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
@@ -152,7 +152,7 @@ const SingleChat = ({ match }) => {
   };
 
   useEffect(() => {
-    scrollRef?.current.scrollIntoView({ behavior: "smooth" });
+    scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   // Remove from Meeting
