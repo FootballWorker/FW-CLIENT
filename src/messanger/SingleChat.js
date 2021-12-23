@@ -107,7 +107,7 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("https://footballworker.herokuapp.com/");
+    socket.current = io("footballworker.herokuapp.com");
     console.log(socket.current)
     socket.current.emit("join chat room", { room: match.params.chatId });
     console.log("Connected")
