@@ -58,7 +58,7 @@ const SingleChat = ({ match }) => {
     error: "",
   });
   const jwt = auth.isAuthenticated();
-  const socket = useRef();
+  const socket = io("footballworker.herokuapp.com/");
   const scrollRef = useRef();
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
@@ -107,22 +107,21 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("footballworker.herokuapp.com/socket.io/");
-    socket.current.emit("join chat room", { room: match.params.chatId });
+    
+    socket.emit("join chat room", { room: match.params.chatId });
     return () => {
-      socket.current.emit("leave chat room", {
+      socket.emit("leave chat room", {
         room: match.params.chatId,
       });
-      console.log("disconnected")
     };
   }, []);
 
   useEffect(() => {
-    socket?.current?.on("new message", (payload) => {
+    socket.on("new message", (payload) => {
       setMessages((messages) => [...messages, payload]);
     });
     return () => {
-      socket?.current?.off("new message");
+      socket.off("new message");
     };
   }, []);
 
@@ -138,7 +137,7 @@ const SingleChat = ({ match }) => {
     };
 
 
-    socket.current?.emit("new message", {
+    socket.emit("new message", {
       messageInfo: messageInfo,
       room: match.params.chatId,
       
@@ -153,7 +152,7 @@ const SingleChat = ({ match }) => {
   };
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   // Remove from Meeting
