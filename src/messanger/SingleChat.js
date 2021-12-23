@@ -66,7 +66,6 @@ const SingleChat = ({ match }) => {
   // Socket API
   useEffect(() => {
     socket.current = io("wss://footballworker.herokuapp.com/",{
-      withCredentials: true,
       transports: [ "websocket" ]
     });
     socket.current?.emit("join chat room", { room: match.params.chatId });
