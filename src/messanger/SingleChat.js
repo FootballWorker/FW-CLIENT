@@ -63,6 +63,35 @@ const SingleChat = ({ match }) => {
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
 
+  // Socket API
+  useEffect(() => {
+    socket.current = io("http://footballworker.herokuapp.com/",{
+      withCredentials: true,
+      transports: [ "websocket" ]
+    });
+    socket.current?.emit("join chat room", { room: match.params.chatId });
+    console.log(socket.current);
+    console.log(socket.current?.emit);
+    console.log(messages);
+    return () => {
+      socket.current?.emit("leave chat room", {
+        room: match.params.chatId,
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.current?.on("new message", (payload) => {
+      setMessages((messages) => [...messages, payload]);
+      console.log(messages);
+      console.log(payload);
+      console.log(socket);
+    });
+    return () => {
+      socket?.current?.off("new message");
+    };
+  }, []);
+
   // Load Chat
   useEffect(() => {
     setLoading(true);
@@ -81,35 +110,6 @@ const SingleChat = ({ match }) => {
     });
   }, [match.params.chatId]);
 
-
-   // Socket API
-  useEffect(() => {
-    socket.current = io("https://footballworker.herokuapp.com/");
-    socket.current?.emit("join chat room", { room: match.params.chatId });
-    console.log(socket.current);
-    console.log(socket.current?.emit);
-    console.log(messages);
-    return () => {
-      socket.current?.emit("leave chat room", {
-        room: match.params.chatId,
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    
-    socket.current?.on("new message", (payload) => {
-      setMessages((messages) => [...messages, payload]);
-      console.log(messages);
-      console.log(payload)
-      console.log(socket)
-    });
-    return () => {
-      socket?.current?.off("new message");
-    };
-  }, []);
-
-  
   // Load Workers
   useEffect(() => {
     setLoading(true);
@@ -135,10 +135,11 @@ const SingleChat = ({ match }) => {
 
   const receiver = chat?.users?.find((member) => member?._id !== jwt.user._id);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = () => {
     if (!isUser) {
       return false;
     }
+    console.log(isUser)
     const messageInfo = {
       sender: jwt.user._id,
       text: newMessage,
@@ -148,8 +149,8 @@ const SingleChat = ({ match }) => {
       messageInfo: messageInfo,
       room: match.params.chatId,
     });
-    console.log(socket?.current)
-    console.log(socket?.current?.emit("new message"))
+    console.log(socket?.current);
+    console.log(socket?.current?.emit("new message"));
     setNewMessage("");
   };
 
