@@ -83,17 +83,18 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("https://footballworker.herokuapp.com/", {
+    socket.current = io("footballworker.herokuapp.com/", {
       transports: ["websocket"],
+      withCredentials: true,
     });
     socket.current.emit("join chat room", { room: match.params.chatId });
     console.log(socket.current.on)
     console.log(socket.current);
-    // return () => {
-    //   socket.current.emit("leave chat room", {
-    //     room: match.params.chatId,
-    //   });
-    // };
+    return () => {
+      socket.current.emit("leave chat room", {
+        room: match.params.chatId,
+      });
+    };
   }, []);
 
   useEffect(() => {
