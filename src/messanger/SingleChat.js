@@ -63,55 +63,25 @@ const SingleChat = ({ match }) => {
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
 
-    // Load Chat
-    useEffect(() => {
-      setLoading(true);
-      readChat({ chatId: match.params.chatId }, { t: jwt.token }).then((data) => {
-        if (data?.error) {
-          setIsError({
-            ...isError,
-            openSnack: true,
-            error: "Chat not found!",
-          });
-        } else {
-          setChat(data);
-          setMessages(data?.messages);
-          setLoading(false);
-          console.log(data?.messages)
-          console.log(messages)
-        }
-      });
-    }, [match.params.chatId]);
-  
-
-  // Socket API
+  // Load Chat
   useEffect(() => {
-    socket.current = io("wss://footballworker.herokuapp.com",{
-      transports: [ "websocket" ]
+    setLoading(true);
+    readChat({ chatId: match.params.chatId }, { t: jwt.token }).then((data) => {
+      if (data?.error) {
+        setIsError({
+          ...isError,
+          openSnack: true,
+          error: "Chat not found!",
+        });
+      } else {
+        setMessages(data?.messages);
+        setChat(data);
+        setLoading(false);
+        console.log(data?.messages);
+        console.log(messages);
+      }
     });
-    socket.current?.emit("join chat room", { room: match.params.chatId });
-    console.log(socket.current);
-    console.log(socket.current?.emit);
-    console.log(messages);
-    return () => {
-      socket.current?.emit("leave chat room", {
-        room: match.params.chatId,
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.current?.on("new message", (payload) => {
-      setMessages((messages) => [...messages, payload]);
-      console.log(messages);
-      console.log(payload);
-      console.log(socket);
-    });
-    return () => {
-      socket?.current?.off("new message");
-    };
-  }, []);
-
+  }, [match.params.chatId]);
 
   // Load Workers
   useEffect(() => {
@@ -136,13 +106,39 @@ const SingleChat = ({ match }) => {
     };
   }, [jwt.user?.team?._id]);
 
+  // Socket API
+  useEffect(() => {
+    socket.current = io("https://footballworker.herokuapp.com/");
+    socket.current?.emit("join chat room", { room: match.params.chatId });
+    console.log(socket.current);
+    console.log(socket.current?.emit);
+    console.log(messages);
+    return () => {
+      socket.current?.emit("leave chat room", {
+        room: match.params.chatId,
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.current?.on("new message", (payload) => {
+      setMessages((messages) => [...messages, payload]);
+      console.log(messages);
+      console.log(payload);
+      console.log(socket?.current?.on("new message"));
+    });
+    return () => {
+      socket?.current?.off("new message");
+    };
+  }, []);
+
   const receiver = chat?.users?.find((member) => member?._id !== jwt.user._id);
 
   const handleSubmit = () => {
     if (!isUser) {
       return false;
     }
-    console.log(isUser)
+    console.log(isUser);
     const messageInfo = {
       sender: jwt.user._id,
       text: newMessage,
@@ -252,6 +248,8 @@ const SingleChat = ({ match }) => {
       }
     });
   };
+
+  console.log(messages);
 
   return (
     <Paper>
