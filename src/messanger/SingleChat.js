@@ -83,16 +83,16 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("footballworker.herokuapp.com/socket.io/", {
+    socket.current = io("ws://footballworker.herokuapp.com/socket.io", {
       transports: ["websocket"],
     });
     socket.current.emit("join chat room", { room: match.params.chatId });
     console.log(socket.current);
-    return () => {
-      socket.current.emit("leave chat room", {
-        room: match.params.chatId,
-      });
-    };
+    // return () => {
+    //   socket.current.emit("leave chat room", {
+    //     room: match.params.chatId,
+    //   });
+    // };
   }, []);
 
   useEffect(() => {
@@ -100,6 +100,9 @@ const SingleChat = ({ match }) => {
       console.log("message " + socket.current);
       setMessages((messages) => [...messages, payload]);
     });
+    return () => {
+      socket?.current?.off("new message");
+    };
   }, []);
 
   // Load Workers
