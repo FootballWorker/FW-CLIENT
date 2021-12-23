@@ -63,9 +63,30 @@ const SingleChat = ({ match }) => {
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
 
+    // Load Chat
+    useEffect(() => {
+      setLoading(true);
+      readChat({ chatId: match.params.chatId }, { t: jwt.token }).then((data) => {
+        if (data?.error) {
+          setIsError({
+            ...isError,
+            openSnack: true,
+            error: "Chat not found!",
+          });
+        } else {
+          setChat(data);
+          setMessages(data?.messages);
+          setLoading(false);
+          console.log(data?.messages)
+          console.log(messages)
+        }
+      });
+    }, [match.params.chatId]);
+  
+
   // Socket API
   useEffect(() => {
-    socket.current = io("wss://footballworker.herokuapp.com/",{
+    socket.current = io("wss://footballworker.herokuapp.com",{
       transports: [ "websocket" ]
     });
     socket.current?.emit("join chat room", { room: match.params.chatId });
@@ -91,25 +112,6 @@ const SingleChat = ({ match }) => {
     };
   }, []);
 
-  // Load Chat
-  useEffect(() => {
-    setLoading(true);
-    readChat({ chatId: match.params.chatId }, { t: jwt.token }).then((data) => {
-      if (data?.error) {
-        setIsError({
-          ...isError,
-          openSnack: true,
-          error: "Chat not found!",
-        });
-      } else {
-        setChat(data);
-        setMessages(data?.messages);
-        setLoading(false);
-        console.log(data?.messages)
-        console.log(messages)
-      }
-    });
-  }, [match.params.chatId]);
 
   // Load Workers
   useEffect(() => {
