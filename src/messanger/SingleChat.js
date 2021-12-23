@@ -152,7 +152,7 @@ const SingleChat = ({ match }) => {
   };
 
   useEffect(() => {
-    scrollRef?.scrollIntoView({ behavior: "smooth" });
+    scrollRef?.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   // Remove from Meeting
