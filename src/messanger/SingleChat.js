@@ -58,7 +58,7 @@ const SingleChat = ({ match }) => {
     error: "",
   });
   const jwt = auth.isAuthenticated();
-  const socket = io('footballworker.herokuapp.com/',{transports: ['websocket'],upgrade:false});
+  const socket = io('https://footballworker.herokuapp.com/');
   const scrollRef = useRef();
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
@@ -109,6 +109,7 @@ const SingleChat = ({ match }) => {
   useEffect(() => {
     
     socket.emit("join chat room", { room: match.params.chatId });
+    console.log(socket)
     return () => {
       socket.emit("leave chat room", {
         room: match.params.chatId,
@@ -118,6 +119,7 @@ const SingleChat = ({ match }) => {
 
   useEffect(() => {
     socket.on("new message", (payload) => {
+      console.log("message " + socket)
       setMessages((messages) => [...messages, payload]);
     });
     return () => {
