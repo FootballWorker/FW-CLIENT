@@ -3,7 +3,7 @@ const config = {
   ClientURI : 'https://footballworker.net'
 }
 
-const isDev = false
+const isDev = true
 
 const errorHandler = (error) => {
   if (isDev) {

@@ -58,7 +58,7 @@ const SingleChat = ({ match }) => {
     error: "",
   });
   const jwt = auth.isAuthenticated();
-  const socket = io('https://footballworker.herokuapp.com/');
+  const socket = useRef();
   const scrollRef = useRef();
   let isTop = window.scrollY == 0;
   const isUser = chat?.users?.some((user) => user._id === jwt.user?._id);
@@ -81,51 +81,51 @@ const SingleChat = ({ match }) => {
     });
   }, [match.params.chatId]);
 
-  // Load Workers
-  useEffect(() => {
-    setLoading(true);
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-
-    listTeamWorkers({ teamId: jwt.user?.team?._id }, signal).then((data) => {
-      if (data?.error) {
-        setIsError({
-          ...isError,
-          openSnack: true,
-          error: "Your collegues not found!",
-        });
-      } else {
-        setUsers(data);
-        setLoading(false);
-      }
-    });
-    return () => {
-      abortController.abort();
-    };
-  }, [jwt.user?.team?._id]);
-
 
   // Socket API
   useEffect(() => {
-    
-    socket.emit("join chat room", { room: match.params.chatId });
-    console.log(socket)
+    socket.current = io(config.ServerURI);
+    socket.current.emit("join chat room", { room: match.params.chatId });
+    console.log(socket.current)
     return () => {
-      socket.emit("leave chat room", {
+      socket.current.emit("leave chat room", {
         room: match.params.chatId,
       });
     };
   }, []);
 
   useEffect(() => {
-    socket.on("new message", (payload) => {
-      console.log("message " + socket)
+    socket.current.on("new message", (payload) => {
+      console.log("message " + socket.current)
       setMessages((messages) => [...messages, payload]);
     });
-    return () => {
-      socket.off("new message");
-    };
+
   }, []);
+
+    // Load Workers
+    useEffect(() => {
+      setLoading(true);
+      const abortController = new AbortController();
+      const signal = abortController.signal;
+  
+      listTeamWorkers({ teamId: jwt.user?.team?._id }, signal).then((data) => {
+        if (data?.error) {
+          setIsError({
+            ...isError,
+            openSnack: true,
+            error: "Your collegues not found!",
+          });
+        } else {
+          setUsers(data);
+          setLoading(false);
+        }
+      });
+      return () => {
+        abortController.abort();
+      };
+    }, [jwt.user?.team?._id]);
+  
+  
 
   const receiver = chat?.users?.find((member) => member?._id !== jwt.user._id);
 
@@ -139,7 +139,7 @@ const SingleChat = ({ match }) => {
     };
 
 
-    socket.emit("new message", {
+    socket.current.emit("new message", {
       messageInfo: messageInfo,
       room: match.params.chatId,
       
