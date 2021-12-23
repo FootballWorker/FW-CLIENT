@@ -65,7 +65,7 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("http://footballworker.herokuapp.com/",{
+    socket.current = io("wss://footballworker.herokuapp.com:8081",{
       withCredentials: true,
       transports: [ "websocket" ]
     });
