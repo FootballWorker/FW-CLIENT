@@ -107,7 +107,7 @@ const SingleChat = ({ match }) => {
 
   // Socket API
   useEffect(() => {
-    socket.current = io("footballworker.herokuapp.com");
+    socket.current = io("ws://footballworker.herokuapp.com");
     console.log(socket.current)
     socket.current.emit("join chat room", { room: match.params.chatId });
     console.log("Connected")
@@ -123,6 +123,8 @@ const SingleChat = ({ match }) => {
     socket?.current?.on("new message", (payload) => {
       setMessages((messages) => [...messages, payload]);
       console.log(payload)
+      console.log(socket.current?.on("new message"))
+      console.log("New Message")
     });
     return () => {
       socket?.current?.off("new message");
