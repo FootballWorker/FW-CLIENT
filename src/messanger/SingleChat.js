@@ -121,11 +121,9 @@ const SingleChat = ({ match }) => {
   useEffect(() => {
     socket.current?.on("new message", (payload) => {
       setMessages((msg) => [...msg, payload]);
-      console.log("receive " +socket?.current?.on("new message"));
     });
     return () => {
       socket?.current?.off("new message");
-      console.log("close " +socket?.current?.on("new message"));
     };
   }, []);
 
@@ -139,16 +137,11 @@ const SingleChat = ({ match }) => {
       sender: jwt.user._id,
       text: newMessage,
     };
-    if (!newMsg) {
-      return false;
-    }
-    console.log(newMsg)
 
     socket.current.emit("new message", {
-      messageInfo: JSON.stringify(newMsg),
+      messageInfo: newMsg,
       room: match.params.chatId,
     });
-    console.log("send " + socket?.current?.emit("new message"));
     setNewMessage("");
   };
 
