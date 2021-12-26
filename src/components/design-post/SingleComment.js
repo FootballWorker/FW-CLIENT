@@ -65,7 +65,7 @@ export default function SingleComment(props) {
       >
         {props.comment.imageOne && (
           <img
-            src={config.ServerURI + "/api/comments/imageOne/" + props.comment._id}
+            src={config.ServerURI + "/comments/imageOne/" + props.comment._id}
             alt="Comment"
             style={{
               objectFit: "cover",

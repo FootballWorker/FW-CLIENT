@@ -1,20 +1,20 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types'
-import Paper from '@mui/material/Paper'
-import Stack from '@mui/material/Stack'
-import Box from '@mui/material/Box'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
+import PropTypes from "prop-types";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import NoMeetingRoomIcon from "@mui/icons-material/NoMeetingRoom";
 import AddIcon from "@mui/icons-material/Add";
 
-import TransactionEdit from '../TransactionEdit'
-import kFormatter from '../../numbers';
+import TransactionEdit from "../TransactionEdit";
+import kFormatter from "../../numbers";
 
 export default function TransactionNews(props) {
   return (
@@ -47,11 +47,10 @@ export default function TransactionNews(props) {
           props.news.editor._id === props.user._id && (
             <TransactionEdit link={"/news/edit/" + props.news._id} />
           )}
-        
-        {
-          !props.news.editor &&
+
+        {!props.news.editor &&
           !props.user.news &&
-          props.user?.job?.title === 'editor' &&
+          props.user?.job?.title === "editor" &&
           props.user?.department?.name === "JOURNAL" && (
             <Box
               sx={{
@@ -93,10 +92,9 @@ export default function TransactionNews(props) {
               )}
             </Box>
           )}
-        {
-          !props.user.news &&
+        {!props.user.news &&
           props.user.job &&
-          props.user.job.title !== 'editor' &&
+          props.user.job.title !== "editor" &&
           props.user.department &&
           props.user.department.name === "JOURNAL" && (
             <Box
@@ -185,8 +183,8 @@ export default function TransactionNews(props) {
             <Typography
               sx={{
                 fontSize: {
-                  xs: 9,
-                  sm: 13,
+                  xs: 13,
+                  sm: 15,
                   md: 17,
                 },
               }}
@@ -203,11 +201,10 @@ export default function TransactionNews(props) {
 TransactionNews.propTypes = {
   user: PropTypes.object,
   news: PropTypes.object,
-  subscribeClick : PropTypes.func,
-  subscribe : PropTypes.bool,
-  employee : PropTypes.bool,
-  applied : PropTypes.bool,
+  subscribeClick: PropTypes.func,
+  subscribe: PropTypes.bool,
+  employee: PropTypes.bool,
+  applied: PropTypes.bool,
   applyClick: PropTypes.func,
-  subs: PropTypes.number
-  
+  subs: PropTypes.number,
 };

@@ -36,9 +36,9 @@ export default function TeamStaff(props) {
           open={open}
           handleClose={handleClose}
           textOne="- There must be only one president and one manager.The other job fields has 5 FW at most!"
-          textTwo="- President hire and fire vice presidents and manager."
-          textThree="- Manager hire and fire coaches , scouts and youth staffs."
-          textFour="- Applications appear only to the president and manager."
+          textTwo="- President hire and fire vice presidents and manager.Manager hire and fire coaches , scouts and youth staffs."
+          textThree="- Applications appear only to the president and manager."
+          textFour="- In the president and manager parts, the last five posts of the worker of the job field will appear at most. In the other fields, fifteen posts at maximum will appear."
         />
       {/* Presdient */}
       <Box
@@ -92,7 +92,7 @@ export default function TeamStaff(props) {
           >
             <Avatar
               src={
-                props.president._id && config.ServerURI + "/api/users/photo/" + props.president._id
+                props.president._id && config.ServerURI + "/users/photo/" + props.president._id
               }
               sx={{
                 width: {
@@ -200,7 +200,7 @@ export default function TeamStaff(props) {
               }}
             >
               <Avatar
-                src={item._id && config.ServerURI + "/api/users/photo/" + item._id}
+                src={item._id && config.ServerURI + "/users/photo/" + item._id}
                 sx={{
                   width: {
                     xs: 18,
@@ -305,7 +305,7 @@ export default function TeamStaff(props) {
             }}
           >
             <Avatar
-              src={props.manager._id && config.ServerURI + "/api/users/photo/" + props.manager._id}
+              src={props.manager._id && config.ServerURI + "/users/photo/" + props.manager._id}
               sx={{
                 width: {
                   xs: 18,
@@ -406,7 +406,7 @@ export default function TeamStaff(props) {
                 }}
               >
                 <Avatar
-                  src={item._id && config.ServerURI + "/api/users/photo/" + item._id}
+                  src={item._id && config.ServerURI + "/users/photo/" + item._id}
                   sx={{
                     width: {
                       xs: 18,
@@ -498,7 +498,7 @@ export default function TeamStaff(props) {
                 }}
               >
                 <Avatar
-                  src={item._id && config.ServerURI + "/api/users/photo/" + item._id}
+                  src={item._id && config.ServerURI + "/users/photo/" + item._id}
                   sx={{
                     width: {
                       xs: 18,
@@ -590,7 +590,7 @@ export default function TeamStaff(props) {
                 }}
               >
                 <Avatar
-                  src={item._id && config.ServerURI + "/api/users/photo/" + item._id}
+                  src={item._id && config.ServerURI + "/users/photo/" + item._id}
                   sx={{
                     width: {
                       xs: 18,

@@ -233,8 +233,8 @@ export default function TransactionTeam(props) {
                 <Typography
                   sx={{
                     fontSize: {
-                      xs: 8,
-                      sm: 12,
+                      xs: 12,
+                      sm: 14,
                       md: 16,
                     },
                   }}

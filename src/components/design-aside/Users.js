@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'
 import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -43,7 +42,7 @@ export default function Users(props) {
   };
 
   return (
-    <Paper elevation={12}>
+    <Paper elevation={1}>
       {props.header && (
         <ListHeader header={props.header} />
       )}
@@ -55,7 +54,7 @@ export default function Users(props) {
                 <Avatar
                   src={
                     item.photo
-                      && config.ServerURI + "/api/users/photo/" + item._id
+                      && config.ServerURI + "/users/photo/" + item._id
                   }
                   sx={{ width: 25, height: 25 }}
                 />

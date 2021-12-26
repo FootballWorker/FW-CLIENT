@@ -14,7 +14,7 @@ import ListHeader from '../header/ListHeader';
 
 export default function JobsByDepartment (props){
   return (
-    <Paper elevation={4}>
+    <Paper elevation={1}>
       <ListHeader header='Jobs' />
       <List dense>
         {props.jobs ? (

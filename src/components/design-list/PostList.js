@@ -70,7 +70,7 @@ const PostList = (props) => {
                         item.postedBy &&
                         item.postedBy._id &&
                         config.ServerURI +
-                          "/api/users/photo/" +
+                          "/users/photo/" +
                           item.postedBy._id
                       }
                       sx={{
@@ -176,7 +176,7 @@ const PostList = (props) => {
                         height="140"
                         image={
                           item.imageOne &&
-                          config.ServerURI + "/api/posts/imageOne/" + item._id
+                          config.ServerURI + "/posts/imageOne/" + item._id
                         }
                         alt="Post Image"
                       />

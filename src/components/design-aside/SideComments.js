@@ -33,7 +33,7 @@ export default function SideComments(props) {
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   const jwt = auth.isAuthenticated();
   return (
-    <Paper elevation={4}>
+    <Paper elevation={1}>
       <ListHeader header={props.header} />
       {props.comments &&
         props.comments.map((item, i) => (
@@ -44,7 +44,7 @@ export default function SideComments(props) {
                   src={
                     item.commentedBy &&
                     config.ServerURI +
-                      "/api/users/photo/" +
+                      "/users/photo/" +
                       item.commentedBy._id
                   }
                   sx={{
@@ -77,7 +77,7 @@ export default function SideComments(props) {
                     height="120"
                     image={
                       item.imageOne &&
-                      config.ServerURI + "/api/comments/imageOne/" + item._id
+                      config.ServerURI + "/comments/imageOne/" + item._id
                     }
                     alt="Comment Image"
                   />

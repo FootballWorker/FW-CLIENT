@@ -4,7 +4,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (credentials,department) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/departments',{
+    let response = await fetch(config.ServerURI + '/departments',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -21,7 +21,7 @@ const create = async (credentials,department) => {
 
 const read = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/departments/'+ params.departmentId,{
+    let response = await fetch(config.ServerURI + '/departments/'+ params.departmentId,{
       method: 'GET',
       signal:signal
     })
@@ -33,7 +33,7 @@ const read = async (params,signal) => {
 
 const list = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/departments',{
+    let response = await fetch(config.ServerURI + '/departments',{
       method: 'GET',
       signal:signal
     })
@@ -45,7 +45,7 @@ const list = async (signal) => {
 
 const update = async (params, credentials, department) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/departments/" + params.departmentId, {
+    let response = await fetch(config.ServerURI + "/departments/" + params.departmentId, {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -62,7 +62,7 @@ const update = async (params, credentials, department) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/departments/"+params.departmentId,{
+    let response = await fetch(config.ServerURI + "/departments/"+params.departmentId,{
       method: 'DELETE',
       headers: {
         'Accept' : 'application/json',

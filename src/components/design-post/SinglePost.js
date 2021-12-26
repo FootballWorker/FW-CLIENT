@@ -124,7 +124,7 @@ export default function SinglePost(props) {
         </Typography>
         {props.post.imageOne && (
           <img
-            src={config.ServerURI + "/api/posts/imageOne/" + props.post._id}
+            src={config.ServerURI + "/posts/imageOne/" + props.post._id}
             alt="Post"
             style={{
               objectFit: "cover",

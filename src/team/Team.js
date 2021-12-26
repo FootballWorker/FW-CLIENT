@@ -648,8 +648,12 @@ const Team = ({ match }) => {
                   />
                 )}
                 <Users header="Candidates" users={team && team.candidates} />
-                <LatestMatches matches={latMatches} header="Latest Matches" />
-                <PollList polls={polls} />
+                {latMatches?.length >= 1 && (
+                  <LatestMatches matches={latMatches} header="Latest Matches" />
+                )}
+                {
+                  polls?.length >= 1 && <PollList polls={polls} />
+                }
                 {auth.isAuthenticated() &&
                   (jwt.user?._id === team.president?._id ||
                     jwt.user?._id === team.manager?._id) && (
@@ -708,12 +712,12 @@ const Team = ({ match }) => {
           )}
           {!values.whole ? (
             <>
-              <PostList posts={postPresident} header="Post of President" />
-              <PostList posts={postVice} header="Post of Vice Presidents" />
-              <PostList posts={postManager} header="Post of Manager" />
-              <PostList posts={postCoach} header="Post of Coachs" />
-              <PostList posts={postScout} header="Post of Scouts" />
-              <PostList posts={postYouth} header="Post of Youth Staff" />
+              <PostList posts={postPresident} header="Posts of President" />
+              <PostList posts={postVice} header="Posts of Vice Presidents" />
+              <PostList posts={postManager} header="Posts of Manager" />
+              <PostList posts={postCoach} header="Posts of Coachs" />
+              <PostList posts={postScout} header="Posts of Scouts" />
+              <PostList posts={postYouth} header="Posts of Youth Staff" />
             </>
           ) : (
             <PostList posts={values.wholePosts} header="Whole Posts" />

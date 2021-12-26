@@ -192,7 +192,7 @@ const Poll = ({ match }) => {
                 <ListItemAvatar>
                   <Avatar
                     src={
-                      option.option && config.ServerURI + "/api/users/photo/" + option.option._id
+                      option.option && config.ServerURI + "/users/photo/" + option.option._id
                     }
                   />
                 </ListItemAvatar>

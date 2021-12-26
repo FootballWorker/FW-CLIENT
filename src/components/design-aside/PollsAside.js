@@ -13,7 +13,7 @@ import ListHeader from '../header/ListHeader';
 
 export default function PollsAside(props) {
   return (
-    <Paper elevation={4}  >
+    <Paper elevation={1}  >
       <ListHeader header={props.header} />
       <List dense>
         {props.polls &&

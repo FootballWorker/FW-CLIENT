@@ -98,6 +98,7 @@ const Messanger = ({ match }) => {
       } else {
         if (data?._id) {
           history.push("/chats/" + data?._id);
+          window.location.reload(false);
         }
       }
     });
@@ -149,7 +150,8 @@ const Messanger = ({ match }) => {
                   {conversations?.map((c) => (
                     <ListItemButton
                       onClick={() => {
-                        history.push("/chats/" + c._id);
+                        history.push("/chats/" + c._id)
+                        window.location.reload(false);
                       }}
                       key={c._id}
                     >
@@ -195,7 +197,7 @@ const Messanger = ({ match }) => {
                       <Avatar
                         src={
                           item._id &&
-                          config.ServerURI + "/api/users/photo/" + item._id
+                          config.ServerURI + "/users/photo/" + item._id
                         }
                       />
                     </ListItemAvatar>

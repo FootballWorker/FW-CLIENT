@@ -4,7 +4,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async ( params,credentials,poll) => {
   try{
-    let response = await fetch(config.ServerURI + "/api/polls/for/" + params.teamId, {
+    let response = await fetch(config.ServerURI + "/polls/for/" + params.teamId, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -21,7 +21,7 @@ const create = async ( params,credentials,poll) => {
 
 const read = async (params,credentials,signal) => {
   try{
-    let response = await fetch(config.ServerURI + "/api/polls/" + params.pollId,{
+    let response = await fetch(config.ServerURI + "/polls/" + params.pollId,{
       method: "GET",
       signal: signal,
       headers: {
@@ -38,7 +38,7 @@ const read = async (params,credentials,signal) => {
 
 const pollListByTeam = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/polls/for/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/polls/for/"+params.teamId,{
       method: 'GET',
       signal: signal
     })
@@ -50,7 +50,7 @@ const pollListByTeam = async (params,signal) => {
 
 const openPolls = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/polls",{
+    let response = await fetch(config.ServerURI + "/polls",{
       method: 'GET',
       signal:signal
     })
@@ -62,7 +62,7 @@ const openPolls = async (signal) => {
 
 const vote = async (params,credentials,userId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/polls/vote/for",{
+    let response = await fetch(config.ServerURI + "/polls/vote/for",{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -79,7 +79,7 @@ const vote = async (params,credentials,userId) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/polls/"+ params.pollId,{
+    let response = await fetch(config.ServerURI + "/polls/"+ params.pollId,{
       method: 'DELETE',
       headers: {
         'Accept' :'application/json',

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {format} from 'timeago.js'
 import PropTypes from "prop-types";
-import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -13,7 +12,7 @@ import ListHeader from '../header/ListHeader';
 
 export default function PollList(props) {
   return (
-    <Paper elevation={4}>
+    <Paper elevation={1}>
       <ListHeader header="Polls" />
       <List dense>
         {props.polls && props.polls.map((item, i) => (

@@ -57,50 +57,55 @@ export default function Matches() {
   };
 
   return (
-    <Paper elevation={12}>
-      <ListHeader header="Matches" />
+    <Paper elevation={4}>
       {loading ? (
         <ListSkelaton />
       ) : (
-        <List dense>
-          <Grid container spacing={2} sx={{ p: { xs: 1, md: 3, lg: 5 } }}>
-            {matches?.length > 0 ? (
-              matches.map((item, i) => {
-                return (
-                  <Grid key={i} item xs={12} md={6} lg={4}>
-                    <ListItem button>
-                      <ListItemText
-                        primary={item.title}
-                        secondary={
-                          "Season : " +
-                          item.season +
-                          "    ----   " +
-                          "  Section : " +
-                          item.section
-                        }
-                      />
-                      <ListItemSecondaryAction>
-                        <IconButton>
-                          <Link to={"/matches/" + item._id}>
-                            <ArrowForwardIcon />
-                          </Link>
-                        </IconButton>
-                        {auth.isAuthenticated() &&
-                          auth.isAuthenticated().user.role === "admin" && (
-                            <DeleteMatch match={item} onRemove={removeMatch} />
-                          )}
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </Grid>
-                );
-              })
-            ) : (
-              <Grid xs={12}>
-                <Typography align="center">No match found.</Typography>
-              </Grid>
-            )}
-          </Grid>
-        </List>
+        <>
+          <ListHeader header="Matches" />
+          <List dense>
+            <Grid container spacing={2} sx={{ p: { xs: 1, md: 3, lg: 5 } }}>
+              {matches?.length > 0 ? (
+                matches.map((item, i) => {
+                  return (
+                    <Grid key={i} item xs={12} md={6} lg={4}>
+                      <ListItem button>
+                        <ListItemText
+                          primary={item.title}
+                          secondary={
+                            "Season : " +
+                            item.season +
+                            "    ----   " +
+                            "  Section : " +
+                            item.section
+                          }
+                        />
+                        <ListItemSecondaryAction>
+                          <IconButton>
+                            <Link to={"/matches/" + item._id}>
+                              <ArrowForwardIcon />
+                            </Link>
+                          </IconButton>
+                          {auth.isAuthenticated() &&
+                            auth.isAuthenticated().user.role === "admin" && (
+                              <DeleteMatch
+                                match={item}
+                                onRemove={removeMatch}
+                              />
+                            )}
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </Grid>
+                  );
+                })
+              ) : (
+                <Grid xs={12}>
+                  <Typography align="center">No match found.</Typography>
+                </Grid>
+              )}
+            </Grid>
+          </List>
+        </>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />
     </Paper>

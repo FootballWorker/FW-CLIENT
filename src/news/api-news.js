@@ -3,7 +3,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (credentials,news) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/news',{
+    let response = await fetch(config.ServerURI + '/news',{
       method: 'POST',
       headers: {
         'Accept':'application/json',
@@ -19,7 +19,7 @@ const create = async (credentials,news) => {
 
 const read = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/news/'+params.newsId,{
+    let response = await fetch(config.ServerURI + '/news/'+params.newsId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -36,7 +36,7 @@ const read = async (params,credentials,signal) => {
 
 const list = async (credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/news',{
+    let response = await fetch(config.ServerURI + '/news',{
       method: 'GET',
       signal:signal,
       headers: {
@@ -53,7 +53,7 @@ const list = async (credentials,signal) => {
 
 const listTop = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/topnews',{
+    let response = await fetch(config.ServerURI + '/topnews',{
       method: 'GET',
       signal:signal
     })
@@ -65,7 +65,7 @@ const listTop = async (signal) => {
 
 const listByUser = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/news/by/'+params.userId,{
+    let response = await fetch(config.ServerURI + '/news/by/'+params.userId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -84,7 +84,7 @@ const listByUser = async (params,credentials,signal) => {
 
 const update = async (params,credentials,news) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/news/' + params.newsId,{
+    let response = await fetch(config.ServerURI + '/news/' + params.newsId,{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -100,7 +100,7 @@ const update = async (params,credentials,news) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/news/'+ params.newsId,{
+    let response = await fetch(config.ServerURI + '/news/'+ params.newsId,{
       method: 'DELETE',
       headers: {
         'Accept' : 'application/json',
@@ -118,7 +118,7 @@ const remove = async (params,credentials) => {
 
 const hireEditor = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hireEditor",{
+    let response = await fetch(config.ServerURI + "/hireEditor",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -138,7 +138,7 @@ const hireEditor = async (params,credentials,newsId) => {
 
 const hireEmployee = async (params,credentials,newsId) => {
   try {
-    let response  = await fetch(config.ServerURI + '/api/hireEmployee',{
+    let response  = await fetch(config.ServerURI + '/hireEmployee',{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -158,7 +158,7 @@ const hireEmployee = async (params,credentials,newsId) => {
 
 const fireEditor = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/fireEditor",{
+    let response = await fetch(config.ServerURI + "/fireEditor",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -178,7 +178,7 @@ const fireEditor = async (params,credentials,newsId) => {
 
 const fireEmployee = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/fireEmployee',{
+    let response = await fetch(config.ServerURI + '/fireEmployee',{
       method: 'PUT',
       headers:{
         'Accept' :'application/json',
@@ -198,7 +198,7 @@ const fireEmployee = async (params,credentials,newsId) => {
 
 const subscribe = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/subscribe/news',{
+    let response = await fetch(config.ServerURI + '/subscribe/news',{
       method: 'PUT',
       headers:{
         'Accept': 'application/json',
@@ -218,7 +218,7 @@ const subscribe = async (params,credentials,newsId) => {
 
 const unsubscribe = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unsubscribe/news", {
+    let response = await fetch(config.ServerURI + "/unsubscribe/news", {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -238,7 +238,7 @@ const unsubscribe = async (params,credentials,newsId) => {
 
 const apply = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/apply/for/news",{
+    let response = await fetch(config.ServerURI + "/apply/for/news",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -258,7 +258,7 @@ const apply = async (params,credentials,newsId) => {
 
 const cancelApply = async (params,credentials,newsId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/cancel/apply/news",{
+    let response = await fetch(config.ServerURI + "/cancel/apply/news",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',

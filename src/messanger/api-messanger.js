@@ -4,7 +4,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const createChats = async (params,credentials,name) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats",{
+    let response = await fetch(config.ServerURI + "/chats",{
       method:'POST',
       headers: {
         'Accept':'application/json',
@@ -24,7 +24,7 @@ const createChats = async (params,credentials,name) => {
 
 const readChat = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chat/"+params.chatId,{
+    let response = await fetch(config.ServerURI + "/chat/"+params.chatId,{
       method:'GET',
       headers: {
         'Accept':'application/json',
@@ -40,7 +40,7 @@ const readChat = async (params,credentials) => {
 
 const listChats = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats/"+params.userId,{
+    let response = await fetch(config.ServerURI + "/chats/"+params.userId,{
       method:'GET',
       headers: {
         'Accept':'application/json',
@@ -56,7 +56,7 @@ const listChats = async (params,credentials) => {
 
 const unRead = async (credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unread/chats",{
+    let response = await fetch(config.ServerURI + "/unread/chats",{
       method:'GET',
       headers: {
         'Accept':'application/json',
@@ -72,7 +72,7 @@ const unRead = async (credentials) => {
 
 const listMessages = async (params) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/messages/"+ params.chatId,{
+    let response = await fetch(config.ServerURI + "/messages/"+ params.chatId,{
       method:'GET',
       headers: {
         'Accept':'application/json'
@@ -86,7 +86,7 @@ const listMessages = async (params) => {
 
 const listGroups = async (credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats/groups",{
+    let response = await fetch(config.ServerURI + "/chats/groups",{
       method:'GET',
       headers: {
         'Accept':'application/json',
@@ -102,7 +102,7 @@ const listGroups = async (credentials) => {
 
 const renameGroup = async (params,credentials,chatName) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats/rename",{
+    let response = await fetch(config.ServerURI + "/chats/rename",{
       method:'PUT',
       headers: {
         'Accept':'application/json',
@@ -122,7 +122,7 @@ const renameGroup = async (params,credentials,chatName) => {
 
 const addToGroup = async (params,credentials,userId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats/new/user",{
+    let response = await fetch(config.ServerURI + "/chats/new/user",{
       method:'PUT',
       headers: {
         'Accept':'application/json',
@@ -142,7 +142,7 @@ const addToGroup = async (params,credentials,userId) => {
 
 const removeFromGroup = async (params,credentials,userId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats/groupremove",{
+    let response = await fetch(config.ServerURI + "/chats/groupremove",{
       method:'PUT',
       headers: {
         'Accept':'application/json',
@@ -162,7 +162,7 @@ const removeFromGroup = async (params,credentials,userId) => {
 
 const createTeamChat = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/chats/team",{
+    let response = await fetch(config.ServerURI + "/chats/team",{
       method:'POST',
       headers: {
         'Accept':'application/json',
@@ -180,7 +180,7 @@ const createTeamChat = async (params,credentials) => {
 
 const listTeamWorkers = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/workers/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/workers/"+params.teamId,{
       method:'GET',
       signal:signal
     })

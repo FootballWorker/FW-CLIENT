@@ -66,7 +66,7 @@ export default function TopSection(props) {
         style={{ objectFit: "cover", width: "100%", height: "100%" }}
         src={
           props.user.background
-            ? config.ServerURI + "/api/users/background/" + jwt.user?._id
+            ? config.ServerURI + "/users/background/" + jwt.user?._id
             : Star
         }
         alt="Background"
@@ -117,7 +117,7 @@ export default function TopSection(props) {
       <Avatar
         src={
           props.user.photo &&
-          config.ServerURI + "/api/users/photo/" + props.user._id
+          config.ServerURI + "/users/photo/" + props.user._id
         }
         sx={{
           position: "absolute",

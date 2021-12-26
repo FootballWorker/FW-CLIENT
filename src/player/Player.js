@@ -246,7 +246,7 @@ const Player = ({ match }) => {
         />
       )}
       {matches ? (
-        <Grid container spacing={3} sx={{ p: { xs: 1, sm: 2, md: 4, lg: 9 } }}>
+        <Grid container spacing={3} sx={{ pt:{xs:0,md:2}, pr: { xs: 1, sm: 2, md: 3, lg: 9 },pl: { xs: 1, sm: 2, md: 3, lg: 9 } }}>
           <Grid item md={7} lg={8}>
             {loading ? (
               [1, 2, 3, 4, 5].map((n) => <PostSkelaton key={n} />)

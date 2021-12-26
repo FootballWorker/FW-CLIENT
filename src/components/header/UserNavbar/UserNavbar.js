@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -34,7 +34,7 @@ import { listUnread } from "./../../../user/api-user";
 import { unRead } from "./../../../messanger/api-messanger";
 import Logo from "./../../../assets/images/orijinalLogo.png";
 import { Button } from "@mui/material";
-import {config} from "../../../config/config";
+import { config } from "../../../config/config";
 
 const drawerWidth = 215;
 
@@ -479,7 +479,7 @@ function UserNavbar() {
               >
                 <ListItemButton sx={{ color: "#FED829" }}>
                   <ListItemIcon sx={{ color: "#FED829" }}>
-                  <Badge
+                    <Badge
                       color="warning"
                       badgeContent={messages?.length}
                       max={999}
@@ -592,14 +592,33 @@ function UserNavbar() {
               <MenuIcon />
             </IconButton>
             <Link to="/home">
-              <Avatar src={Logo} sx={{ width: 35, height: 35 }} />
+              <Box
+                sx={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  height: 40,
+                }}
+              >
+                <img
+                  src={Logo}
+                  alt="Logo"
+                  style={{
+                    maxWidth: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    maxHeight: "100%",
+                  }}
+                />
+              </Box>
             </Link>
           </Box>
           <Button
             onClick={() => history.push("/users/" + jwt.user._id)}
             sx={{
               maxWidth: "100%",
-              display: {xs:"flex",md:'none'},
+              display: { xs: "flex", md: "none" },
               flexDirection: "column",
               borderRadius: "5%",
               color: "#51545b",
@@ -609,13 +628,16 @@ function UserNavbar() {
               paddingRight: "30px",
               justifyContent: "center",
               alignItems: "center",
-              ":hover":{
-                bgcolor:'#fed829'
-              }
+              ":hover": {
+                bgcolor: "#fed829",
+              },
             }}
           >
-            <Typography sx={{fontSize:13}} > {jwt.user && jwt.user.name} </Typography>
-            <Typography sx={{fontSize:10}} >
+            <Typography sx={{ fontSize: 13 }}>
+              {" "}
+              {jwt.user && jwt.user.name}{" "}
+            </Typography>
+            <Typography sx={{ fontSize: 10 }}>
               {jwt.user && jwt.user.job && jwt.user.job.title.toUpperCase()}
             </Typography>
           </Button>
@@ -646,19 +668,31 @@ function UserNavbar() {
                 alignItems: "center",
               }}
             >
-              <Avatar src={config.ServerURI + "/api/users/photo/"+jwt.user?._id} />
-              <Box sx={{display: "flex",
-                flexDirection: "column",gap: 0.5,
-                justifyContent: "center",
-                alignItems: "center",marginLeft: 3}} >
-              <Typography> {jwt.user && jwt.user.name} </Typography>
-              <Typography>
-                {jwt.user && jwt.user.job && jwt.user.job.title.toUpperCase()}
-              </Typography>
+              <Avatar
+                src={config.ServerURI + "/api/users/photo/" + jwt.user?._id}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0.5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginLeft: 3,
+                }}
+              >
+                <Typography> {jwt.user && jwt.user.name} </Typography>
+                <Typography>
+                  {jwt.user && jwt.user.job && jwt.user.job.title.toUpperCase()}
+                </Typography>
               </Box>
             </Link>
             <Link to={"/messanger/" + jwt.user._id}>
-              <Badge color="secondary" badgeContent={messages?.length} max={999}>
+              <Badge
+                color="secondary"
+                badgeContent={messages?.length}
+                max={999}
+              >
                 <MessageIcon color="secondary" />
               </Badge>
             </Link>

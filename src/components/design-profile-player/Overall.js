@@ -186,7 +186,7 @@ export default function Overall(props) {
                 props.assessments.map((item, i) => (
                   <ListItemButton
                     key={i}
-                    sx={{ bgcolor: "darkseagreen", mb: 1,borderRadius:'8px' }}
+                    sx={{ bgcolor: "#A4D2CD", mb: 1,borderRadius:'8px' }}
                   >
                     <ListItemText
                       primary={item.point}
@@ -214,7 +214,7 @@ export default function Overall(props) {
           {props.user?.job &&
           props.user?.department?.name === "TECHNIQUE" &&
           props.user?.team?._id === props.player?.team?._id ? (
-            <Accordion sx={{bgcolor: "darkseagreen",borderRadius:'5px'}} >
+            <Accordion sx={{bgcolor: "#A4D2CD",borderRadius:'5px'}} >
               <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"

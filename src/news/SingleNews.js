@@ -65,7 +65,7 @@ const SingleNews = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Newspaper could not be uploaded."
+            error: "500 Server Error. Newspaper could not be uploaded.",
           });
         } else {
           let employee = checkEmployee(data);
@@ -143,7 +143,7 @@ const SingleNews = ({ match }) => {
           setIsError({
             ...isError,
             openSnack: true,
-            error: "500 Server Error. Pinned posts could not be uploaded."
+            error: "500 Server Error. Pinned posts could not be uploaded.",
           });
         } else {
           setPinnedPosts(data);
@@ -168,7 +168,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Posts could not be uploaded."
+          error: "500 Server Error. Posts could not be uploaded.",
         });
       } else {
         setPosts(data);
@@ -192,7 +192,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Applicants could not be uploaded."
+          error: "500 Server Error. Applicants could not be uploaded.",
         });
       } else {
         setApplicants(data);
@@ -216,7 +216,7 @@ const SingleNews = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Total Likes data could not be uploaded."
+          error: "500 Server Error. Total Likes data could not be uploaded.",
         });
       } else {
         setLikes(data);
@@ -325,15 +325,17 @@ const SingleNews = ({ match }) => {
                 ))}
               </div>
             ) : (
-              <Stack>
+              <Stack spacing={1}>
                 <NewsStats
                   postLike={likes?.sumLikes}
                   followLength={follow?.sumLikes}
                 />
-                <PostList
-                  posts={pinnedPosts}
-                  header={pinnedPosts && "Pinned Posts"}
-                />
+                {pinnedPosts?.length >= 1 && (
+                  <PostList
+                    posts={pinnedPosts}
+                    header={pinnedPosts && "Pinned Posts"}
+                  />
+                )}
                 <Divider variant="middle" sx={{ pb: 5 }} />
                 <PostList posts={posts} header="Latest" />
               </Stack>
@@ -367,42 +369,42 @@ const SingleNews = ({ match }) => {
         </Grid>
       ) : (
         <div>
-        {loading ? (
-          <div>
-            <ProfileSkelaton />
-            <StatsSkeleton />
-            {[1, 2, 3].map((n) => (
-              <PostSkelaton key={n} />
-            ))}
-          </div>
-        ) : (
-          <Stack spacing={1} sx={{ p: 0.4 }}>
-            <NewsBox news={news} />
-            {auth.isAuthenticated() && (
-              <TransactionNews
-                applyClick={applyClick}
-                subscribeClick={subscribeClick}
-                user={jwt.user}
-                news={news}
-                employee={empState.employee}
-                applied={stateApply.applied}
-                subscribe={stateSubs.subscribe}
-                subs={stateSubs.subsLength}
+          {loading ? (
+            <div>
+              <ProfileSkelaton />
+              <StatsSkeleton />
+              {[1, 2, 3].map((n) => (
+                <PostSkelaton key={n} />
+              ))}
+            </div>
+          ) : (
+            <Stack spacing={1} sx={{ p: 0.4 }}>
+              <NewsBox news={news} />
+              {auth.isAuthenticated() && (
+                <TransactionNews
+                  applyClick={applyClick}
+                  subscribeClick={subscribeClick}
+                  user={jwt.user}
+                  news={news}
+                  employee={empState.employee}
+                  applied={stateApply.applied}
+                  subscribe={stateSubs.subscribe}
+                  subs={stateSubs.subsLength}
+                />
+              )}
+              <NewsStats
+                postLike={likes?.sumLikes}
+                followLength={follow?.sumLikes}
               />
-            )}
-            <NewsStats
-              postLike={likes?.sumLikes}
-              followLength={follow?.sumLikes}
-            />
-            <PostList
-              posts={pinnedPosts}
-              header={pinnedPosts && "Pinned Posts"}
-            />
-            <Divider variant="middle" sx={{ pb: 5 }} />
-            <PostList posts={posts} header="Latest" />
-          </Stack>
-        )}
-      </div>
+              <PostList
+                posts={pinnedPosts}
+                header={pinnedPosts && "Pinned Posts"}
+              />
+              <Divider variant="middle" sx={{ pb: 5 }} />
+              <PostList posts={posts} header="Latest" />
+            </Stack>
+          )}
+        </div>
       )}
       <SnackError open={isError.openSnack} text={isError.error} />
       <AuthenticationError open={open} />

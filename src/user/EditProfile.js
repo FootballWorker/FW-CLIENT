@@ -378,7 +378,7 @@ const EditProfile = ({ match }) => {
 
   const photoUrl =
     match.params.userId &&
-    `${config.ServerURI}/api/users/photo/${
+    `${config.ServerURI}/users/photo/${
       match.params.userId
     }?${new Date().getTime()}`;
 

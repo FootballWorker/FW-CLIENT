@@ -1,5 +1,5 @@
-import React, { useState , useEffect } from "react";
-import { Link , Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -11,74 +11,67 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 
-import auth from './../auth/auth-helper.js'
-import {list} from './api-user'
+import auth from "./../auth/auth-helper.js";
+import { list } from "./api-user";
 import { ListItemSecondaryAction } from "@mui/material";
 import DeleteFromList from "./DeleteFromList";
 import kFormatter from "../components/numbers.js";
 
 export default function Users() {
-  const [users, setUsers] = useState([])
-  const [redirect, setRedirect] = useState(false)
-  const jwt = auth.isAuthenticated()
-  
-  useEffect(() => {
-    const abortController = new AbortController()
-    const signal = abortController.signal
+  const [users, setUsers] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const jwt = auth.isAuthenticated();
 
-    list(signal).then((data)=>{
-      if(data && data.error){
-        setRedirect(true)
-      }else{
-        setUsers(data)
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    list(signal).then((data) => {
+      if (data && data.error) {
+        setRedirect(true);
+      } else {
+        setUsers(data);
       }
-    })
-    
+    });
+
     return () => {
-      abortController.abort()
-    }
-  }, [])
+      abortController.abort();
+    };
+  }, []);
 
   const removeUser = (user) => {
-    const updatedUsers = [...users]
-    const index = updatedUsers.indexOf(user)
-    updatedUsers.splice(index,1)
-    setUsers(updatedUsers)
-  }
+    const updatedUsers = [...users];
+    const index = updatedUsers.indexOf(user);
+    updatedUsers.splice(index, 1);
+    setUsers(updatedUsers);
+  };
 
-
-  if(redirect){
-    return <Redirect to="/" />
+  if (redirect) {
+    return <Redirect to="/" />;
   }
 
   return (
     <Paper elevation={4}>
-      
-        <Typography
-          align="center"
-          variant="h6"
-          gutterBottom
-          component="div"
-          sx={{
-            pt: 1,
-            fontFamily: "Raleway",
-            fontWeight: 700,
-          }}
-        >
-          Users
-        </Typography>
-      <Divider variant="middle" />
+      <Typography
+        align="center"
+        variant="h6"
+        gutterBottom
+        component="div"
+        sx={{
+          pt: 1,
+          fontFamily: "Raleway",
+          fontWeight: 700,
+        }}
+      >
+        Users
+      </Typography>
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {users.length > 0 ? (
           users.map((item, i) => (
             <ListItemButton key={i}>
               <ListItemAvatar>
                 <Avatar
-                  src={
-                    item.photo
-                      ? "/api/users/photo/" + item._id
-                      : "/api/users/defaultphoto"
-                  }
+                  src={item.photo && "/users/photo/" + item._id}
                   sx={{ width: 25, height: 25 }}
                 />
               </ListItemAvatar>
@@ -110,12 +103,16 @@ export default function Users() {
                   </Typography>
                 }
               />
-              <ListItemSecondaryAction sx={{display: 'flex', alignItems :'center',textAlign:'center'}} >
-                {
-                  jwt.user && jwt.user.role === 'admin' && (
-                    <DeleteFromList onRemove={removeUser} userId={item._id} />
-                  )
-                }
+              <ListItemSecondaryAction
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                {jwt.user && jwt.user.role === "admin" && (
+                  <DeleteFromList onRemove={removeUser} userId={item._id} />
+                )}
                 <Link to={"/users/" + item._id}>
                   <IconButton>
                     <ArrowForwardIcon fontSize="small" />
@@ -131,4 +128,3 @@ export default function Users() {
     </Paper>
   );
 }
-

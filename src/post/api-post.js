@@ -7,7 +7,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const createForNews = async (params,credentials,post) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/newsposts/by/" + params.newsId,{
+    let response = await fetch(config.ServerURI + "/newsposts/by/" + params.newsId,{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -23,7 +23,7 @@ const createForNews = async (params,credentials,post) => {
 
 const createForTeam = async (params, credentials, post) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/posts/by/" + params.teamId, {
+    let response = await fetch(config.ServerURI + "/posts/by/" + params.teamId, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -39,7 +39,7 @@ const createForTeam = async (params, credentials, post) => {
 
 const createForPlayer = async (params, credentials, post) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/playerposts/by/" + params.playerId, {
+    let response = await fetch(config.ServerURI + "/playerposts/by/" + params.playerId, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -55,7 +55,7 @@ const createForPlayer = async (params, credentials, post) => {
 
 const createForMatch = async (params,credentials,post) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/matchposts/by/'+params.matchId,{
+    let response = await fetch(config.ServerURI + '/matchposts/by/'+params.matchId,{
       method: 'POST',
       headers: {
         'Accept' :'application/json',
@@ -74,7 +74,7 @@ const createForMatch = async (params,credentials,post) => {
 
 const list = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/posts",{
+    let response = await fetch(config.ServerURI + "/posts",{
       method: 'GET',
       signal:signal,
     })
@@ -88,7 +88,7 @@ const list = async (signal) => {
 
 const read = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/posts/" + params.postId,{
+    let response = await fetch(config.ServerURI + "/posts/" + params.postId,{
       method: 'GET',
       signal: signal,
 
@@ -101,7 +101,7 @@ const read = async (params,signal) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/posts/" + params.postId,{
+    let response = await fetch(config.ServerURI + "/posts/" + params.postId,{
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -117,7 +117,7 @@ const remove = async (params,credentials) => {
 
 const listByFollowings = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/followingposts/feed/"+params.userId,{
+    let response = await fetch(config.ServerURI + "/followingposts/feed/"+params.userId,{
       method: 'GET',
       signal:signal,
     })
@@ -129,7 +129,7 @@ const listByFollowings = async (params,signal) => {
 
 const listByUser = async (params,credentials,signal) => {
   try{
-    let response = await fetch(config.ServerURI + '/api/whole/posts/for/' + params.userId,{
+    let response = await fetch(config.ServerURI + '/whole/posts/for/' + params.userId,{
       method: 'GET',
       signal : signal,
       headers: {
@@ -145,7 +145,7 @@ const listByUser = async (params,credentials,signal) => {
 
 const listPostByTeam = async (params,credentials,signal) => {
   try{
-    let response = await fetch(config.ServerURI + "/api/posts/by/" + params.teamId,{
+    let response = await fetch(config.ServerURI + "/posts/by/" + params.teamId,{
       method: 'GET',
       signal: signal,
       headers: {
@@ -161,7 +161,7 @@ const listPostByTeam = async (params,credentials,signal) => {
 
 const listByPlayer = async (params,signal) => {
   try{
-    let response = await fetch(config.ServerURI + "/api/playerposts/by/" + params.playerId,{
+    let response = await fetch(config.ServerURI + "/playerposts/by/" + params.playerId,{
       method: 'GET',
       signal:signal
     });
@@ -173,7 +173,7 @@ const listByPlayer = async (params,signal) => {
 
 const listByMatch = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/matchposts/by/"+params.matchId,{
+    let response = await fetch(config.ServerURI + "/matchposts/by/"+params.matchId,{
       method:'GET',
       signal:signal
     })
@@ -185,7 +185,7 @@ const listByMatch = async (params,signal) => {
 
 const postListByDepartment = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/departmentposts/by/" + params.departmentId, {
+    let response = await fetch(config.ServerURI + "/departmentposts/by/" + params.departmentId, {
       method: "GET",
       signal:signal
     });
@@ -197,7 +197,7 @@ const postListByDepartment = async (params,signal) => {
 
 const postListByJob = async (params,credentials,signal) => {
   try{
-    let response = await fetch(config.ServerURI + "/api/jobposts/by/"+params.jobId,{
+    let response = await fetch(config.ServerURI + "/jobposts/by/"+params.jobId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -214,7 +214,7 @@ const postListByJob = async (params,credentials,signal) => {
 
 const postListByNews = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/newsposts/by/"+params.newsId,{
+    let response = await fetch(config.ServerURI + "/newsposts/by/"+params.newsId,{
       method: 'GET',
       signal:signal,
     })
@@ -226,7 +226,7 @@ const postListByNews = async (params,signal) => {
 
 const listPinned = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/posts/pinned/'+params.newsId,{
+    let response = await fetch(config.ServerURI + '/posts/pinned/'+params.newsId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -247,7 +247,7 @@ const listPinned = async (params,credentials,signal) => {
 
 const listRelated = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/posts/related/to/"+params.postId,{
+    let response = await fetch(config.ServerURI + "/posts/related/to/"+params.postId,{
       method: 'GET',
       signal:signal
     })
@@ -259,7 +259,7 @@ const listRelated = async (params,signal) => {
 
 const listBestMatch = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/best/posts/for/"+params.matchId,{
+    let response = await fetch(config.ServerURI + "/best/posts/for/"+params.matchId,{
       method: 'GET',
       signal:signal
     })
@@ -271,7 +271,7 @@ const listBestMatch = async (params,signal) => {
 
 const latestTeam = async (credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/latest/team/feed",{
+    let response = await fetch(config.ServerURI + "/latest/team/feed",{
       method: 'GET',
       signal:signal,
       headers: {
@@ -289,7 +289,7 @@ const latestTeam = async (credentials,signal) => {
 
 const listByPresident = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/president/posts/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/president/posts/by/"+params.teamId,{
       method:'GET',
       signal:signal,
     })
@@ -301,7 +301,7 @@ const listByPresident = async (params,signal) => {
 
 const listByVicePresident = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/vicePresident/posts/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/vicePresident/posts/by/"+params.teamId,{
       method: 'GET',
       signal:signal,
     })
@@ -313,7 +313,7 @@ const listByVicePresident = async (params,signal) => {
 
 const listByManager = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/manager/posts/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/manager/posts/by/"+params.teamId,{
       method: 'GET',
       signal: signal,
 
@@ -326,7 +326,7 @@ const listByManager = async (params,signal) => {
 
 const listByCoach = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/coach/posts/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/coach/posts/by/"+params.teamId,{
       method: 'GET',
       signal: signal,
     })
@@ -338,7 +338,7 @@ const listByCoach = async (params,signal) => {
 
 const listByScout = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/scout/posts/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/scout/posts/by/"+params.teamId,{
       method: 'GET',
       signa: signal,
     })
@@ -350,7 +350,7 @@ const listByScout = async (params,signal) => {
 
 const listByYouth = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/youth/posts/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/youth/posts/by/"+params.teamId,{
       method: 'GET',
       signal: signal,
     })
@@ -364,7 +364,7 @@ const listByYouth = async (params,signal) => {
 
 const like = async (params,credentials,postId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/liking/post",{
+    let response = await fetch(config.ServerURI + "/liking/post",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -384,7 +384,7 @@ const like = async (params,credentials,postId) => {
 
 const unlike = async (params,credentials,postId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unliking/post",{
+    let response = await fetch(config.ServerURI + "/unliking/post",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -407,7 +407,7 @@ const unlike = async (params,credentials,postId) => {
 
 const pin = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/pin/post",{
+    let response = await fetch(config.ServerURI + "/pin/post",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -424,7 +424,7 @@ const pin = async (params,credentials) => {
 
 const unpin = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unpin/post",{
+    let response = await fetch(config.ServerURI + "/unpin/post",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -446,7 +446,7 @@ const unpin = async (params,credentials) => {
 
 const complain = async (content) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/complain/post",{
+    let response = await fetch(config.ServerURI + "/complain/post",{
       method:'POST',
       headers: {
         'Accept' :'application/json',

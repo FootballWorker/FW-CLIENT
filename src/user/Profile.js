@@ -345,7 +345,7 @@ const Profile = ({ match }) => {
             xs={12}
             md={5}
             lg={4}
-            sx={{ mt: { xs: 0, md: 0 }, mr: { xs: 1, md: 0 } }}
+            sx={{ mt: { xs: 0, md: 0 }, mr: { xs: 2, md: 0 } }}
           >
             <Stack spacing={1}>
               <UserProfile user={user} />

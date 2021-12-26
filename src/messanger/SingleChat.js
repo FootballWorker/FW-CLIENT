@@ -121,7 +121,6 @@ const SingleChat = ({ match }) => {
   useEffect(() => {
     socket.current?.on("new message", (payload) => {
       setChat(payload)
-      console.log(payload?.messages?.at(-1))
       setMessages((msg)=>[...msg,payload?.messages?.at(-1)])
     });
     return () => {
@@ -222,7 +221,11 @@ const SingleChat = ({ match }) => {
 
   const renameChat = () => {
     if (!chatName) {
-      return console.log("Where is the name dude?");
+      return setIsError({
+        ...isError,
+        openSnack: true,
+        error: "Where is the name , dude ?",
+      });
     }
 
     renameGroup(
@@ -326,7 +329,7 @@ const SingleChat = ({ match }) => {
                         <Avatar
                           src={
                             item._id &&
-                            config.ServerURI + "/api/users/photo/" + item._id
+                            config.ServerURI + "/users/photo/" + item._id
                           }
                         />
                       </ListItemAvatar>

@@ -5,7 +5,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (params,credentials,job) => {
   try{
-    let response = await fetch(config.ServerURI + '/api/jobs/by/'+params.departmentId,{
+    let response = await fetch(config.ServerURI + '/jobs/by/'+params.departmentId,{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -22,7 +22,7 @@ const create = async (params,credentials,job) => {
 
 const listJobs = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/jobs",{
+    let response = await fetch(config.ServerURI + "/jobs",{
       method: 'GET',
       signal:signal
     })
@@ -34,7 +34,7 @@ const listJobs = async (signal) => {
 
 const listByDepartment = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/jobs/by/"+ params.departmentId,{
+    let response = await fetch(config.ServerURI + "/jobs/by/"+ params.departmentId,{
       method: 'GET',
       signal:signal
     });
@@ -46,7 +46,7 @@ const listByDepartment = async (params,signal) => {
 
 const bestWorkers = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + '/api/best/workers/by/'+params.jobId,{
+    let response = await fetch(config.ServerURI + '/best/workers/by/'+params.jobId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -63,7 +63,7 @@ const bestWorkers = async (params,credentials,signal) => {
 
 const vacantJobs = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/vacant/jobs/"+params.jobId,{
+    let response = await fetch(config.ServerURI + "/vacant/jobs/"+params.jobId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -80,7 +80,7 @@ const vacantJobs = async (params,credentials,signal) => {
 
 const read = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/jobs/"+ params.jobId,{
+    let response = await fetch(config.ServerURI + "/jobs/"+ params.jobId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -96,7 +96,7 @@ const read = async (params,credentials,signal) => {
 
 const update = async (params,credentials,job) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/jobs/"+ params.jobId,{
+    let response = await fetch(config.ServerURI + "/jobs/"+ params.jobId,{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -113,7 +113,7 @@ const update = async (params,credentials,job) => {
 
 const remove = async (params,credentials,job) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/jobs/"+ params.jobId,{
+    let response = await fetch(config.ServerURI + "/jobs/"+ params.jobId,{
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',

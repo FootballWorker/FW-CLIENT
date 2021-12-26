@@ -62,7 +62,7 @@ export default function Comments(props) {
                   src={
                     item.commentedBy &&
                     config.ServerURI +
-                      "/api/users/photo/" +
+                      "/users/photo/" +
                       item.commentedBy._id
                   }
                 />
@@ -93,7 +93,7 @@ export default function Comments(props) {
                     height="120"
                     image={
                       item.imageOne &&
-                      config.ServerURI + "/api/comments/imageOne/" + item._id
+                      config.ServerURI + "/comments/imageOne/" + item._id
                     }
                     alt="Comment Image"
                   />

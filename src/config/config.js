@@ -1,9 +1,9 @@
 const config = {
-  ServerURI : 'https://footballworker.herokuapp.com',
+  ServerURI : 'https://footballworker.herokuapp.com/api/v1',
   ClientURI : 'https://footballworker.net'
 }
 
-const isDev = true
+const isDev = false
 
 const errorHandler = (error) => {
   if (isDev) {

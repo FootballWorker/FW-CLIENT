@@ -4,7 +4,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (credentials,position) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/new/position",{
+    let response = await fetch(config.ServerURI + "/new/position",{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -22,7 +22,7 @@ const create = async (credentials,position) => {
 
 const listPositions = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/positions", {
+    let response = await fetch(config.ServerURI + "/positions", {
       method: "GET",
       signal:signal
     });
@@ -34,7 +34,7 @@ const listPositions = async (signal) => {
 
 const read = async (params, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/position/" + params.positionId, {
+    let response = await fetch(config.ServerURI + "/position/" + params.positionId, {
       method: "GET",
       signal: signal,
       headers: {
@@ -51,7 +51,7 @@ const read = async (params, signal) => {
 const update = async (params, credentials, position) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/position/" + params.positionId,
+      config.ServerURI + "/position/" + params.positionId,
       {
         method: "PUT",
         headers: {
@@ -70,7 +70,7 @@ const update = async (params, credentials, position) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/position/"+params.positionId,{
+    let response = await fetch(config.ServerURI + "/position/"+params.positionId,{
       method: 'DELETE',
       headers: {
         'Accept' :'application/json',

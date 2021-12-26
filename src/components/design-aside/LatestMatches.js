@@ -13,7 +13,7 @@ import ListHeader from "../header/ListHeader";
 
 export default function LatestMatches(props) {
   return (
-    <Paper elevation={4}>
+    <Paper elevation={1}>
       <ListHeader header={props.header} />
       <List dense>
         {props.matches &&
@@ -40,7 +40,7 @@ export default function LatestMatches(props) {
                       sx={{
                         fontWeight: "light",
                         fontSize: {
-                          xs: "0.65em",
+                          xs: "0.75em",
                           sm: "0.9em",
                         },
                       }}

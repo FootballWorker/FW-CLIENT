@@ -97,7 +97,7 @@ const EditNews = ({ match }) => {
 
   const photoUrl =
     match.params.newsId &&
-    `${config.ServerURI}/api/news/photo/${
+    `${config.ServerURI}/news/photo/${
       match.params.newsId
     }?${new Date().getTime()}`;
 

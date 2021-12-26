@@ -6,7 +6,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (params, credentials, player) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/new/player/to/" + params.teamId, {
+    let response = await fetch(config.ServerURI + "/new/player/to/" + params.teamId, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -23,7 +23,7 @@ const create = async (params, credentials, player) => {
 
 const list = async (credentials, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/players", {
+    let response = await fetch(config.ServerURI + "/players", {
       method: "GET",
       signal: signal,
       headers: {
@@ -40,7 +40,7 @@ const list = async (credentials, signal) => {
 
 const listByTeam = async (params, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/players/by/" + params.teamId, {
+    let response = await fetch(config.ServerURI + "/players/by/" + params.teamId, {
       method: "GET",
       signal: signal
     });
@@ -52,7 +52,7 @@ const listByTeam = async (params, signal) => {
 
 const listPlayerByStar = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/playerstars", {
+    let response = await fetch(config.ServerURI + "/playerstars", {
       method: "GET",
       signal: signal,
     });
@@ -65,7 +65,7 @@ const listPlayerByStar = async (signal) => {
 const searchForPlayer = async (params) => {
   const query = queryString.stringify(params)
   try {
-    let response = await fetch(config.ServerURI + "/api/search/players?" + query,{
+    let response = await fetch(config.ServerURI + "/search/players?" + query,{
       method: 'GET',
     });
     return await response.json()
@@ -76,7 +76,7 @@ const searchForPlayer = async (params) => {
 
 const read = async (params, signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/players/" + params.playerId, {
+    let response = await fetch(config.ServerURI + "/players/" + params.playerId, {
       method: "GET",
       signal: signal,
       headers: {
@@ -92,7 +92,7 @@ const read = async (params, signal) => {
 
 const update = async (params, credentials, player) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/players/" + params.playerId, {
+    let response = await fetch(config.ServerURI + "/players/" + params.playerId, {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -108,7 +108,7 @@ const update = async (params, credentials, player) => {
 
 const remove = async (params, credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/players/" + params.playerId, {
+    let response = await fetch(config.ServerURI + "/players/" + params.playerId, {
       method: "DELETE",
       headers: {
         "Accept": "application/json",
@@ -124,7 +124,7 @@ const remove = async (params, credentials) => {
 
 const star = async (params, credentials, playerId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/starplayers", {
+    let response = await fetch(config.ServerURI + "/starplayers", {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -144,7 +144,7 @@ const star = async (params, credentials, playerId) => {
 
 const unstar = async (params, credentials, playerId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unstarplayers", {
+    let response = await fetch(config.ServerURI + "/unstarplayers", {
       method: "PUT",
       headers: {
         "Accept": "application/json",

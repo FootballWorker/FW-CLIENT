@@ -9,12 +9,9 @@ import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import ImageIcon from "@mui/icons-material/Image";
 
 import CancelButton from "../components/design-button/CancelButton.js";
 import WebSiteButton from "../components/design-button/WebSiteButton.js";
@@ -25,8 +22,8 @@ import { list } from "./../team/api-team";
 import { listPositions } from "./../position/api-position";
 import FormError from "../errorHandler/FormError.js";
 import SnackError from "../errorHandler/SnackError.js";
-import {config} from './../config/config.js'
-import defaultPic from './../assets/images/profile-pic.png'
+import { config } from "./../config/config.js";
+import defaultPic from "./../assets/images/profile-pic.png";
 
 const countries = [
   "Andorra",
@@ -317,7 +314,7 @@ const EditPlayer = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Player data could not be uploaded."
+          error: "500 Server Error. Player data could not be uploaded.",
         });
       } else {
         setValues(data);
@@ -342,7 +339,7 @@ const EditPlayer = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Teams could not be uploaded."
+          error: "500 Server Error. Teams could not be uploaded.",
         });
       } else {
         setTeams(data);
@@ -366,7 +363,7 @@ const EditPlayer = ({ match }) => {
         setIsError({
           ...isError,
           openSnack: true,
-          error: "500 Server Error. Positions could not be uploaded."
+          error: "500 Server Error. Positions could not be uploaded.",
         });
       } else {
         setPositions(data);
@@ -400,10 +397,10 @@ const EditPlayer = ({ match }) => {
 
   // Update Function
   const clickSubmit = () => {
-    if(values.team === ""){
+    if (values.team === "") {
       return setValues({ ...values, error: "You have to select Team" });
     }
-    if(values.position === ""){
+    if (values.position === "") {
       return setValues({ ...values, error: "You have to select Position" });
     }
     setProgress(true);
@@ -422,7 +419,10 @@ const EditPlayer = ({ match }) => {
     update({ playerId: match.params.playerId }, { t: jwt.token }, player).then(
       (data) => {
         if (data && data.error) {
-          setValues({ ...values, error: "500 Server Error. Player could not be edited." });
+          setValues({
+            ...values,
+            error: "500 Server Error. Player could not be edited.",
+          });
           setProgress(false);
         } else {
           setValues({ ...values, redirectToProfile: true });
@@ -433,7 +433,9 @@ const EditPlayer = ({ match }) => {
   };
 
   const photoUrl = match.params.playerId
-    ? `${config.ServerURI}/api/players/photo/${match.params.playerId}?${new Date().getTime()}`
+    ? `${config.ServerURI}/players/photo/${
+        match.params.playerId
+      }?${new Date().getTime()}`
     : defaultPic;
 
   // REDIRECT AFTER ENDING EDITING
@@ -471,30 +473,10 @@ const EditPlayer = ({ match }) => {
         EDIT PLAYER
       </Typography>
       <Divider variant="middle" />
-      <Card>
-        <Box>
-          <img
-            src={photoUrl}
-            alt="News Logo"
-            style={{ objectFit: "cover", width: "100%" }}
-          />
-        </Box>
-        <input
-          accept="image/*"
-          onChange={handleChange("photo")}
-          style={{
-            display: "none",
-          }}
-          id="photo"
-          type="file"
-        />
-        <label htmlFor="photo">
-          <Button component="span">
-            Upload
-            <ImageIcon />
-          </Button>
-        </label>
-        <span>{values.photo ? values.photo.name : ""}</span>
+      <Card sx={{m:2}} >
+        <Typography sx={{ m: 2 }} align="center">
+          Not allowed to add profile photos for now!
+        </Typography>
         <TextField
           id="name"
           fullWidth

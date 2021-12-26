@@ -4,7 +4,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (params,credentials,comment) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/comments/" + params.postId,{
+    let response = await fetch(config.ServerURI + "/comments/" + params.postId,{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -20,7 +20,7 @@ const create = async (params,credentials,comment) => {
 
 const list = async (params,credentials,signal) => {
   try{
-    let response = await fetch(config.ServerURI + "/api/comments/" + params.postId,{
+    let response = await fetch(config.ServerURI + "/comments/" + params.postId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -37,7 +37,7 @@ const list = async (params,credentials,signal) => {
 
 const listRelated = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/comments/related/"+params.commentId,{
+    let response = await fetch(config.ServerURI + "/comments/related/"+params.commentId,{
       method: 'GET',
       signal:signal,
       headers : {
@@ -53,7 +53,7 @@ const listRelated = async (params,credentials,signal) => {
 
 const listByUser = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/comments/by/" + params.userId,{
+    let response = await fetch(config.ServerURI + "/comments/by/" + params.userId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -70,7 +70,7 @@ const listByUser = async (params,credentials,signal) => {
 
 const listTopPost = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/best/comments/"+params.postId,{
+    let response = await fetch(config.ServerURI + "/best/comments/"+params.postId,{
       method: 'GET',
       signal: signal,
       headers: {
@@ -86,7 +86,7 @@ const listTopPost = async (params,credentials,signal) => {
 
 const listTopUser = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/bestcomments/"+params.userId,{
+    let response = await fetch(config.ServerURI + "/bestcomments/"+params.userId,{
       method: 'GET',
       signal:signal,
       headers: {
@@ -103,7 +103,7 @@ const listTopUser = async (params,credentials,signal) => {
 
 const read = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/singlecomment/" + params.commentId,{
+    let response = await fetch(config.ServerURI + "/singlecomment/" + params.commentId,{
       method: 'GET',
       signal:signal,
     });
@@ -115,7 +115,7 @@ const read = async (params,signal) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/singlecomment/" + params.commentId,{
+    let response = await fetch(config.ServerURI + "/singlecomment/" + params.commentId,{
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -131,7 +131,7 @@ const remove = async (params,credentials) => {
 
 const like = async (params,credentials,commentId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/comments/like",{
+    let response = await fetch(config.ServerURI + "/comments/like",{
       method: 'PUT',
       headers: {
         'Accept' : 'application/json',
@@ -151,7 +151,7 @@ const like = async (params,credentials,commentId) => {
 
 const unlike = async (params, credentials,commentId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/comments/unlike",{
+    let response = await fetch(config.ServerURI + "/comments/unlike",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',

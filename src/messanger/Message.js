@@ -51,7 +51,7 @@ export default function Message({ message, own }) {
               src={
                 message?.sender
                   ? config.ServerURI +
-                    "/api/users/photo/" +
+                    "/users/photo/" +
                     message?.sender?._id
                   : ""
               }

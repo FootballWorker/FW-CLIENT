@@ -5,7 +5,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (params,credentials,match) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/newmatch/to/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/newmatch/to/"+params.teamId,{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -22,7 +22,7 @@ const create = async (params,credentials,match) => {
 
 const read = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/matches/"+ params.matchId,{
+    let response = await fetch(config.ServerURI + "/matches/"+ params.matchId,{
       method: 'GET',
       signal: signal,
       header: {
@@ -38,7 +38,7 @@ const read = async (params,signal) => {
 
 const update = async (params,credentials,matchData) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/matches/"+params.matchId,{
+    let response = await fetch(config.ServerURI + "/matches/"+params.matchId,{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -55,7 +55,7 @@ const update = async (params,credentials,matchData) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/matches/"+ params.matchId,{
+    let response = await fetch(config.ServerURI + "/matches/"+ params.matchId,{
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -71,7 +71,7 @@ const remove = async (params,credentials) => {
 
 const list = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/matches",{
+    let response = await fetch(config.ServerURI + "/matches",{
       method: 'GET',
       signal: signal,
       headers: {
@@ -87,7 +87,7 @@ const list = async (signal) => {
 
 const listByTeam = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/matches/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/matches/by/"+params.teamId,{
       method: 'GET',
       signal: signal,
       headers: {
@@ -103,7 +103,7 @@ const listByTeam = async (params,signal) => {
 
 const latestMatches = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/latest/matches/by/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/latest/matches/by/"+params.teamId,{
       method: 'GET',
       signal: signal
     })
@@ -115,7 +115,7 @@ const latestMatches = async (params,signal) => {
 
 const listForHome = async (credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/country/matches",{
+    let response = await fetch(config.ServerURI + "/country/matches",{
       method: 'GET',
       headers: {
         'Accept':'application/json',
@@ -133,7 +133,7 @@ const listForHome = async (credentials,signal) => {
 const searchMatchByTeam = async (params) => {
   const query = queryString.stringify(params)
   try {
-    let response = await fetch(config.ServerURI + "/api/search/matches/by/team?"+query,{
+    let response = await fetch(config.ServerURI + "/search/matches/by/team?"+query,{
       method: 'GET'
     })
     return await response.json()
@@ -144,7 +144,7 @@ const searchMatchByTeam = async (params) => {
 
 const listByAudience = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/topmatches/by/audience",{
+    let response = await fetch(config.ServerURI + "/topmatches/by/audience",{
       method: 'GET',
       signal: signal,
     })
@@ -157,7 +157,7 @@ const listByAudience = async (signal) => {
 const searchForMatch = async (params,signal) => {
   const query = queryString.stringify(params)
   try {
-    let response = await fetch(config.ServerURI + "/api/search/for/matches?"+query,{
+    let response = await fetch(config.ServerURI + "/search/for/matches?"+query,{
       method: 'GET',
       signal:signal
     })
@@ -169,7 +169,7 @@ const searchForMatch = async (params,signal) => {
 
 const audience = async (params,credentials,matchId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/audience/match",{
+    let response = await fetch(config.ServerURI + "/audience/match",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -189,7 +189,7 @@ const audience = async (params,credentials,matchId) => {
 
 const disaudience = async (params,credentials,matchId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/disaudience/match", {
+    let response = await fetch(config.ServerURI + "/disaudience/match", {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -209,7 +209,7 @@ const disaudience = async (params,credentials,matchId) => {
 
 const predictHome = async (params,credentials,matchId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/prediction/home",{
+    let response = await fetch(config.ServerURI + "/prediction/home",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -229,7 +229,7 @@ const predictHome = async (params,credentials,matchId) => {
 
 const predictDraw = async (params,credentials,matchId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/prediction/draw",{
+    let response = await fetch(config.ServerURI + "/prediction/draw",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -249,7 +249,7 @@ const predictDraw = async (params,credentials,matchId) => {
 
 const predictAway = async (params,credentials,matchId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/prediction/away",{
+    let response = await fetch(config.ServerURI + "/prediction/away",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',

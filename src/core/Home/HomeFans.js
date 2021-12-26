@@ -127,7 +127,6 @@ export default function HomeFans(props) {
         <div>
           {loading ? (
             <Stack spacing={2}>
-              <ListSkelaton />
               <SearchSkeleton />
               {[1, 2, 3, 4, 5].map((n) => (
                 <PostSkelaton key={n} />
@@ -135,11 +134,6 @@ export default function HomeFans(props) {
             </Stack>
           ) : (
             <Stack spacing={2}>
-              <LatestMatches
-                matches={props.latestMatches}
-                header="Latest Matches"
-              />
-
               <Search posts={values} loading={props.loading || loading} />
             </Stack>
           )}

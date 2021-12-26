@@ -14,7 +14,7 @@ import kFormatter from "../numbers";
 
 export default function Bestie(props) {
   return (
-    <Paper elevation={4}>
+    <Paper elevation={1}>
       <ListHeader header={props.header} />
       <List dense>
         {props.values &&

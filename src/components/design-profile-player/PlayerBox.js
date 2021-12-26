@@ -2,13 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import ImageListItem from "@mui/material/ImageListItem";
-import profilePic from "./../../assets/images/profile-pic.png";
-import {config} from "./../../config/config.js";
-import numberWithCommas from "../wage";
 
 const countries = [
   { code: "AD", label: "Andorra", phone: "376" },
@@ -439,122 +434,81 @@ export default function PlayerBox(props) {
   const team = countries.find(
     (country) => country.label === props.player?.country
   );
+  function numberWithCommas(x) {
+    return x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
-    <Paper
-      elevation={8}
+    <Stack
+      spacing={2}
+      elevation={12}
       sx={{
-        margin: "auto",
+        // margin: "auto",
         p: 2,
         maxWidth: "100%",
-        bgcolor: "#51545b",
+        borderRadius:'5px',
+        bgcolor: "#6367A1",
         ":hover": {
-          boxShadow: "4px -4px 4px  #FED829",
+          boxShadow: "4px -4px 4px  #8B8FBE",
         },
       }}
     >
-      <Stack spacing={2}>
-        <ImageListItem
+      {/* Birthday */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+        }}
+      >
+        <Typography
           sx={{
-            objectFit: "cover",
-            maxWidth: "100%",
-            maxHeight: "100%",
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "bold",
+            fontFamily: 'Monospace'
+          }}
+          color="lavender"
+        >
+          Birthday
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "medium",
+            fontFamily: "'Quicksand', sans-serif",
+            color: "#fed829",
           }}
         >
-          <img
-            src={
-              props.player.photo
-                ? config.ServerURI + "/api/players/photo/" + props.player._id
-                : profilePic
-            }
-            alt="User Profile"
-            style={{
-              borderRadius: "2%",
-            }}
-          />
-        </ImageListItem>
-        <Box
+          {new Date(props.player.birthday).toLocaleDateString()}
+        </Typography>
+      </Box>
+      {/* Country */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+        }}
+      >
+        <Typography
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "bold",
+            fontFamily: 'Monospace'
           }}
+          color="lavender"
         >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
-          >
-            Name
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "medium",
-              fontFamily: "'Quicksand', sans-serif",
-              color: "#fed829",
-            }}
-          >
-            {props.player.name}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
-          >
-            Birthday
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "medium",
-              fontFamily: "'Quicksand', sans-serif",
-              color: "#fed829",
-            }}
-          >
-            {new Date(props.player.birthday).toLocaleDateString()}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
-          >
-            Country
-          </Typography>
-          <Box sx={{ display: "flex", gap: 0.5, alignItems: "center" }}>
+          Country
+        </Typography>
+        <Box sx={{ display: "flex", gap: 0.5, alignItems: "center" }}>
           {props.player?.country && (
             <img
               width={30}
@@ -564,39 +518,6 @@ export default function PlayerBox(props) {
               srcSet={`https://flagcdn.com/w40/${team?.code.toLowerCase()}.png 2x`}
             />
           )}
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: 13,
-                  sm: 19,
-                },
-                fontWeight: "medium",
-                fontFamily: "'Quicksand', sans-serif",
-                color: "#fed829",
-              }}
-            >
-              {props.player?.country}
-            </Typography>
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
-          >
-            Team
-          </Typography>
           <Typography
             sx={{
               fontSize: {
@@ -608,117 +529,161 @@ export default function PlayerBox(props) {
               color: "#fed829",
             }}
           >
-            <Link
-              to={
-                props.player &&
-                props.player.team &&
-                "/teams/" + props.player.team._id
-              }
-              style={{ color: "#fed829" }}
-            >
-              {props.player?.team?.name}
-            </Link>
+            {props.player?.country}
           </Typography>
         </Box>
-        <Box
+      </Box>
+      {/* Team */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+        }}
+      >
+        <Typography
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "bold",
+            fontFamily: 'Monospace'
+          }}
+          color="lavender"
+        >
+          Team
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "medium",
+            fontFamily: "'Quicksand', sans-serif",
+            color: "#fed829",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
+          <Link
+            to={
+              props.player &&
+              props.player.team &&
+              "/teams/" + props.player.team._id
+            }
+            style={{ color: "#fed829" }}
           >
-            Position
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "medium",
-              fontFamily: "'Quicksand', sans-serif",
-              color: "#fed829",
-              ":first-letter":{textTransform:'capitalize'}
-            }}
-          >
-            {props.player?.position?.title}
-          </Typography>
-        </Box>
-        <Box
+            {props.player?.team?.name}
+          </Link>
+        </Typography>
+      </Box>
+      {/* Position */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+        }}
+      >
+        <Typography
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "bold",
+            fontFamily: 'Monospace'
+          }}
+          color="lavender"
+        >
+          Position
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "medium",
+            fontFamily: "'Quicksand', sans-serif",
+            color: "#fed829",
+            ":first-letter": { textTransform: "capitalize" },
           }}
         >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
-          >
-            Wage
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "medium",
-              fontFamily: "'Quicksand', sans-serif",
-              color: "#fed829",
-            }}
-          >
-            {numberWithCommas(props.player.salary) + "$"}
-          </Typography>
-        </Box>
-        <Box
+          {props.player?.position?.title}
+        </Typography>
+      </Box>
+      {/* Wage */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+        }}
+      >
+        <Typography
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            textAlign: "center",
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "bold",
+            fontFamily: 'Monospace'
+          }}
+          color="lavender"
+        >
+          Wage
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "medium",
+            fontFamily: "'Quicksand', sans-serif",
+            color: "#fed829",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "bold",
-            }}
-          >
-            Market Value
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: 13,
-                sm: 19,
-              },
-              fontWeight: "medium",
-              fontFamily: "'Quicksand', sans-serif",
-              color: "#fed829",
-            }}
-          >
-            {numberWithCommas(props.player.value) + "$"}
-          </Typography>
-        </Box>
-      </Stack>
-    </Paper>
+          {numberWithCommas(props.player.salary) + "$"}
+        </Typography>
+      </Box>
+      {/* Value */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "bold",
+            fontFamily: 'Monospace'
+          }}
+          color="lavender"
+        >
+          Market Value
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: 13,
+              sm: 19,
+            },
+            fontWeight: "medium",
+            fontFamily: "'Quicksand', sans-serif",
+            color: "#fed829",
+          }}
+        >
+          {numberWithCommas(props.player.value) + "$"}
+        </Typography>
+      </Box>
+    </Stack>
   );
 }
 

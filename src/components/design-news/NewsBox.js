@@ -44,7 +44,7 @@ export default function NewsBox(props) {
           <img
             src={
               props.news.photo
-                ? config.ServerURI + "/api/news/photo/" + props.news._id
+                ? config.ServerURI + "/news/photo/" + props.news._id
                 : defaultNews
             }
             alt="Logo"
@@ -69,6 +69,7 @@ export default function NewsBox(props) {
               fontWeight: "bold",
               fontFamily: "'Merriweather', serif",
             }}
+            color="darkgrey"
           >
             Name
           </Typography>
@@ -102,6 +103,7 @@ export default function NewsBox(props) {
               fontWeight: "bold",
               fontFamily: "'Merriweather', serif",
             }}
+            color="darkgrey"
           >
             Founder
           </Typography>
@@ -143,6 +145,7 @@ export default function NewsBox(props) {
               fontWeight: "bold",
               fontFamily: "'Merriweather', serif",
             }}
+            color="darkgrey"
           >
             Editor
           </Typography>
@@ -184,6 +187,7 @@ export default function NewsBox(props) {
               fontWeight: "bold",
               fontFamily: "'Merriweather', serif",
             }}
+            color="darkgrey"
           >
             DOF
           </Typography>
@@ -230,11 +234,10 @@ export default function NewsBox(props) {
                       <ListItemAvatar>
                         <Avatar
                           src={
-                            item._id
-                              ? config.ServerURI +
-                                "/api/users/photo/" +
+                            item.photo
+                              && config.ServerURI +
+                                "/users/photo/" +
                                 item._id
-                              : "/api/users/defaultphoto"
                           }
                         />
                       </ListItemAvatar>

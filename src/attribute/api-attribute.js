@@ -4,7 +4,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (params,credentials,attribute) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/record/attribute/"+ params.playerId,{
+    let response = await fetch(config.ServerURI + "/record/attribute/"+ params.playerId,{
       method: 'POST',
       headers: {
         'Accept':'application/json',
@@ -22,7 +22,7 @@ const create = async (params,credentials,attribute) => {
 const read = async (params, credentials) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/attributes/" + params.attributeId,
+      config.ServerURI + "/attributes/" + params.attributeId,
       {
         method: "GET",
         headers: {
@@ -41,7 +41,7 @@ const read = async (params, credentials) => {
 const scoresByUser = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/assessments/user/" + params.playerId,
+      config.ServerURI + "/assessments/user/" + params.playerId,
       {
         method: "GET",
         signal: signal,
@@ -61,7 +61,7 @@ const scoresByUser = async (params, credentials, signal) => {
 const listAttributes = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/attributes/by/" + params.playerId,
+      config.ServerURI + "/attributes/by/" + params.playerId,
       {
         method: "GET",
         signal: signal,
@@ -81,7 +81,7 @@ const listAttributes = async (params, credentials, signal) => {
 const updateAttribute = async (credentials, attribute) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/attributes/rescore",
+      config.ServerURI + "/attributes/rescore",
       {
         method: "PUT",
         headers: {
@@ -101,7 +101,7 @@ const updateAttribute = async (credentials, attribute) => {
 const remove = async (params, credentials) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/attributes/" + params.attributeId,
+      config.ServerURI + "/attributes/" + params.attributeId,
       {
         method: "DELETE",
         headers: {
@@ -119,7 +119,7 @@ const remove = async (params, credentials) => {
 
 const averageAttributes = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/attributes/category/averages/"+params.playerId,{
+    let response = await fetch(config.ServerURI + "/attributes/category/averages/"+params.playerId,{
       method: 'GET',
       signal: signal,
     })

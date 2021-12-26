@@ -115,7 +115,7 @@ const News = (props) => {
                       <Avatar
                         src={
                           item.photo
-                            ? config.ServerURI + "/api/news/photo/" + item._id
+                            ? config.ServerURI + "/news/photo/" + item._id
                             : defaultPic
                         }
                       />

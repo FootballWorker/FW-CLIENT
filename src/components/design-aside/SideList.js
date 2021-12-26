@@ -19,7 +19,7 @@ export default function SideList(props) {
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   return (
     <Paper
-      elevation={4}
+      elevation={1}
       sx={{
         maxWidth: "100%",
         p: 1,
@@ -93,7 +93,7 @@ export default function SideList(props) {
                   <Avatar
                     src={
                       item.imageOne
-                        && config.ServerURI + "/api/posts/imageOne/" + item._id
+                        && config.ServerURI + "/posts/imageOne/" + item._id
                     }
                     sx={{ width: 140, height: 140 }}
                     variant="square"

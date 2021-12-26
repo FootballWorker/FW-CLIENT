@@ -23,7 +23,7 @@ import { animateScroll as scroll } from "react-scroll";
 
 import Logo from "./../../../assets/images/orijinalLogo.png";
 
-const drawerWidth = 150;
+const drawerWidth = 215;
 
 const GuestNavbar = (props) => {
   const { window } = props;
@@ -57,7 +57,7 @@ const GuestNavbar = (props) => {
           variant="h6"
           noWrap
           component="div"
-          sx={{ display: { xs: "none", md: "display" }, color: "#FED829" }}
+          sx={{ display: { xs: "none", sm: "flex" }, color: "#FED829" }}
         >
           Football Workers
         </Typography>
@@ -154,7 +154,26 @@ const GuestNavbar = (props) => {
             }}
           >
             <Link to="/home">
-              <Avatar src={Logo} sx={{ width: 35, height: 35 }} />
+              <Box
+                sx={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  height: 40,
+                }}
+              >
+                <img
+                  src={Logo}
+                  alt="Logo"
+                  style={{
+                    maxWidth: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    maxHeight: "100%",
+                  }}
+                />
+              </Box>
             </Link>
           </Box>
           <Box
@@ -281,7 +300,10 @@ const GuestNavbar = (props) => {
             display: "block",
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: {
+                xs: 150,
+                sm: drawerWidth,
+              },
             },
           }}
         >

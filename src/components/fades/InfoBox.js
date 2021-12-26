@@ -42,26 +42,26 @@ export default function InfoBox(props) {
           >
             Information & Rules
           </Typography>
-          <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+          <Typography id="transition-modal-description" sx={{ mt: 1,fontSize:{xs:11,md:17} }}>
             {props.textOne}
           </Typography>
           {props.textTwo && (
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 1,fontSize:{xs:11,md:17} }}>
               {props.textTwo}
             </Typography>
           )}
           {props.textThree && (
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 1,fontSize:{xs:11,md:17} }}>
               {props.textThree}
             </Typography>
           )}
           {props.textFour && (
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 1,fontSize:{xs:11,md:17} }}>
               {props.textFour}
             </Typography>
           )}
           {props.textFive && (
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography id="transition-modal-description" sx={{ mt: 1,fontSize:{xs:11,md:17} }}>
               {props.textFive}
             </Typography>
           )}

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import StarIcon from "@mui/icons-material/Star";
-import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
@@ -15,7 +14,7 @@ import kFormatter from "../numbers";
 
 export default function VacantJobs (props){
   return (
-    <Paper elevation={4}>
+    <Paper elevation={1}>
       <ListHeader header="Vacant Jobs" />
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {props.teams && (

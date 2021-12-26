@@ -5,7 +5,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const create = async (credentials,team) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/new/team",{
+    let response = await fetch(config.ServerURI + "/new/team",{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -22,7 +22,7 @@ const create = async (credentials,team) => {
 
 const read = async (params,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/teams/" + params.teamId,{
+    let response = await fetch(config.ServerURI + "/teams/" + params.teamId,{
       method: 'GET',
       signal: signal,
     });
@@ -34,7 +34,7 @@ const read = async (params,signal) => {
 
 const list = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/teams",{
+    let response = await fetch(config.ServerURI + "/teams",{
       method: 'GET',
       signal:signal,
       headers: {
@@ -50,7 +50,7 @@ const list = async (signal) => {
 
 const listByStar = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/teams/by/stars",{
+    let response = await fetch(config.ServerURI + "/teams/by/stars",{
       method: 'GET',
       signal: signal,
       headers: {
@@ -66,7 +66,7 @@ const listByStar = async (signal) => {
 
 const listCountries = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/teams/countries",{
+    let response = await fetch(config.ServerURI + "/teams/countries",{
       method: 'GET',
       signal:signal
     })
@@ -79,7 +79,7 @@ const listCountries = async (signal) => {
 const searchForTeams = async (params) => {
   const query = queryString.stringify(params)
   try {
-    let response = await fetch(config.ServerURI + "/api/searching/for/teams?"+query,{
+    let response = await fetch(config.ServerURI + "/searching/for/teams?"+query,{
       method: 'GET',
     })
 
@@ -91,7 +91,7 @@ const searchForTeams = async (params) => {
 
 const listLikedTeam = async (params,credentials,signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/liked/teams/by/" + params.userId, {
+    let response = await fetch(config.ServerURI + "/liked/teams/by/" + params.userId, {
       method: "GET",
       signal:signal,
       headers: {
@@ -108,7 +108,7 @@ const listLikedTeam = async (params,credentials,signal) => {
 
 const update = async (params,credentials,team) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/teams/" + params.teamId, {
+    let response = await fetch(config.ServerURI + "/teams/" + params.teamId, {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -125,7 +125,7 @@ const update = async (params,credentials,team) => {
 
 const remove = async (params,credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/teams/"+params.teamId,{
+    let response = await fetch(config.ServerURI + "/teams/"+params.teamId,{
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -141,7 +141,7 @@ const remove = async (params,credentials) => {
 
 const star = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/staring/team/",{
+    let response = await fetch(config.ServerURI + "/staring/team/",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -161,7 +161,7 @@ const star = async (params,credentials,teamId) => {
 
 const unstar = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unstaring/team/",{
+    let response = await fetch(config.ServerURI + "/unstaring/team/",{
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -183,7 +183,7 @@ const unstar = async (params,credentials,teamId) => {
 
 const hirePresident = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hire/as/president",{
+    let response = await fetch(config.ServerURI + "/hire/as/president",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -203,7 +203,7 @@ const hirePresident = async (params,credentials,teamId) => {
 
 const firePresident = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/fire/from/president",{
+    let response = await fetch(config.ServerURI + "/fire/from/president",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -223,7 +223,7 @@ const firePresident = async (params,credentials,teamId) => {
 
 const hireVice = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hire/as/vicePresident",{
+    let response = await fetch(config.ServerURI + "/hire/as/vicePresident",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -243,7 +243,7 @@ const hireVice = async (params,credentials,teamId) => {
 
 const fireVice = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/fire/from/vicePresident",{
+    let response = await fetch(config.ServerURI + "/fire/from/vicePresident",{
       method :'PUT',
       headers: {
         'Accept':'application/json',
@@ -263,7 +263,7 @@ const fireVice = async (params,credentials,teamId) => {
 
 const hireManager = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hire/as/manager",{
+    let response = await fetch(config.ServerURI + "/hire/as/manager",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -283,7 +283,7 @@ const hireManager = async (params,credentials,teamId) => {
 
 const fireManager = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/firemanager",{
+    let response = await fetch(config.ServerURI + "/firemanager",{
       method :'PUT',
       headers: {
         'Accept' :'application/json',
@@ -303,7 +303,7 @@ const fireManager = async (params,credentials,teamId) => {
 
 const hireCoach = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hire/as/coach",{
+    let response = await fetch(config.ServerURI + "/hire/as/coach",{
       method :'PUT',
       headers: {
         'Accept' :'application/json',
@@ -323,7 +323,7 @@ const hireCoach = async (params,credentials,teamId) => {
 
 const fireCoach = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/fire/from/coach",{
+    let response = await fetch(config.ServerURI + "/fire/from/coach",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -343,7 +343,7 @@ const fireCoach = async (params,credentials,teamId) => {
 
 const hireScout = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hire/as/scout",{
+    let response = await fetch(config.ServerURI + "/hire/as/scout",{
       method :'PUT',
       headers: {
         'Accept':'application/json',
@@ -363,7 +363,7 @@ const hireScout = async (params,credentials,teamId) => {
 
 const fireScout = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/fire/from/scout",{
+    let response = await fetch(config.ServerURI + "/fire/from/scout",{
       method: 'PUT',
       headers: {
         'Accept' :'application/json',
@@ -383,7 +383,7 @@ const fireScout = async (params,credentials,teamId) => {
 
 const hireYouth = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/hire/as/youth",{
+    let response = await fetch(config.ServerURI + "/hire/as/youth",{
       method:'PUT',
       headers: {
         'Accept' :'application/json',
@@ -403,7 +403,7 @@ const hireYouth = async (params,credentials,teamId) => {
 
 const fireYouth = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/fire/from/youth",{
+    let response = await fetch(config.ServerURI + "/fire/from/youth",{
       method: 'PUT',
       headers: {
         'Accept':'applicaiton/json',
@@ -423,7 +423,7 @@ const fireYouth = async (params,credentials,teamId) => {
 
 const runFor = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/run/election",{
+    let response = await fetch(config.ServerURI + "/run/election",{
       method: 'PUT',
       headers: {
         'Accept':'application/json',
@@ -443,7 +443,7 @@ const runFor = async (params,credentials,teamId) => {
 
 const cancelCandidate = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/cancel/run/election",{
+    let response = await fetch(config.ServerURI + "/cancel/run/election",{
       method: 'PUT',
       headers: {
         'Accept':'application/json',
@@ -463,7 +463,7 @@ const cancelCandidate = async (params,credentials,teamId) => {
 
 const apply = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/apply/for/team",{
+    let response = await fetch(config.ServerURI + "/apply/for/team",{
       method: 'PUT',
       headers: {
         'Accept':'application/json',
@@ -483,7 +483,7 @@ const apply = async (params,credentials,teamId) => {
 
 const cancelApply = async (params,credentials,teamId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/cancel/apply/team",{
+    let response = await fetch(config.ServerURI + "/cancel/apply/team",{
       method: 'PUT',
       headers: {
         'Accept':'application/json',

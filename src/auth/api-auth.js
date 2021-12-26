@@ -3,7 +3,7 @@ import {config,errorHandler} from './../config/config.js'
 
 const signin = async (user) => {  
   try {    
-    let response = await fetch(config.ServerURI + '/api/auth/signin', {      
+    let response = await fetch(config.ServerURI + '/auth/signin', {      
       method: 'POST',      
       mode:'cors',
       headers: {        
@@ -21,7 +21,7 @@ const signin = async (user) => {
 
 const contact = async (content) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/contact/mail",{
+    let response = await fetch(config.ServerURI + "/contact/mail",{
       method: 'POST',
       headers: {
         'Accept':'application/json',
@@ -37,7 +37,7 @@ const contact = async (content) => {
 
 const presidentMail = async (content) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/presidentmail",{
+    let response = await fetch(config.ServerURI + "/presidentmail",{
       method: 'POST',
       headers: {
         'Accept':'application/json',
@@ -53,7 +53,7 @@ const presidentMail = async (content) => {
 
 const forgot = async (email) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/forgotpassword",{
+    let response = await fetch(config.ServerURI + "/forgotpassword",{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -70,7 +70,7 @@ const forgot = async (email) => {
 
 const reset = async (params,password) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/resetpassword/"+params.resetToken,{
+    let response = await fetch(config.ServerURI + "/resetpassword/"+params.resetToken,{
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -85,7 +85,7 @@ const reset = async (params,password) => {
 
 const signout = async () => {  
   try {    
-    let response = await fetch(config.ServerURI + '/api/auth/signout/', { method: 'GET' 
+    let response = await fetch(config.ServerURI + '/auth/signout/', { method: 'GET' 
     })    
     return await response.json()  
   } catch(error) {    

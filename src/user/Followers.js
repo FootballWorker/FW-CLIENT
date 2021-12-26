@@ -86,7 +86,7 @@ export default function Followers({ match }) {
                     <Avatar
                       src={
                         item.photo &&
-                        config.ServerURI + "/api/users/photo/" + item._id
+                        config.ServerURI + "/users/photo/" + item._id
                       }
                     />
                   </ListItemAvatar>

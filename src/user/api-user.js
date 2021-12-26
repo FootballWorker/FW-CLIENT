@@ -3,7 +3,7 @@ import { config, errorHandler } from "./../config/config.js";
 
 const create = async (user) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/users", {
+    let response = await fetch(config.ServerURI + "/users", {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -20,7 +20,7 @@ const create = async (user) => {
 const activation = async (params) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/activation/" + params.activationToken,
+      config.ServerURI + "/activation/" + params.activationToken,
       {
         method: "POST",
         headers: {
@@ -37,7 +37,7 @@ const activation = async (params) => {
 
 const list = async (signal) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/users", {
+    let response = await fetch(config.ServerURI + "/users", {
       method: "GET",
       signal: signal,
     });
@@ -50,7 +50,7 @@ const list = async (signal) => {
 const searchForUser = async (params) => {
   const query = queryString.stringify(params);
   try {
-    let response = await fetch(config.ServerURI + "/api/searchusers?" + query, {
+    let response = await fetch(config.ServerURI + "/searchusers?" + query, {
       method: "GET",
     });
     return await response.json();
@@ -62,7 +62,7 @@ const searchForUser = async (params) => {
 const read = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/users/" + params.userId,
+      config.ServerURI + "/users/" + params.userId,
       {
         method: "GET",
         signal: signal,
@@ -82,7 +82,7 @@ const read = async (params, credentials, signal) => {
 const update = async (params, credentials, user) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/users/" + params.userId,
+      config.ServerURI + "/users/" + params.userId,
       {
         method: "PUT",
         headers: {
@@ -101,7 +101,7 @@ const update = async (params, credentials, user) => {
 const updateBackground = async (params, credentials, user) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/background/" + params.userId,
+      config.ServerURI + "/background/" + params.userId,
       {
         method: "PUT",
         headers: {
@@ -119,7 +119,7 @@ const updateBackground = async (params, credentials, user) => {
 
 const changeFavorite = async (params, credentials, favoriteTeam) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/changeFavorite", {
+    let response = await fetch(config.ServerURI + "/changeFavorite", {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -140,7 +140,7 @@ const changeFavorite = async (params, credentials, favoriteTeam) => {
 const remove = async (params, credentials) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/users/" + params.userId,
+      config.ServerURI + "/users/" + params.userId,
       {
         method: "DELETE",
         headers: {
@@ -158,7 +158,7 @@ const remove = async (params, credentials) => {
 
 const follow = async (params, credentials, followId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/following/user", {
+    let response = await fetch(config.ServerURI + "/following/user", {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -178,7 +178,7 @@ const follow = async (params, credentials, followId) => {
 
 const unfollow = async (params, credentials, unfollowId) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unfollowing/user", {
+    let response = await fetch(config.ServerURI + "/unfollowing/user", {
       method: "PUT",
       headers: {
         "Accept": "application/json",
@@ -196,7 +196,7 @@ const unfollow = async (params, credentials, unfollowId) => {
 const followers = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/followers/by/" + params.userId,
+      config.ServerURI + "/followers/by/" + params.userId,
       {
         method: "GET",
         signal: signal,
@@ -216,7 +216,7 @@ const followers = async (params, credentials, signal) => {
 const followings = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/followings/by/" + params.userId,
+      config.ServerURI + "/followings/by/" + params.userId,
       {
         method: "GET",
         signal: signal,
@@ -238,7 +238,7 @@ const followings = async (params, credentials, signal) => {
 const applicants = async (params, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/applicants/by/" + params.teamId,
+      config.ServerURI + "/applicants/by/" + params.teamId,
       {
         method: "GET",
         signal: signal,
@@ -253,7 +253,7 @@ const applicants = async (params, signal) => {
 const newsApplicants = async (params, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/newsapplications/by/" + params.newsId,
+      config.ServerURI + "/newsapplications/by/" + params.newsId,
       {
         method: "GET",
         signal: signal,
@@ -270,7 +270,7 @@ const newsApplicants = async (params, signal) => {
 const sendNtf = async (params, credentials, ntf) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/newntf/" + params.userId,
+      config.ServerURI + "/newntf/" + params.userId,
       {
         method: "POST",
         headers: {
@@ -290,7 +290,7 @@ const sendNtf = async (params, credentials, ntf) => {
 const listNtf = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/notifications/by/" + params.userId,
+      config.ServerURI + "/notifications/by/" + params.userId,
       {
         method: "GET",
         signal: signal,
@@ -310,7 +310,7 @@ const listNtf = async (params, credentials, signal) => {
 const readNtf = async (params, credentials, signal) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/notifications/" + params.notificationId,
+      config.ServerURI + "/notifications/" + params.notificationId,
       {
         method: "GET",
         signal: signal,
@@ -329,7 +329,7 @@ const readNtf = async (params, credentials, signal) => {
 
 const listUnread = async (credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/unread/notifications", {
+    let response = await fetch(config.ServerURI + "/unread/notifications", {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -346,7 +346,7 @@ const listUnread = async (credentials) => {
 const removeNtf = async (params, credentials) => {
   try {
     let response = await fetch(
-      config.ServerURI + "/api/notifications/" + params.notificationId,
+      config.ServerURI + "/notifications/" + params.notificationId,
       {
         method: "DELETE",
         headers: {
@@ -364,7 +364,7 @@ const removeNtf = async (params, credentials) => {
 
 const removeAll = async (credentials) => {
   try {
-    let response = await fetch(config.ServerURI + "/api/remove/notifications", {
+    let response = await fetch(config.ServerURI + "/remove/notifications", {
       method: "DELETE",
       headers: {
         "Accept": "application/json",
